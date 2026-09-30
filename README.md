@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/banner.jpg" alt="MeghBhed banner: a radar view of flooded homesteads under tree cover in southeast Bangladesh, with the title MeghBhed and the tagline 'See the flood the other maps missed'" width="100%">
+<img src="docs/assets/banner.jpg" alt="MeghBhed banner: the title মেঘভেদ and the tagline 'See the flood the maps missed. NISAR sees under the trees', beside a concept swipe map of southeast Bangladesh comparing a C-band flood map with NISAR L-band, which shows extra flooded areas in red" width="100%">
 
 # MeghBhed
 
