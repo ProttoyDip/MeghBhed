@@ -1,0 +1,10 @@
+{
+  // MD013: line length; MD033: inline HTML (GitHub hero, <details>, <sub>).
+  // MD041: README opens with a centred <div> hero before the H1.
+  "config": {
+    "MD013": false,
+    "MD033": false,
+    "MD041": false
+  },
+  "ignores": ["node_modules/**", ".kilo/**"]
+}

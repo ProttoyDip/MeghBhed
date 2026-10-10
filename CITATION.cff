@@ -1,0 +1,48 @@
+# TODO: each member should confirm how their name splits into given and family names.
+cff-version: 1.2.0
+message: "If you use MeghBhed, please cite it using the metadata from this file."
+type: software
+title: "MeghBhed: Mapping flooding under tree cover with NISAR L-band radar"
+abstract: >-
+  MeghBhed (মেঘভেদ, "piercing the clouds") is Team Last_Call's entry to the
+  NASA International Space Apps Challenge 2026 ("Dancing with the SARs").
+  It plans to use NASA-ISRO NISAR L-band radar (L2 GCOV) to detect flooding
+  under tree cover, where C-band flood maps such as OPERA DSWx-S1 are largely
+  blind, and to estimate the number of people affected per upazila using
+  WorldPop. The first study area is Chattogram and Feni districts, Bangladesh,
+  during the July 2026 floods. A second layer flags slopes with possible
+  landslides for ground checks. Status: concept; the build takes place at the
+  hackathon in November 2026.
+authors:
+  - given-names: Prottoy
+    family-names: Saha Dip
+    affiliation: "Team Last_Call"
+  - given-names: Md. Thouhidul
+    family-names: Islam
+    affiliation: "Team Last_Call"
+  - given-names: S.M. Sao.Mio Rashid
+    family-names: Sakin
+    affiliation: "Team Last_Call"
+  - given-names: Shuvo Singh
+    family-names: Partho
+    affiliation: "Team Last_Call"
+  - given-names: Eva
+    family-names: Jahan
+    affiliation: "Team Last_Call"
+  - given-names: Suchismita
+    family-names: Sarker
+    affiliation: "Team Last_Call"
+repository-code: "https://github.com/ProttoyDip/MeghBhed"
+license: MIT
+date-released: "2026-10-01"
+keywords:
+  - NISAR
+  - L-band
+  - synthetic aperture radar
+  - flood mapping
+  - flooded vegetation
+  - remote sensing
+  - Bangladesh
+  - disaster response
+  - landslides
+  - NASA Space Apps
