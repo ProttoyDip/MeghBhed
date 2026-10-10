@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MeghBhed · মেঘভেদ: flood under the trees</title>
+    <meta name="description" content="MeghBhed uses NASA–ISRO NISAR L-band radar to find flooded villages under tree cover that C-band flood maps miss, and counts the people living there. NASA Space Apps 2026 concept by Team Last_Call." />
+    <meta property="og:title" content="MeghBhed · See the flood the maps missed" />
+    <meta property="og:description" content="NISAR L-band radar sees floodwater under the canopy. A NASA Space Apps 2026 concept for Chattogram and Feni, Bangladesh." />
+    <meta name="theme-color" content="#f6f8fa" />
+    <script>
+      // Set the theme before first paint so dark mode doesn't flash light
+      try {
+        var t = localStorage.getItem('meghbhed-theme')
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = t
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

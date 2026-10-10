@@ -1,0 +1,229 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+/* Dark mode is driven by data-theme on <html> (see src/theme.js) */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+  MeghBhed palette: cool institutional neutrals (slate surfaces, navy ink),
+  survey blue for water and one crimson accent for "missed by C-band".
+  Water/missed pair validated for colour-vision deficiency on paper and card.
+  Token names (paper, ink, rule…) are roles, not literal colours.
+*/
+@theme {
+  --color-paper: #f6f8fa;
+  --color-paper-2: #eef1f5;
+  --color-paper-3: #dde3ea;
+  --color-card: #fcfdfe;
+  --color-ink: #0f1c2e;
+  --color-ink-2: #3b4a5e;
+  --color-ink-3: #56657a;
+  --color-rule: #d5dce5;
+  --color-water: #1f6fb2;
+  --color-water-soft: #e3eef8;
+  --color-missed: #c62f3b;
+  --color-missed-soft: #fbe4e6;
+  --color-hill: #b45309;
+  --color-hill-soft: #fdf0dc;
+  --color-ok: #2f7d4f;
+
+  /* Geist for everything Latin; Noto Sans Bengali picks up Bangla glyphs.
+     Noto Serif Bengali is reserved for the মেঘভেদ wordmark. */
+  --font-sans: "Geist Variable", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono Variable", "Noto Sans Bengali", ui-monospace, "SFMono-Regular", monospace;
+  --font-display: "Geist Variable", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  --font-bangla: "Noto Serif Bengali", serif;
+
+  --animate-rise: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    0% { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Dark theme: same roles, re-stepped for a dark surface (water/missed pair re-validated) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #0d1520;
+  --color-paper-2: #131d2a;
+  --color-paper-3: #1e2b3b;
+  --color-card: #111b27;
+  --color-ink: #e6edf5;
+  --color-ink-2: #b4c1d0;
+  --color-ink-3: #8393a7;
+  --color-rule: #263547;
+  --color-water: #4b97da;
+  --color-water-soft: #13283d;
+  --color-missed: #e5545f;
+  --color-missed-soft: #3a1a20;
+  --color-hill: #e0913a;
+  --color-hill-soft: #33240f;
+  --color-ok: #5bb47e;
+}
+
+/* Theme switch cross-fade, only while toggling (see theme.js) */
+:root.theme-anim,
+:root.theme-anim *,
+:root.theme-anim *::before,
+:root.theme-anim *::after {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.2s ease, fill 0.35s ease !important;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+}
+
+/*
+  Shape system: 6px for controls (buttons, inputs, chips), 8px for surfaces
+  (cards, panels, map frames, tooltips), full radius only for the chat prompt
+  pill and circular icon buttons.
+*/
+
+/* ---- motion ------------------------------------------------------------- */
+
+/* Scroll reveal (v-reveal directive in src/motion.js) */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cursor follower (CursorFollower.vue) */
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 70;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border-radius: 999px;
+  border: 1.5px solid color-mix(in oklab, var(--color-ink) 45%, transparent);
+  pointer-events: none;
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), margin 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, opacity 0.2s ease;
+}
+.cursor-ring.is-hover {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  border-color: color-mix(in oklab, var(--color-water) 70%, transparent);
+  background-color: color-mix(in oklab, var(--color-water) 10%, transparent);
+}
+.cursor-ring.is-down {
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+}
+.cursor-ring.is-hidden {
+  opacity: 0;
+}
+
+::selection {
+  background: var(--color-missed-soft);
+  color: var(--color-ink);
+}
+
+/* Faint contour lines, used behind the hero */
+.contours {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420' fill='none' stroke='%23b8c3d1' stroke-width='1' opacity='.35'><path d='M-20 80c60-40 120 30 190 0s120-60 260-10'/><path d='M-20 140c80-50 140 40 220 5s130-50 240 0'/><path d='M-20 210c70-30 130 50 210 10s150-40 250 10'/><path d='M-20 290c90-40 150 30 230 0s120-50 230 0'/><path d='M-20 360c60-30 140 40 210 10s140-60 260-5'/></svg>");
+}
+
+.label {
+  @apply font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-ink-3;
+}
+
+/* Letter-spacing splits Bangla conjuncts apart; Bangla text sets solid */
+:root[lang="bn"] .label,
+:root[lang="bn"] [class*="tracking-"] {
+  letter-spacing: 0;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.balance {
+  text-wrap: balance;
+}
+
+.pretty {
+  text-wrap: pretty;
+}
+
+/* Diagonal hatch, same texture as "missed by C-band" on the map */
+.hatch-missed {
+  background-color: var(--color-missed-soft);
+  background-image: repeating-linear-gradient(135deg, var(--color-missed) 0 2px, transparent 2px 6px);
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-[background-color,color,border-color,transform] duration-200 active:translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-water disabled:cursor-not-allowed disabled:opacity-50;
+}
+/* Use as "btn btn-ink" / "btn btn-line" */
+.btn-ink {
+  @apply bg-ink text-paper hover:bg-ink-2;
+}
+.btn-line {
+  @apply border border-ink/25 bg-card text-ink hover:border-ink/60 hover:bg-paper-2;
+}
+
+a, button, input, select, [tabindex] {
+  @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-water;
+}
+
+.thin-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: var(--color-rule); border-radius: 3px; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* MapLibre controls restyled to the paper theme */
+.maplibregl-ctrl-group {
+  background: var(--color-card) !important;
+  border: 1px solid var(--color-rule);
+  box-shadow: 0 1px 2px rgb(15 28 46 / 0.12) !important;
+  border-radius: 6px !important;
+}
+.maplibregl-ctrl-scale {
+  background: rgb(255 255 255 / 0.85) !important;
+  border-color: var(--color-ink-2) !important;
+  color: var(--color-ink-2) !important;
+  font-family: var(--font-mono);
+  font-size: 10px !important;
+}
+.maplibregl-ctrl-attrib {
+  font-family: var(--font-sans);
+  font-size: 10px;
+}
+
+/* Route transition: a pure cross-fade. Any translate here makes the incoming page
+   briefly taller than the window, which flashes a scrollbar (and shifts the layout)
+   on full-height pages like the chat and the map. */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.25s ease;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .cursor-ring {
+    display: none;
+  }
+}
