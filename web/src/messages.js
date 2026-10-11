@@ -17,6 +17,7 @@ export const messages = {
       menu: 'Menu',
       github: 'GitHub repository',
       concept: 'Concept · build 13-14 Nov 2026',
+      conceptShort: 'Concept',
       langButton: 'বাং',
       langLabel: 'বাংলায় দেখুন (switch to Bangla)',
       toDark: 'Switch to dark theme',
@@ -115,6 +116,28 @@ export const messages = {
         body: 'Many of July’s deaths came from landslides in the hill districts. MeghBhed combines slope (Copernicus DEM), July rainfall (GPM IMERG), the LHASA nowcast and NISAR change on slopes to list slopes where a landslide is possible.',
         warn: 'It never claims a landslide happened. Scars can be a few pixels wide and slopes distort radar, so the output is an inspection list, not a detection.',
       },
+      use: {
+        label: 'In the field',
+        title: 'How a relief team would use it.',
+        steps: [
+          { title: 'Open the map', desc: 'Swipe between the C-band map they already use and NISAR. Red patches are flood under trees that the C-band map shows as dry.', cta: 'Open the map' },
+          { title: 'Rank the upazilas', desc: 'Sort upazilas by the number of people in hidden flood, with how sure each result is. Or ask in Bangla or English.', cta: 'See the figures' },
+          { title: 'Download the list', desc: 'Export likely-missed areas as CSV or KML. The files open in Google Earth or QGIS with no account.', cta: 'Export CSV or KML' },
+          { title: 'Check on the ground', desc: 'A field team visits the flagged places first and reports back. MeghBhed points to where to look; people on the ground confirm.' },
+        ],
+      },
+      limits: {
+        title: 'What it can’t do.',
+        body: 'Every result is labelled “likely” or “possible”, never certain. These are the known limits.',
+        items: [
+          ['Provisional data', 'NISAR’s July 2026 products are calibrated but only partially validated. Results inherit that status.'],
+          ['12-day revisit', 'Each NISAR track passes every 12 days, so the flood peak may fall between passes.'],
+          ['Old land cover', 'The tree map (ESA WorldCover) is from 2020-21. Some trees may have been cleared since.'],
+          ['Weak over rice', 'L-band is weaker than C-band over short crops such as rice. MeghBhed adds to C-band maps; it does not replace them.'],
+          ['Partial overlap', 'The two-date check needs both NISAR tracks. Where only one covers an area, the result is shown at lower confidence.'],
+          ['Small landslides', 'Landslide scars can be a few pixels wide, so Hill Risk only suggests where to look.'],
+        ],
+      },
       data: {
         title: 'All inputs are free and open.',
         link: 'Access steps',
@@ -153,6 +176,7 @@ export const messages = {
       reset: 'Reset view',
       region: 'Interactive flood map',
       swipe: 'Swipe between C-band and NISAR L-band',
+      illustrative: 'Illustrative data · not a result',
       tileError: 'Basemap tiles didn’t load. Check your connection; the flood overlay still works.',
     },
     stats: {
@@ -246,6 +270,7 @@ export const messages = {
       menu: 'মেনু',
       github: 'GitHub রিপোজিটরি',
       concept: 'ধারণা পর্যায় · নির্মাণ ১৩-১৪ নভেম্বর ২০২৬',
+      conceptShort: 'ধারণা পর্যায়',
       langButton: 'EN',
       langLabel: 'Switch to English (ইংরেজিতে দেখুন)',
       toDark: 'ডার্ক থিমে যান',
@@ -344,6 +369,28 @@ export const messages = {
         body: 'জুলাইয়ের অনেক মৃত্যু হয়েছে পাহাড়ি জেলার ভূমিধসে। মেঘভেদ ঢাল (Copernicus DEM), জুলাইয়ের বৃষ্টিপাত (GPM IMERG), LHASA পূর্বাভাস ও ঢালে NISAR-এর পরিবর্তন মিলিয়ে সেসব ঢালের তালিকা করে, যেখানে ভূমিধস সম্ভব।',
         warn: 'এটি কখনো দাবি করে না যে ভূমিধস ঘটেছে। ভূমিধসের চিহ্ন মাত্র কয়েক পিক্সেল চওড়া হতে পারে এবং ঢাল রাডারকে বিকৃত করে, তাই ফলাফল হলো পরিদর্শনের তালিকা, শনাক্তকরণ নয়।',
       },
+      use: {
+        label: 'মাঠপর্যায়ে',
+        title: 'ত্রাণ দল যেভাবে এটি ব্যবহার করবে।',
+        steps: [
+          { title: 'মানচিত্র খুলুন', desc: 'যে C-band মানচিত্র তারা এখন ব্যবহার করে, তার সাথে NISAR পাশাপাশি সরিয়ে দেখুন। লাল অংশগুলো গাছের নিচের বন্যা, যা C-band মানচিত্রে শুকনো দেখায়।', cta: 'মানচিত্র খুলুন' },
+          { title: 'উপজেলা সাজান', desc: 'লুকানো বন্যায় থাকা মানুষের সংখ্যা অনুযায়ী উপজেলাগুলো সাজান, প্রতিটি ফলাফল কতটা নিশ্চিত তা সহ। অথবা বাংলা বা ইংরেজিতে জিজ্ঞেস করুন।', cta: 'পরিসংখ্যান দেখুন' },
+          { title: 'তালিকা নামান', desc: 'সম্ভাব্য বাদ পড়া এলাকাগুলো CSV বা KML ফাইলে নামান। ফাইলগুলো কোনো অ্যাকাউন্ট ছাড়াই Google Earth বা QGIS-এ খোলে।', cta: 'CSV বা KML নামান' },
+          { title: 'সরেজমিনে যাচাই', desc: 'মাঠের দল আগে চিহ্নিত জায়গাগুলোতে যায় এবং ফলাফল জানায়। মেঘভেদ দেখায় কোথায় খুঁজতে হবে; নিশ্চিত করেন মাঠের মানুষ।' },
+        ],
+      },
+      limits: {
+        title: 'যা এটি পারে না।',
+        body: 'প্রতিটি ফলাফলে “সম্ভবত” বা “সম্ভাব্য” লেখা থাকে, কখনো নিশ্চিত বলা হয় না। জানা সীমাবদ্ধতাগুলো নিচে দেওয়া হলো।',
+        items: [
+          ['প্রাথমিক তথ্য', 'NISAR-এর জুলাই ২০২৬-এর তথ্য ক্যালিব্রেট করা, তবে আংশিকভাবে যাচাই করা। ফলাফলেও সেই অবস্থা থাকে।'],
+          ['১২ দিন পরপর', 'প্রতিটি NISAR ট্র্যাক ১২ দিন পরপর আসে, তাই বন্যার চূড়া দুই পাসের মাঝে পড়তে পারে।'],
+          ['পুরোনো ভূমি আচ্ছাদন', 'গাছের মানচিত্র (ESA WorldCover) ২০২০-২১ সালের। এরপর কিছু গাছ কাটা পড়ে থাকতে পারে।'],
+          ['ধানক্ষেতে দুর্বল', 'ধানের মতো খাটো ফসলের ওপর L-band, C-band-এর চেয়ে দুর্বল। মেঘভেদ C-band মানচিত্রের সাথে যোগ হয়, তার জায়গা নেয় না।'],
+          ['আংশিক কভারেজ', 'দুই তারিখের যাচাইয়ে দুটি NISAR ট্র্যাকই লাগে। যেখানে একটিই আছে, সেখানে ফলাফল কম আস্থায় দেখানো হয়।'],
+          ['ছোট ভূমিধস', 'ভূমিধসের চিহ্ন কয়েক পিক্সেল চওড়া হতে পারে, তাই পাহাড় ঝুঁকি শুধু কোথায় দেখতে হবে তা জানায়।'],
+        ],
+      },
       data: {
         title: 'সব ইনপুট বিনামূল্যে ও উন্মুক্ত।',
         link: 'কীভাবে পাবেন',
@@ -382,6 +429,7 @@ export const messages = {
       reset: 'দৃশ্য রিসেট',
       region: 'ইন্টারঅ্যাকটিভ বন্যা মানচিত্র',
       swipe: 'C-band ও NISAR L-band-এর মধ্যে সরান',
+      illustrative: 'উদাহরণমূলক তথ্য · ফলাফল নয়',
       tileError: 'বেসম্যাপ লোড হয়নি। ইন্টারনেট সংযোগ দেখুন; বন্যার ওভারলে তবুও কাজ করবে।',
     },
     stats: {

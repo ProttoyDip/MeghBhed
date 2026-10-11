@@ -53,6 +53,14 @@
       </div>
     </template>
 
+    <!-- Always visible, so a screenshot of the map can't pass for a result -->
+    <p
+      class="pointer-events-none absolute left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-sm border border-hill/60 bg-hill-soft px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-ink shadow-sm"
+      :class="compare ? 'top-12' : 'top-3'"
+    >
+      {{ t('map.illustrative') }}
+    </p>
+
     <!-- Tile failure notice -->
     <div v-if="tileError" class="absolute inset-x-3 bottom-10 z-10 rounded-md border border-hill/40 bg-hill-soft px-3 py-2 text-xs text-ink">
       {{ t('map.tileError') }}

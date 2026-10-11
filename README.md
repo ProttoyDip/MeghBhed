@@ -25,7 +25,7 @@ Using NASA–ISRO NISAR L-band radar to find flooded villages under tree cover t
 </div>
 
 > [!IMPORTANT]
-> **Status: concept.** MeghBhed is Team Last_Call's entry to the NASA International Space Apps Challenge 2026 (Dhaka local event). Space Apps teams may not start building before the hackathon, so this repository contains **no project code yet**. It describes the problem, method and plan. Everything marked *Planned* will be built on 13–14 Nov 2026. Any map shown before then is a concept illustration, not a result.
+> **Status: concept.** MeghBhed is Team Last_Call's entry to the NASA International Space Apps Challenge 2026 (Dhaka local event). Space Apps teams may not start building before the hackathon, so this repository contains **no analysis code yet**: no NISAR processing and no real results. It describes the problem, method and plan. The [`web/`](web/) folder is a **concept demo site** that shows the planned interface using **illustrative data only**. Everything marked *Planned* will be built on 13–14 Nov 2026. Any map or figure shown before then is a concept illustration, not a result.
 
 ## Contents
 
@@ -201,7 +201,7 @@ flowchart LR
         ST["stats.json"]
     end
     subgraph VC["Vercel"]
-        WEB["React + MapLibre GL JS<br/>static site"]
+        WEB["Vue 3 + MapLibre GL JS<br/>static site"]
         API["Serverless AI route<br/>rate-limited, cached fallback"]
     end
     P --> COG
@@ -215,14 +215,14 @@ flowchart LR
     API -- "API key in env vars" --> LLM["LLM provider"]
 ```
 
-Planned repository layout (**planned**, not yet created):
+Repository layout (folders marked *Planned* are not yet created):
 
 ```text
 MeghBhed/
 ├── pipeline/          # Planned: offline Python processing (NISAR, DSWx-S1, WorldPop)
 │   ├── requirements.txt
 │   └── run.py
-├── web/               # Planned: React + MapLibre GL JS static site
+├── web/               # Vue 3 + MapLibre GL JS site; concept demo with illustrative data
 ├── api/               # Planned: one serverless AI route, grounded in stats.json
 ├── data/
 │   └── README.md      # Planned: how to fetch inputs; no raw data is committed
@@ -236,8 +236,22 @@ MeghBhed/
 
 ## Getting started
 
+### Concept demo site
+
+The site runs today with illustrative data. It needs Node.js 20.19 or newer.
+
+```bash
+git clone https://github.com/ProttoyDip/MeghBhed.git
+cd MeghBhed
+npm --prefix web install
+npm --prefix web run dev        # local dev server
+npm --prefix web run test:e2e   # Playwright end-to-end tests
+```
+
+### Full pipeline (planned)
+
 > [!NOTE]
-> Code arrives during the hackathon (13–14 Nov 2026). The commands below are the **planned** interface and will not work yet.
+> The analysis code arrives during the hackathon (13–14 Nov 2026). The commands below are the **planned** interface and will not work yet.
 
 <details>
 <summary><b>Planned commands</b></summary>
@@ -368,4 +382,3 @@ The app will support both Bangla and English.
 [worldpop]: https://hub.worldpop.org/geodata/summary?id=25280
 [cop-dem]: https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032021.4326.1
 [hdx]: https://data.humdata.org/dataset/cod-ab-bgd
-.

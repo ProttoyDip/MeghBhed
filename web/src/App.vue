@@ -22,8 +22,9 @@
         </nav>
 
         <div class="flex items-center gap-1.5">
-          <span class="mr-1 hidden items-center gap-1.5 border border-hill/40 bg-hill-soft px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-hill 2xl:inline-flex">
-            {{ t('nav.concept') }}
+          <span class="mr-1 hidden items-center gap-1.5 border border-hill/60 bg-hill-soft px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-ink sm:inline-flex">
+            <span class="2xl:hidden">{{ t('nav.conceptShort') }}</span>
+            <span class="hidden 2xl:inline">{{ t('nav.concept') }}</span>
           </span>
 
           <!-- Language -->
