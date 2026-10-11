@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python (pipeline, planned)
+__pycache__/
+*.py[cod]
+.venv/
+
+# Raw inputs are never committed (NISAR GCOV HDF5 files are several GB); see docs/DATA.md
+data/raw/
+*.h5

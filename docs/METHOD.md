@@ -20,7 +20,9 @@
 **Version 1:** Chattogram and Feni districts, Bangladesh. **Next:** haor wetlands, the Sundarbans, and flooded forests elsewhere.
 
 Chattogram was the most affected district in the July 2026 floods, with 785,400 people affected ([UN Sit Rep #2, 23 Jul 2026](https://bangladesh.un.org/en/319868-bangladesh-situation-report-2-flash-flood-and-landslides-23-july-2026)).
-<!-- VERIFY: source for July 2026 flood impact in Feni; Feni is not among the seven districts in Sit Rep #2 -->
+
+> [!WARNING]
+> **Feni is not confirmed as flooded.** It is not among the districts named in UN Sit Rep #1 (13 Jul) or #2 (23 Jul). The only July 2026 source found so far is a forecast: on 12 Jul the Flood Forecasting and Warning Centre warned that the Muhuri, Feni and Selonia rivers could cause short-term flash floods in parts of Feni ([The Daily Star, 12 Jul 2026](https://www.thedailystar.net/news/environment/weather/news/10-districts-risk-fresh-flood-next-24-72-hours-ffwc-4221406)). Checked 11 Oct 2026. <!-- TODO: find a report of actual flooding in Feni, or drop Feni from the study area -->
 
 The NISAR scenes below were found with the ASF Search API (`dataset=NISAR`, `processingLevel=GCOV`) on 1 Oct 2026. Dates and times are **UTC**. `DHDH` means dual polarisation, H transmit (HH and HV).
 

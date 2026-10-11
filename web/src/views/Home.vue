@@ -157,6 +157,26 @@
       </div>
     </section>
 
+    <!-- How a relief team uses it -->
+    <section class="border-t border-rule bg-card">
+      <div class="mx-auto max-w-[88rem] px-4 py-20 sm:px-6 lg:py-28">
+        <div v-reveal class="max-w-2xl">
+          <p class="label">{{ t('home.use.label') }}</p>
+          <h2 class="mt-3 font-display text-4xl font-bold leading-tight tracking-tight text-ink balance">{{ t('home.use.title') }}</h2>
+        </div>
+        <ol v-reveal.stagger class="mt-12 grid gap-x-8 gap-y-10 border-t-2 border-ink pt-8 sm:grid-cols-2 lg:grid-cols-4">
+          <li v-for="(step, i) in t('home.use.steps')" :key="i" class="flex flex-col">
+            <span class="num font-display text-3xl font-bold text-missed">{{ n(i + 1) }}</span>
+            <h3 class="mt-3 text-lg font-semibold text-ink">{{ step.title }}</h3>
+            <p class="mt-1.5 leading-relaxed text-ink-2 pretty">{{ step.desc }}</p>
+            <router-link v-if="useLinks[i]" :to="useLinks[i]" class="group mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-ink underline decoration-rule decoration-2 underline-offset-[6px] hover:decoration-ink">
+              {{ step.cta }} <ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </router-link>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <!-- Hill risk -->
     <section class="border-y border-rule bg-hill-soft/50">
       <div class="mx-auto max-w-[88rem] px-4 py-16 sm:px-6 lg:py-20">
@@ -171,6 +191,22 @@
             <span>{{ t('home.hill.warn') }}</span>
           </p>
         </div>
+      </div>
+    </section>
+
+    <!-- Honest limits -->
+    <section class="border-b border-rule">
+      <div class="mx-auto grid max-w-[88rem] gap-12 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:py-28">
+        <div v-reveal class="lg:col-span-4">
+          <h2 class="font-display text-4xl font-bold leading-tight tracking-tight text-ink balance">{{ t('home.limits.title') }}</h2>
+          <p class="mt-4 text-ink-2 pretty">{{ t('home.limits.body') }}</p>
+        </div>
+        <dl v-reveal.stagger class="grid gap-x-8 border-t-2 border-ink sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
+          <div v-for="item in t('home.limits.items')" :key="item[0]" class="border-b border-rule py-5">
+            <dt class="font-semibold text-ink">{{ item[0] }}</dt>
+            <dd class="mt-1 text-sm leading-relaxed text-ink-2 pretty">{{ item[1] }}</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -244,6 +280,9 @@ const panels = [
   { id: 'c', title: 'C-band · Sentinel-1', wave: 5.6, caption: 'home.why.captionC' },
   { id: 'l', title: 'L-band · NISAR', wave: 24, caption: 'home.why.captionL' },
 ]
+
+// Where each "In the field" step links to; the last step happens off-site
+const useLinks = ['/map', '/statistics', '/statistics', null]
 
 const stepData = [
   'NISAR L2 GCOV · Provisional V1 · 10 m',
