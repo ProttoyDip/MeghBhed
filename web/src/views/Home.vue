@@ -29,10 +29,10 @@
           <div class="overflow-hidden rounded-lg border border-rule bg-card shadow-[0_1px_2px_rgb(15_28_46/0.06),0_12px_32px_rgb(15_28_46/0.10)]">
             <div class="flex items-center justify-between border-b border-rule px-3 py-2">
               <span class="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-ink">{{ t('home.plate') }}</span>
-              <span class="font-mono text-[11px] text-ink-3">22.9°N 91.6°E</span>
+              <span class="font-mono text-[11px] text-ink-3">22.4°N 91.9°E</span>
             </div>
             <div class="h-[360px] sm:h-[460px] lg:h-[520px]">
-              <SwipeMap :interactive="false" :show-dates="false" :initial-split="46" :initial-view="{ center: [91.62, 22.84], zoom: 8.55 }" />
+              <SwipeMap :interactive="false" :show-dates="false" :initial-split="46" :initial-view="{ center: [91.98, 22.4], zoom: 8.6 }" />
             </div>
             <div class="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-rule px-3 py-2.5 text-xs text-ink-2">
               <span class="inline-flex items-center gap-2"><span class="h-3 w-4 rounded-[2px] bg-water"></span> {{ t('home.legendOpen') }}</span>
@@ -261,7 +261,7 @@ import { ArrowRight, ArrowUpRight, TriangleAlert } from 'lucide-vue-next'
 import ScatterDiagram from '../components/ScatterDiagram.vue'
 import CountUp from '../components/CountUp.vue'
 import GradientBackdrop from '../components/GradientBackdrop.vue' // SOFFIT GRADIENT (trial)
-import { sitrep } from '../data/concept'
+import { sitrep } from '../data/results'
 import { t, n, fixed, lang } from '../i18n'
 
 const SwipeMap = defineAsyncComponent(() => import('../components/SwipeMap.vue'))

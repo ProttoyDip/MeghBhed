@@ -18,21 +18,21 @@ async function ask(page, text) {
 
 test('suggested question gets a grounded answer with a source', async ({ page }) => {
   await page.getByRole('button', { name: 'Which upazila has the most people missed?' }).click()
-  await expect(lastAnswer(page)).toContainText('Fatikchhari has the most people outside the C-band flood map')
-  await expect(lastAnswer(page)).toContainText('24,560 people')
-  await expect(lastAnswer(page)).toContainText('Source: stats.json (concept)')
+  await expect(lastAnswer(page)).toContainText('Satkania has the most people living within 100 m of flood the 16 July C-band map missed')
+  await expect(lastAnswer(page)).toContainText('106,169 people')
+  await expect(lastAnswer(page)).toContainText('Source: stats.json (provisional)')
 })
 
 test('answers a typed question about one upazila and links to the map', async ({ page }) => {
   await ask(page, 'How many people in Hathazari?')
-  await expect(lastAnswer(page)).toContainText('about 18,240 people')
+  await expect(lastAnswer(page)).toContainText('About 30,841 people')
   await lastAnswer(page).getByRole('link', { name: /Show Hathazari on the map/ }).click()
   await expect(page).toHaveURL(/\/map\?u=hathazari/)
 })
 
 test('answers Bangla questions in Bangla', async ({ page }) => {
   await ask(page, 'ফটিকছড়িতে কত মানুষ বন্যাকবলিত?')
-  await expect(lastAnswer(page)).toContainText('২৪,৫৬০')
+  await expect(lastAnswer(page)).toContainText('৮২,৭৮১')
   await expect(lastAnswer(page)).toContainText('ফটিকছড়ি')
 })
 
@@ -70,7 +70,7 @@ test('welcome gradient unloads once a conversation starts; reset restores it', a
   const section = page.getByRole('region', { name: 'Conversation' })
   await expect(section.locator('canvas')).toHaveCount(1)
   await ask(page, 'How many people in total?')
-  await expect(lastAnswer(page)).toContainText('112,900')
+  await expect(lastAnswer(page)).toContainText('587,479')
   await expect(section.locator('canvas')).toHaveCount(0)
   await page.getByRole('button', { name: 'New chat' }).click()
   await expect(section.locator('canvas')).toHaveCount(1)

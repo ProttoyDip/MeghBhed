@@ -76,7 +76,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 // when bundling. Point it at the worker file explicitly.
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import { ArrowLeftRight } from 'lucide-vue-next'
-import { buildLayers, scenes, upazilas, viewport } from '../data/concept'
+import { DATA_URLS, scenes, upazilas, viewport } from '../data/results'
 import { t, n, date, loc, lang } from '../i18n'
 import { theme } from '../theme'
 
@@ -89,6 +89,7 @@ const props = defineProps({
   showWater: { type: Boolean, default: true },
   showHidden: { type: Boolean, default: true },
   showHill: { type: Boolean, default: false },
+  showTrees: { type: Boolean, default: false }, // "under trees: unverified", off unless asked for
   selected: { type: String, default: null },
   interactive: { type: Boolean, default: true },
   showDates: { type: Boolean, default: true },
@@ -113,8 +114,8 @@ const markers = []
 
 // Overlay colours per theme (same values as the CSS tokens; MapLibre paints can't read CSS vars)
 const PALETTES = {
-  light: { bg: '#eef1f5', water: '#1f6fb2', waterLine: '#154e80', missed: '#c62f3b', hatchFill: 'rgba(198, 47, 59, 0.28)', hill: '#b45309', ring: '#fcfdfe' },
-  dark: { bg: '#131d2a', water: '#4b97da', waterLine: '#9cc8ef', missed: '#e5545f', hatchFill: 'rgba(229, 84, 95, 0.30)', hill: '#e0913a', ring: '#0d1520' },
+  light: { bg: '#eef1f5', water: '#1f6fb2', waterLine: '#154e80', missed: '#c62f3b', hatchFill: 'rgba(198, 47, 59, 0.28)', hill: '#b45309', ring: '#fcfdfe', trees: '#2f7d4f' },
+  dark: { bg: '#131d2a', water: '#4b97da', waterLine: '#9cc8ef', missed: '#e5545f', hatchFill: 'rgba(229, 84, 95, 0.30)', hill: '#e0913a', ring: '#0d1520', trees: '#5fbf86' },
 }
 const colors = () => PALETTES[theme.value] ?? PALETTES.light
 
@@ -189,19 +190,28 @@ function hatchImage() {
   return g.getImageData(0, 0, size, size)
 }
 
+// One flood source (flood.geojson); each layer filters it by kind:
+//   open = seen by both, hidden = missed by the 16 Jul C-band map, trees = under trees (unverified).
+// On the 19 Jul scene only polygons still dark on that pass are kept.
+function floodFilter(kind) {
+  const byKind = ['==', ['get', 'kind'], kind]
+  return sceneInfo.value.flood === 'still' ? ['all', byKind, ['==', ['get', 'drained'], false]] : byKind
+}
+
+const FLOOD_LAYERS = { 'water-fill': 'open', 'water-line': 'open', 'hidden-fill': 'hidden', 'hidden-line': 'hidden', 'trees-fill': 'trees' }
+
 function addOverlay(map, { withHidden }) {
-  const data = buildLayers(props.scene)
-  map.addSource('water', { type: 'geojson', data: data.openWater })
-  map.addSource('hill', { type: 'geojson', data: data.hill })
+  map.addSource('flood', { type: 'geojson', data: DATA_URLS.flood })
+  map.addSource('hill', { type: 'geojson', data: DATA_URLS.hill })
   const c = colors()
-  map.addLayer({ id: 'water-fill', type: 'fill', source: 'water', paint: { 'fill-color': c.water, 'fill-opacity': 0.72 } })
-  map.addLayer({ id: 'water-line', type: 'line', source: 'water', paint: { 'line-color': c.waterLine, 'line-width': 0.8, 'line-opacity': 0.8 } })
+  map.addLayer({ id: 'water-fill', type: 'fill', source: 'flood', filter: floodFilter('open'), paint: { 'fill-color': c.water, 'fill-opacity': 0.72 } })
+  map.addLayer({ id: 'water-line', type: 'line', source: 'flood', filter: floodFilter('open'), paint: { 'line-color': c.waterLine, 'line-width': 0.8, 'line-opacity': 0.8 } })
 
   if (withHidden) {
     map.addImage('hatch', hatchImage(), { pixelRatio: 2 })
-    map.addSource('hidden', { type: 'geojson', data: data.hidden })
-    map.addLayer({ id: 'hidden-fill', type: 'fill', source: 'hidden', paint: { 'fill-pattern': 'hatch' } })
-    map.addLayer({ id: 'hidden-line', type: 'line', source: 'hidden', paint: { 'line-color': c.missed, 'line-width': 1.2 } })
+    map.addLayer({ id: 'hidden-fill', type: 'fill', source: 'flood', filter: floodFilter('hidden'), paint: { 'fill-pattern': 'hatch' } })
+    map.addLayer({ id: 'hidden-line', type: 'line', source: 'flood', filter: floodFilter('hidden'), paint: { 'line-color': c.missed, 'line-width': 0.8 } })
+    map.addLayer({ id: 'trees-fill', type: 'fill', source: 'flood', filter: floodFilter('trees'), layout: { visibility: 'none' }, paint: { 'fill-color': c.trees, 'fill-opacity': 0.85, 'fill-outline-color': c.trees } })
   }
 
   map.addLayer({ id: 'lightLabels', type: 'raster', source: 'lightLabels', paint: { 'raster-opacity': 0.9 } })
@@ -228,18 +238,20 @@ function setVis(map, id, on) {
 function applyVisibility() {
   // "Map" basemap follows the site theme; satellite is the same in both
   const base = props.basemap === 'satellite' ? 'satellite' : theme.value === 'dark' ? 'dark' : 'light'
+  const hasFlood = sceneInfo.value.flood !== 'none' // the pre-flood scene draws no flood
   for (const map of [lband, cband]) {
     if (!map) continue
     for (const id of ['light', 'dark', 'satellite']) {
       setVis(map, id, base === id)
       setVis(map, `${id}Labels`, base === id)
     }
-    setVis(map, 'water-fill', props.showWater)
-    setVis(map, 'water-line', props.showWater)
+    setVis(map, 'water-fill', props.showWater && hasFlood)
+    setVis(map, 'water-line', props.showWater && hasFlood)
     setVis(map, 'hill', props.showHill)
   }
-  setVis(lband, 'hidden-fill', props.showHidden)
-  setVis(lband, 'hidden-line', props.showHidden)
+  setVis(lband, 'hidden-fill', props.showHidden && hasFlood)
+  setVis(lband, 'hidden-line', props.showHidden && hasFlood)
+  setVis(lband, 'trees-fill', props.showTrees && hasFlood)
 }
 
 function applyColors() {
@@ -255,16 +267,19 @@ function applyColors() {
   if (lband?.hasImage('hatch')) {
     lband.updateImage('hatch', hatchImage())
     lband.setPaintProperty('hidden-line', 'line-color', c.missed)
+    lband.setPaintProperty('trees-fill', 'fill-color', c.trees)
+    lband.setPaintProperty('trees-fill', 'fill-outline-color', c.trees)
   }
 }
 
+// A new scene only changes which polygons are kept, not the data
 function refreshData() {
-  const data = buildLayers(props.scene)
   for (const map of [lband, cband]) {
-    map?.getSource('water')?.setData(data.openWater)
-    map?.getSource('hill')?.setData(data.hill)
+    for (const [id, kind] of Object.entries(FLOOD_LAYERS)) {
+      if (map?.getLayer(id)) map.setFilter(id, floodFilter(kind))
+    }
   }
-  lband?.getSource('hidden')?.setData(data.hidden)
+  applyVisibility()
 }
 
 function makeMarkerEl(u) {
@@ -333,7 +348,7 @@ onMounted(() => {
 
   lband = new MlMap({ ...common, container: lbandRef.value, scrollZoom: props.interactive, dragRotate: false, pitchWithRotate: false })
   lband.touchZoomRotate.disableRotation()
-  lband.addControl(new AttributionControl({ compact: true, customAttribution: 'Flood overlay: illustrative concept data' }), 'bottom-right')
+  lband.addControl(new AttributionControl({ compact: true, customAttribution: 'Flood overlay: MeghBhed provisional results · NISAR 12 Jul 2026 · OPERA DSWx-S1 16 Jul 2026' }), 'bottom-right')
   if (props.interactive) lband.addControl(new ScaleControl({ unit: 'metric' }), 'bottom-left')
 
   cband = new MlMap({ ...common, container: cbandRef.value, interactive: false })
@@ -376,7 +391,7 @@ onBeforeUnmount(() => {
 })
 
 watch(() => props.scene, refreshData)
-watch(() => [props.basemap, props.showWater, props.showHidden, props.showHill], applyVisibility)
+watch(() => [props.basemap, props.showWater, props.showHidden, props.showHill, props.showTrees], applyVisibility)
 watch(() => props.selected, highlightMarkers)
 watch(theme, () => {
   applyColors()

@@ -3,7 +3,7 @@
 The MeghBhed website: a swipe flood map, upazila figures with CSV/KML export, and a Bangla/English assistant.
 
 > [!IMPORTANT]
-> This is a **concept demo**. Every figure and flood polygon comes from [`src/data/concept.js`](src/data/concept.js) and is **illustrative**. Real values will come from the offline pipeline (`stats.json` and GeoJSON) built at the hackathon on 13–14 Nov 2026.
+> The figures and flood polygons are **provisional results** from the offline pipeline (`pipeline/`), read from [`public/data/`](public/data/): `stats.json`, `flood.geojson`, `hill_risk.geojson` and `model_comparison.json`. They are loaded by [`src/data/results.js`](src/data/results.js).
 
 ## Run it
 
@@ -27,7 +27,7 @@ Vue 3 and Vue Router · MapLibre GL JS · Tailwind CSS 4 · Vite · Playwright w
 | --- | --- |
 | `src/views/` | Pages: Home, Map, Statistics (figures), Assistant, NotFound |
 | `src/components/SwipeMap.vue` | The C-band vs NISAR swipe map |
-| `src/data/concept.js` | Illustrative upazila figures and generated flood shapes |
+| `src/data/results.js` | Loads the pipeline's `stats.json` and `model_comparison.json` before the app mounts; adds Bangla names |
 | `src/data/assistant.js` | Rule-based stand-in for the grounded AI assistant; no network calls |
 | `src/messages.js` | All interface text, in English and Bangla |
 | `src/i18n.js` | Language switch and Bangla number and date formatting |
@@ -36,4 +36,4 @@ Vue 3 and Vue Router · MapLibre GL JS · Tailwind CSS 4 · Vite · Playwright w
 
 ## Swapping in real data
 
-At the hackathon, replace `src/data/concept.js` with data loaded from the pipeline's `stats.json` and GeoJSON, keeping the same field names (`hidden`, `both`, `people`, `agree`, `hill`). Then remove the "illustrative" and "concept" labels: search `src/messages.js` for `illustrative` and `concept`, and remove the on-map label in `SwipeMap.vue`.
+To refresh the data, re-run the pipeline (`python pipeline/run_all.py --from 3`, then `python pipeline/10_flood_models.py`); it rewrites the files in `public/data/`. The end-to-end tests assert the current figures, so update them after a new run.

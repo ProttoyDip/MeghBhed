@@ -1,0 +1,4 @@
+model,precision,recall,f1,false_alarm_rate,auc,false_alarm_a_high_ground,false_alarm_b_permanent_water,false_alarm_c_no_flood_pair,flagged_km2,test_flagged_pct_near_flooded_points,test_flagged_pct_near_dry_points,test_cropland_flagged_pct_reported_upazilas,test_cropland_flagged_pct_other_upazilas,test_ratio_flooded_to_dry_points,test_ratio_reported_to_other_upazilas
+rule (HH drop and HH level),0.919,0.656,0.765,0.022,,0.001,0.031,0.019,221.105,27.474,0.609,25.983,14.951,45.113,1.738
+random_forest,0.837,0.878,0.857,0.065,0.969,0.012,0.108,0.038,513.733,45.445,11.693,50.563,40.355,3.886,1.253
+lightgbm,0.838,0.897,0.866,0.066,0.972,0.019,0.122,0.025,604.752,49.848,17.442,57.616,48.474,2.858,1.189

@@ -1,0 +1,26 @@
+id,name,district,hidden,both,people,agree,hill,under_trees_unverified_km2,people_within_100m_all_flood,people_conservative,hidden_5ha_km2,drained_pct,drain_pass_covers_pct
+satkania,Satkania,Chattogram,27.7,4.65,106169,both-dates,2,0.27,111128,73461,24.05,79.4,100.0
+banshkhali,Banshkhali,Chattogram,22.15,5.4,84935,both-dates,0,0.18,90784,54389,17.71,79.3,100.0
+fatikchhari,Fatikchhari,Chattogram,22.82,0.59,82781,both-dates,16,0.39,83214,47776,16.05,87.1,100.0
+raozan,Raozan,Chattogram,15.97,1.09,66041,both-dates,0,0.15,67110,38014,11.18,87.4,100.0
+chandanaish,Chandanaish,Chattogram,11.94,0.92,55002,both-dates,0,0.23,56466,35617,9.72,70.5,100.0
+patiya,Patiya,Chattogram,13.07,2.02,37510,one-date,0,0.42,39380,20712,9.11,46.8,100.0
+rangunia,Rangunia,Chattogram,14.3,0.12,36553,both-dates,0,0.11,36553,25165,11.94,91.2,100.0
+hathazari,Hathazari,Chattogram,6.79,1.32,30841,both-dates,5,0.18,31992,14010,4.09,93.4,100.0
+mirsharai,Mirsharai,Chattogram,10.82,0.0,25824,one-date,3,0.16,25826,12546,7.28,96.1,7.0
+anowara,Anowara,Chattogram,6.86,0.15,24800,both-dates,0,0.2,24892,16260,5.2,78.2,100.0
+lohagara,Lohagara,Chattogram,2.67,0.0,15744,both-dates,0,0.08,15744,3548,1.01,78.2,100.0
+boalkhali,Boalkhali,Chattogram,5.13,0.78,12093,one-date,0,0.15,12822,6907,3.87,49.0,100.0
+sandwip,Sandwip,Chattogram,8.44,1.92,6593,one-date,0,0.01,6780,2051,5.22,89.7,7.0
+sitakunda,Sitakunda,Chattogram,0.55,0.0,2177,both-dates,10,0.08,2177,571,0.18,91.0,100.0
+chandgaon,Chandgaon,Chattogram,0.01,0.0,416,both-dates,0,0.02,416,0,0.0,100.0,100.0
+bakalia,Bakalia,Chattogram,0.0,0.0,0,one-date,0,0.0,0,0,0.0,,
+bayejid-bostami,Bayejid Bostami,Chattogram,0.0,0.0,0,one-date,0,0.01,0,0,0.0,,
+chittagong-port,Chittagong Port,Chattogram,0.0,0.0,0,one-date,0,0.0,0,0,0.0,,
+double-mooring,Double Mooring,Chattogram,0.0,0.0,0,one-date,0,0.0,0,0,0.0,,
+halishahar,Halishahar,Chattogram,0.0,0.0,0,one-date,0,0.01,0,0,0.0,,
+khulshi,Khulshi,Chattogram,0.0,0.0,0,one-date,0,0.0,0,0,0.0,,
+kotwali,Kotwali,Chattogram,0.0,0.0,0,one-date,0,0.0,0,0,0.0,,
+pahartali,Pahartali,Chattogram,0.0,0.0,0,one-date,0,0.01,0,0,0.0,,
+panchlaish,Panchlaish,Chattogram,0.0,0.0,0,one-date,0,0.0,0,0,0.0,,
+patenga,Patenga,Chattogram,0.0,0.0,0,one-date,0,0.01,0,0,0.0,,

@@ -95,7 +95,7 @@ import { ArrowRight, CornerDownLeft, Check, X, SquarePen, Sparkles } from 'lucid
 import PromptInput from '../components/PromptInput.vue'
 import GradientBackdrop from '../components/GradientBackdrop.vue' // SOFFIT GRADIENT (trial)
 import { answer } from '../data/assistant'
-import { upazilas } from '../data/concept'
+import { upazilas } from '../data/results'
 import { t, loc } from '../i18n'
 
 const input = ref('')

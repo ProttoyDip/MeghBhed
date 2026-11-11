@@ -1,0 +1,20 @@
+name: meghbhed
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - pandas
+  - h5py
+  - rasterio>=1.3
+  - geopandas>=0.14
+  - shapely>=2
+  - pyproj
+  - xarray
+  - netcdf4
+  - scikit-learn
+  - lightgbm
+  - joblib
+  - matplotlib
+  - jupyterlab

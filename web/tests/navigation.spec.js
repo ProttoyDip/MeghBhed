@@ -7,7 +7,7 @@ const pages = [
   { path: '/', nav: 'Overview', h1: /See the flood the maps missed/, title: /See the flood the maps missed · MeghBhed/ },
   { path: '/map', nav: 'Flood map', h1: /Flood map/, title: /Flood map · MeghBhed/ },
   { path: '/statistics', nav: 'Upazila figures', h1: /Who the C-band map missed/, title: /Upazila figures · MeghBhed/ },
-  { path: '/assistant', nav: 'Ask MeghBhed', h1: /Ask about the flood under the trees/, title: /Ask MeghBhed · MeghBhed/ },
+  { path: '/assistant', nav: 'Ask MeghBhed', h1: /Ask about the flood the map missed/, title: /Ask MeghBhed · MeghBhed/ },
 ]
 
 for (const p of pages) {

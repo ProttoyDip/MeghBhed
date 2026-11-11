@@ -1,0 +1,7 @@
+ground,cover,area_km2,cband_open_water_km2,cband_flooded_vegetation_km2,cband_any_water_pct,cband_flooded_vegetation_pct,nisar_likely_missed_km2
+low ground (mean HAND <= 5 m),under tree cover,1320.7,1.13,18.94,1.52,1.43,1.31
+low ground (mean HAND <= 5 m),not under tree cover,1649.5,124.09,86.04,12.74,5.22,0.0
+higher ground (mean HAND > 5 m),under tree cover,1415.9,0.03,5.36,0.38,0.38,0.28
+higher ground (mean HAND > 5 m),not under tree cover,62.1,0.93,0.71,2.63,1.14,0.0
+all ground,under tree cover,2736.6,1.16,24.3,0.93,0.89,1.59
+all ground,not under tree cover,1711.7,125.02,86.75,12.37,5.07,0.0

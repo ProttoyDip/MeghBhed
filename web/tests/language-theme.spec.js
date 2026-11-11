@@ -28,9 +28,9 @@ test.describe('language', () => {
   test('numbers use Bengali digits in Bangla', async ({ page }) => {
     await page.goto('/statistics')
     await page.getByRole('button', { name: /switch to Bangla/i }).click()
-    // table total: 1,12,900 people in lakh grouping
-    await expect(page.locator('tfoot')).toContainText('১,১২,৯০০')
-    await expect(page.locator('tbody tr').first()).toContainText('ফটিকছড়ি')
+    // table total: 5,87,479 people in lakh grouping
+    await expect(page.locator('tfoot')).toContainText('৫,৮৭,৪৭৯')
+    await expect(page.locator('tbody tr').first()).toContainText('সাতকানিয়া')
   })
 })
 

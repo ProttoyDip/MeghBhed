@@ -1,0 +1,5 @@
+distance_to_new_floodwater,tree_low_km2,pass_pct,feature,threshold_dB
+0-100 m,145.9,36.92,d(HH-HV) at 150 m,0.4
+100-300 m,409.7,33.54,d(HH-HV) at 150 m,0.4
+300-1000 m,581.7,29.33,d(HH-HV) at 150 m,0.4
+over 1000 m,156.8,15.19,d(HH-HV) at 150 m,0.4

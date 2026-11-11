@@ -1,0 +1,5 @@
+distance_to_new_floodwater,tree_low_km2,rule_px_pass_pct,map_px_pass_pct,map_hidden_flood_km2
+0-100 m,145.9,0.348,0.117,0.17
+100-300 m,409.8,0.385,0.145,0.59
+300-1000 m,581.7,0.323,0.104,0.61
+over 1000 m,156.8,0.125,0.036,0.06

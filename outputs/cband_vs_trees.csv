@@ -1,0 +1,5 @@
+ground,area_km2,cband_open_water_km2,cband_flooded_vegetation_km2,cband_any_water_pct,nisar_km2,cband_said_not_water_pct,cband_said_open_water_pct,cband_said_flooded_vegetation_pct
+under tree cover,2736.6,1.16,24.3,0.93,,,,
+not under tree cover,1711.7,125.02,86.75,12.37,,,,
+"NISAR open-flood cells (12 Jul, labels 1 and 2)",,,,,188.2,89.9,7.9,2.2
+NISAR under-tree cells (unverified),,,,,2.67,97.8,0.1,2.0

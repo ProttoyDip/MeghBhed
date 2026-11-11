@@ -1,0 +1,7 @@
+rule,pct_new_open_water_flagged,pct_new_flooded_vegetation_flagged,pct_control_cropland_flagged,pct_permanent_water_all_june_dates_flagged,flagged_km2,on_new_floodwater_km2,on_june_water_km2,on_neither_km2,pct_of_flagged_on_new_floodwater
+HH drop >= 3 dB and HH 12 Jul <= -12 dB,71.6,40.7,19.2,3.2,339.5,24.1,15.9,299.6,7.1
+HH drop >= 3 dB and HH 12 Jul <= -13 dB,69.7,35.1,16.4,3.1,291.1,22.6,14.3,254.2,7.8
+HH drop >= 3 dB and HH 12 Jul <= -14 dB,65.6,28.1,11.9,3.0,235.5,20.4,12.3,202.8,8.7
+HH drop >= 3 dB and HH 12 Jul <= -15 dB,53.6,21.0,8.3,2.8,169.6,16.3,9.8,143.5,9.6
+HH drop >= 3 dB and HH 12 Jul <= -16 dB,24.2,13.3,3.8,2.5,84.4,8.1,7.0,69.4,9.6
+HH drop >= 3 dB only,73.5,48.3,23.7,3.4,434.7,25.9,20.2,388.6,5.9

@@ -1,0 +1,8 @@
+feature,random_forest,lightgbm
+hh_b,0.063,0.134
+hv_b,0.102,0.216
+hh_d,0.125,0.098
+hv_d,0.092,0.198
+dhh,0.243,0.096
+dhv,0.342,0.175
+ratio_d,0.034,0.083

@@ -45,7 +45,7 @@ test('"New chat" is reachable on a phone and starts over', async ({ page }) => {
   await page.goto('/assistant')
   await expect(page.getByRole('button', { name: 'New chat' })).toHaveCount(0)
   await page.getByRole('button', { name: 'How many people in total?' }).click()
-  await expect(page.locator('ol > li').last()).toContainText('112,900')
+  await expect(page.locator('ol > li').last()).toContainText('587,479')
 
   const newChat = page.getByRole('button', { name: 'New chat' })
   await expect(newChat).toBeInViewport()

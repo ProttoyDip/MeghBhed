@@ -1,0 +1,4 @@
+model,test_flooded_px,test_dry_px,precision,recall,f1,false_alarm_rate
+baseline_threshold,1218,2349,0.75,0.005,0.01,0.001
+random_forest,1218,2349,0.442,0.686,0.537,0.45
+lightgbm,1218,2349,0.488,0.663,0.562,0.361

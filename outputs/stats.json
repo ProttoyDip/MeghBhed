@@ -1,0 +1,405 @@
+{
+ "is_concept": false,
+ "generated": "2026-11-12",
+ "detector": "threshold",
+ "method": {
+  "rule": "Open flood: non-tree land, HAND <= 5 m, not WorldCover 80/90/95, HH dropped by at least 3 dB and HH on the flood date <= -14 dB; 30 m patches under 1 ha dropped; water on any June date removed.",
+  "dates": {
+   "nisar_flood_pass": "2026-07-12",
+   "nisar_before": [
+    "2026-06-18",
+    "2026-06-30"
+   ],
+   "nisar_later_pass": "2026-07-19",
+   "cband_map": "OPERA DSWx-S1 2026-07-16",
+   "june_water_dates": [
+    "20260607",
+    "20260609",
+    "20260619",
+    "20260621"
+   ]
+  },
+  "DARK_DB": -14.0,
+  "DARK_DROP_dB": -3.0,
+  "open_hand_max_m": 5.0,
+  "open_min_patch_ha": 1.0,
+  "conservative_patch_ha": 5.0,
+  "people_buffer_m": 100,
+  "grid_m": 30,
+  "agg_fraction": 0.5,
+  "multilook_px": 5,
+  "pairs": {
+   "A": [
+    "A_before",
+    "A_during"
+   ],
+   "B": [
+    "B_before",
+    "B_during"
+   ],
+   "C": [
+    "C_before",
+    "C_during"
+   ]
+  },
+  "extra": {
+   "A": {
+    "before2": "A_before2",
+    "after": "A_after"
+   }
+  },
+  "primary_pair": "A",
+  "drain_pair": "B",
+  "people_note": "People figures are an upper bound: about 14% of open low ground away from reported flooding is also flagged by this rule, and the count is everyone living within 100 m of a flagged cell. people_conservative counts only missed-flood patches of 5 ha or more.",
+  "under_trees_note": "Under-tree cells (HH-rise rule) are unverified: no radar feature separated flooded from dry groves on independent test sites. They are not in any total.",
+  "note": "NISAR flood pass 12 Jul vs C-band 16 Jul: a four-day gap. 'Missed' means not on the 16 Jul C-band map."
+ },
+ "upazilas": [
+  {
+   "id": "satkania",
+   "name": "Satkania",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    92.081,
+    22.109
+   ],
+   "hidden": 27.7,
+   "both": 4.65,
+   "people": 106169,
+   "agree": "both-dates",
+   "hill": 2,
+   "under_trees_unverified_km2": 0.27,
+   "people_within_100m_all_flood": 111128,
+   "people_conservative": 73461,
+   "hidden_5ha_km2": 24.05,
+   "drained_pct": 79.4,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "banshkhali",
+   "name": "Banshkhali",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.937,
+    22.019
+   ],
+   "hidden": 22.15,
+   "both": 5.4,
+   "people": 84935,
+   "agree": "both-dates",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.18,
+   "people_within_100m_all_flood": 90784,
+   "people_conservative": 54389,
+   "hidden_5ha_km2": 17.71,
+   "drained_pct": 79.3,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "fatikchhari",
+   "name": "Fatikchhari",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.704,
+    22.775
+   ],
+   "hidden": 22.82,
+   "both": 0.59,
+   "people": 82781,
+   "agree": "both-dates",
+   "hill": 16,
+   "under_trees_unverified_km2": 0.39,
+   "people_within_100m_all_flood": 83214,
+   "people_conservative": 47776,
+   "hidden_5ha_km2": 16.05,
+   "drained_pct": 87.1,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "raozan",
+   "name": "Raozan",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.908,
+    22.537
+   ],
+   "hidden": 15.97,
+   "both": 1.09,
+   "people": 66041,
+   "agree": "both-dates",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.15,
+   "people_within_100m_all_flood": 67110,
+   "people_conservative": 38014,
+   "hidden_5ha_km2": 11.18,
+   "drained_pct": 87.4,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "chandanaish",
+   "name": "Chandanaish",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    92.071,
+    22.222
+   ],
+   "hidden": 11.94,
+   "both": 0.92,
+   "people": 55002,
+   "agree": "both-dates",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.23,
+   "people_within_100m_all_flood": 56466,
+   "people_conservative": 35617,
+   "hidden_5ha_km2": 9.72,
+   "drained_pct": 70.5,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "patiya",
+   "name": "Patiya",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.946,
+    22.289
+   ],
+   "hidden": 13.07,
+   "both": 2.02,
+   "people": 37510,
+   "agree": "one-date",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.42,
+   "people_within_100m_all_flood": 39380,
+   "people_conservative": 20712,
+   "hidden_5ha_km2": 9.11,
+   "drained_pct": 46.8,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "rangunia",
+   "name": "Rangunia",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    92.055,
+    22.462
+   ],
+   "hidden": 14.3,
+   "both": 0.12,
+   "people": 36553,
+   "agree": "both-dates",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.11,
+   "people_within_100m_all_flood": 36553,
+   "people_conservative": 25165,
+   "hidden_5ha_km2": 11.94,
+   "drained_pct": 91.2,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "hathazari",
+   "name": "Hathazari",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.802,
+    22.519
+   ],
+   "hidden": 6.79,
+   "both": 1.32,
+   "people": 30841,
+   "agree": "both-dates",
+   "hill": 5,
+   "under_trees_unverified_km2": 0.18,
+   "people_within_100m_all_flood": 31992,
+   "people_conservative": 14010,
+   "hidden_5ha_km2": 4.09,
+   "drained_pct": 93.4,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "mirsharai",
+   "name": "Mirsharai",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.535,
+    22.821
+   ],
+   "hidden": 10.82,
+   "both": 0.0,
+   "people": 25824,
+   "agree": "one-date",
+   "hill": 3,
+   "under_trees_unverified_km2": 0.16,
+   "people_within_100m_all_flood": 25826,
+   "people_conservative": 12546,
+   "hidden_5ha_km2": 7.28,
+   "drained_pct": 96.1,
+   "drain_pass_covers_pct": 7.0
+  },
+  {
+   "id": "anowara",
+   "name": "Anowara",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.88,
+    22.188
+   ],
+   "hidden": 6.86,
+   "both": 0.15,
+   "people": 24800,
+   "agree": "both-dates",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.2,
+   "people_within_100m_all_flood": 24892,
+   "people_conservative": 16260,
+   "hidden_5ha_km2": 5.2,
+   "drained_pct": 78.2,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "lohagara",
+   "name": "Lohagara",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    92.106,
+    21.99
+   ],
+   "hidden": 2.67,
+   "both": 0.0,
+   "people": 15744,
+   "agree": "both-dates",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.08,
+   "people_within_100m_all_flood": 15744,
+   "people_conservative": 3548,
+   "hidden_5ha_km2": 1.01,
+   "drained_pct": 78.2,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "boalkhali",
+   "name": "Boalkhali",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.962,
+    22.38
+   ],
+   "hidden": 5.13,
+   "both": 0.78,
+   "people": 12093,
+   "agree": "one-date",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.15,
+   "people_within_100m_all_flood": 12822,
+   "people_conservative": 6907,
+   "hidden_5ha_km2": 3.87,
+   "drained_pct": 49.0,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "sandwip",
+   "name": "Sandwip",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.488,
+    22.497
+   ],
+   "hidden": 8.44,
+   "both": 1.92,
+   "people": 6593,
+   "agree": "one-date",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.01,
+   "people_within_100m_all_flood": 6780,
+   "people_conservative": 2051,
+   "hidden_5ha_km2": 5.22,
+   "drained_pct": 89.7,
+   "drain_pass_covers_pct": 7.0
+  },
+  {
+   "id": "sitakunda",
+   "name": "Sitakunda",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.71,
+    22.533
+   ],
+   "hidden": 0.55,
+   "both": 0.0,
+   "people": 2177,
+   "agree": "both-dates",
+   "hill": 10,
+   "under_trees_unverified_km2": 0.08,
+   "people_within_100m_all_flood": 2177,
+   "people_conservative": 571,
+   "hidden_5ha_km2": 0.18,
+   "drained_pct": 91.0,
+   "drain_pass_covers_pct": 100.0
+  },
+  {
+   "id": "chandgaon",
+   "name": "Chandgaon",
+   "bn": "",
+   "district": "Chattogram",
+   "districtBn": "",
+   "center": [
+    91.865,
+    22.393
+   ],
+   "hidden": 0.01,
+   "both": 0.0,
+   "people": 416,
+   "agree": "both-dates",
+   "hill": 0,
+   "under_trees_unverified_km2": 0.02,
+   "people_within_100m_all_flood": 416,
+   "people_conservative": 0,
+   "hidden_5ha_km2": 0.0,
+   "drained_pct": 100.0,
+   "drain_pass_covers_pct": 100.0
+  }
+ ],
+ "totals": {
+  "hidden": 169.22,
+  "both": 18.96,
+  "people": 587479,
+  "hill": 36,
+  "under_trees_unverified_km2": 2.67,
+  "people_within_100m_all_flood": 605284,
+  "people_conservative": 351027,
+  "hidden_5ha_km2": 126.61,
+  "drained_pct": 78.7
+ },
+ "labels": {
+  "1": "Missed by the 16 Jul C-band map",
+  "2": "Seen by both",
+  "5": "Under trees, unverified"
+ }
+}

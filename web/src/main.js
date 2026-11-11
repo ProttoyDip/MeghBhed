@@ -12,8 +12,13 @@ import './theme'
 import App from './App.vue'
 import router from './router'
 import { vReveal } from './motion'
+import { loadResults } from './data/results'
 
-createApp(App)
-  .use(router)
-  .directive('reveal', vReveal)
-  .mount('#app')
+// The pipeline's figures (stats.json, about 10 KB) are read before the first paint,
+// so every page can use them directly. The app still mounts if they fail to load.
+loadResults().finally(() => {
+  createApp(App)
+    .use(router)
+    .directive('reveal', vReveal)
+    .mount('#app')
+})

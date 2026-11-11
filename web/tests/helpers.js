@@ -27,6 +27,6 @@ export function trackErrors(page) {
 }
 
 // Wait until both MapLibre maps on the page have drawn their upazila markers
-export async function waitForMap(page, markersPerMap = 8, maps = 2) {
+export async function waitForMap(page, markersPerMap = 15, maps = 2) {
   await page.waitForFunction((n) => document.querySelectorAll('.mb-marker').length >= n, markersPerMap * maps, { timeout: 20_000 })
 }
