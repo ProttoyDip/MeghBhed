@@ -1,0 +1,15 @@
+model,feature,label,mean_abs_shap,cells,higher_value_means,unit
+lightgbm,dhv,HV change,2.54927,5000,less likely flood,log-odds
+lightgbm,hv_b,HV before,1.96063,5000,less likely flood,log-odds
+lightgbm,hv_d,HV on 12 July,1.17065,5000,more likely flood,log-odds
+lightgbm,dhh,HH change,0.92118,5000,less likely flood,log-odds
+lightgbm,hh_b,HH before,0.43569,5000,less likely flood,log-odds
+lightgbm,hh_d,HH on 12 July,0.18023,5000,more likely flood,log-odds
+lightgbm,ratio_d,HH minus HV on 12 July,0.16724,5000,more likely flood,log-odds
+random_forest,dhv,HV change,0.18357,500,less likely flood,probability
+random_forest,dhh,HH change,0.13752,500,less likely flood,probability
+random_forest,hh_d,HH on 12 July,0.04541,500,less likely flood,probability
+random_forest,hv_b,HV before,0.04342,500,less likely flood,probability
+random_forest,hh_b,HH before,0.03643,500,less likely flood,probability
+random_forest,hv_d,HV on 12 July,0.02972,500,less likely flood,probability
+random_forest,ratio_d,HH minus HV on 12 July,0.01475,500,less likely flood,probability

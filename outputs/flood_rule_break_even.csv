@@ -1,0 +1,8 @@
+hh_drop_db,hh_level_db,precision,recall,f1,accuracy,false_alarm_rate,gap,which
+-2.1,-10.75,0.8041,0.8012,0.8026,0.8914,0.0743,0.0029,best F1 with precision and recall within 0.005
+-2.1,-10.5,0.801,0.8031,0.8021,0.8907,0.0759,0.0022,best F1 with precision and recall within 0.005
+-2.0,-11.5,0.8,0.7999,0.7999,0.8897,0.0761,0.0001,best F1 with precision and recall within 0.005
+-1.9,-12.25,0.7942,0.7928,0.7935,0.8863,0.0782,0.0014,best F1 with precision and recall within 0.005
+-1.8,-12.75,0.7843,0.787,0.7856,0.8817,0.0823,0.0026,best F1 with precision and recall within 0.005
+-1.5,-14.0,0.7491,0.7486,0.7488,0.8616,0.0954,0.0005,"HH level kept at -14 dB, drop varied"
+-3.0,-20.0,0.1042,0.0029,0.0056,0.7184,0.0094,0.1013,"HH drop kept at -3 dB, level varied"

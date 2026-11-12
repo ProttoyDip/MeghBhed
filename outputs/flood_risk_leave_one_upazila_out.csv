@@ -1,0 +1,7 @@
+upazila,flooded_km2,test_cells,logistic_regression,random_forest,lightgbm
+Satkania,32.3,17470,0.876,0.888,0.882
+Banshkhali,27.5,20737,0.867,0.754,0.704
+Fatikchhari,23.4,49163,0.894,0.905,0.898
+Raozan,17.1,17091,0.827,0.833,0.828
+Patiya,15.0,15530,0.827,0.851,0.85
+Rangunia,14.4,29223,0.897,0.884,0.854

@@ -1,0 +1,41 @@
+{
+ "coordinates": [
+  [
+   91.313996,
+   22.992557
+  ],
+  [
+   92.205555,
+   22.992557
+  ],
+  [
+   92.205555,
+   21.855439
+  ],
+  [
+   91.313996,
+   21.855439
+  ]
+ ],
+ "crs": "EPSG:3857",
+ "width": 2899,
+ "height": 4000,
+ "classes": {
+  "1": {
+   "name": "low",
+   "colour": "#ffffcc"
+  },
+  "2": {
+   "name": "medium",
+   "colour": "#fecc5c"
+  },
+  "3": {
+   "name": "high",
+   "colour": "#fd8d3c"
+  },
+  "4": {
+   "name": "very high",
+   "colour": "#bd0026"
+  }
+ }
+}

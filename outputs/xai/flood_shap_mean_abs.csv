@@ -1,0 +1,17 @@
+feature,label,mean_abs_shap,higher_value_means,cells,model
+elev,Elevation,0.95548,less risk,5000,lightgbm
+slope,Slope,0.85888,less risk,5000,lightgbm
+dist_coast,Distance to the coast,0.84931,more risk,5000,lightgbm
+relief_1km,Height above the 1 km surroundings,0.49014,less risk,5000,lightgbm
+hand,Height above nearest river (HAND),0.42427,less risk,5000,lightgbm
+dist_june_water,Distance to June water,0.34858,more risk,5000,lightgbm
+elev_min90,Lowest elevation within 90 m,0.16361,less risk,5000,lightgbm
+hand_min90,Lowest HAND within 90 m,0.10722,less risk,5000,lightgbm
+slope,Slope,0.04347,less risk,1000,random_forest
+elev,Elevation,0.03696,less risk,1000,random_forest
+dist_coast,Distance to the coast,0.0369,more risk,1000,random_forest
+dist_june_water,Distance to June water,0.02806,more risk,1000,random_forest
+hand,Height above nearest river (HAND),0.02633,less risk,1000,random_forest
+elev_min90,Lowest elevation within 90 m,0.01626,less risk,1000,random_forest
+relief_1km,Height above the 1 km surroundings,0.01376,less risk,1000,random_forest
+hand_min90,Lowest HAND within 90 m,0.00403,less risk,1000,random_forest

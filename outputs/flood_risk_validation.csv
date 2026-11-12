@@ -1,0 +1,4 @@
+model,cv_auc,cv_brier,cv_calibration_gap,leave_one_upazila_out_auc_mean,leave_one_upazila_out_auc_min,auc_vs_19jul_flood_same_event,mean_risk_near_flooded_test_points,mean_risk_near_dry_test_points,chosen
+logistic_regression,0.8407,0.077,0.0101,0.8647,0.827,0.7993,0.1322,0.064,False
+random_forest,0.8839,0.0685,0.005,0.8525,0.754,0.8262,0.1654,0.0399,True
+lightgbm,0.8809,0.0696,0.0128,0.836,0.704,0.8207,0.1706,0.0379,False

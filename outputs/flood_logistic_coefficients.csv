@@ -1,0 +1,8 @@
+feature,label,standardised_coefficient
+hv_d,HV on 12 July,17.6063
+hv_b,HV before,-16.2945
+hh_d,HH on 12 July,14.6431
+hh_b,HH before,-13.7054
+dhv,HV change,-10.7903
+dhh,HH change,-8.5908
+ratio_d,HH minus HV on 12 July,0.1586

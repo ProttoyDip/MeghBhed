@@ -1,0 +1,5 @@
+risk_class,km2,mean_slope_deg,mean_rain_mm,tree_cover_pct,mean_curvature,mean_elevation_m,mean_lhasa_max,lhasa_ge_0_3_pct,mean_nasa_class
+low,607.5,9.3,414.0,94.1,0.009,44.0,0.021,0.0,2.04
+medium,364.5,12.2,580.0,96.0,0.021,51.0,0.041,0.0,2.2
+high,182.3,17.9,590.0,98.4,0.051,60.0,0.048,0.0,2.35
+very high,60.8,25.2,591.0,99.5,0.073,70.0,0.055,0.0,2.59

@@ -1,0 +1,26 @@
+id,name,steep_km2,steep_km2_before_fix,high_km2,very_high_km2,people_within_100m_high_or_very_high,people_within_100m_very_high,high_or_very_high_pct_of_steep
+khulshi,Khulshi,4.9,6.4,1.65,0.46,182340,72008,43.3
+bayejid-bostami,Bayejid Bostami,16.2,17.6,4.42,0.97,141734,74141,33.3
+kotwali,Kotwali,1.6,3.1,0.61,0.13,99171,37758,46.1
+sitakunda,Sitakunda,94.0,100.8,15.62,6.04,96788,38430,23.0
+panchlaish,Panchlaish,0.7,1.7,0.28,0.03,70618,19556,42.3
+rangunia,Rangunia,135.7,149.7,14.34,1.86,65465,11531,11.9
+banshkhali,Banshkhali,98.6,105.8,27.63,8.07,52472,18845,36.2
+lohagara,Lohagara,87.4,111.8,16.97,3.87,50017,10165,23.8
+satkania,Satkania,68.7,91.3,13.68,4.08,43350,12875,25.9
+chandanaish,Chandanaish,79.2,89.7,23.13,12.13,39455,23328,44.5
+hathazari,Hathazari,57.7,71.6,9.39,2.42,28579,10682,20.5
+patiya,Patiya,74.7,85.2,24.41,10.79,24569,13765,47.1
+anowara,Anowara,4.7,8.5,0.63,0.02,13677,1176,13.8
+fatikchhari,Fatikchhari,313.5,374.0,13.36,4.62,12381,5711,5.7
+mirsharai,Mirsharai,114.1,132.6,5.82,1.98,10948,3276,6.8
+boalkhali,Boalkhali,34.1,44.2,9.77,3.26,7091,3580,38.2
+raozan,Raozan,29.1,56.7,0.53,0.01,5283,387,1.9
+pahartali,Pahartali,0.0,0.4,0.0,0.0,1507,520,6.7
+patenga,Patenga,0.0,1.8,0.0,0.0,925,925,66.7
+chandgaon,Chandgaon,0.0,0.9,0.0,0.0,0,0,
+bakalia,Bakalia,0.0,0.2,0.0,0.0,0,0,
+double-mooring,Double Mooring,0.0,0.5,0.0,0.0,0,0,0.0
+chittagong-port,Chittagong Port,0.0,0.7,0.0,0.0,0,0,0.0
+halishahar,Halishahar,0.0,0.4,0.0,0.0,0,0,
+sandwip,Sandwip,0.0,11.3,0.0,0.0,0,0,

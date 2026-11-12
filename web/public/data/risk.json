@@ -1,0 +1,1364 @@
+{
+ "generated": "2026-11-13",
+ "flood": {
+  "title": "Flood risk on open land",
+  "scope": "open land",
+  "people_figure": "a lower bound: tree-covered land, where most people live, is not scored",
+  "ground_estimate": "under tree cover, elevation and HAND are the mean of the open land within 300 m",
+  "meaning": "A likelihood map, not a forecast: how likely a 30 m cell is to flood in rain like July 2026, learned from terrain alone.",
+  "trained_on": "ONE flood: the open flood NISAR saw on 12 July 2026 (labels 1 and 2). Open land only; applied to all land.",
+  "limits": [
+   "Trained on a single flood event.",
+   "Susceptibility, not a forecast: no rainfall or river levels go in.",
+   "The DEM is a surface model, so tree canopy and buildings look higher than the ground; scores under trees are less certain.",
+   "The 19 July check is the same event a week later, not an independent flood."
+  ],
+  "chosen_model": "random_forest",
+  "features": [
+   {
+    "name": "hand",
+    "label": "Height above nearest river (HAND)"
+   },
+   {
+    "name": "hand_min90",
+    "label": "Lowest HAND within 90 m"
+   },
+   {
+    "name": "elev",
+    "label": "Elevation"
+   },
+   {
+    "name": "elev_min90",
+    "label": "Lowest elevation within 90 m"
+   },
+   {
+    "name": "slope",
+    "label": "Slope"
+   },
+   {
+    "name": "relief_1km",
+    "label": "Height above the 1 km surroundings"
+   },
+   {
+    "name": "dist_june_water",
+    "label": "Distance to June water"
+   },
+   {
+    "name": "dist_coast",
+    "label": "Distance to the coast"
+   }
+  ],
+  "training": {
+   "cells": 299948,
+   "blocks_5km": 240,
+   "flooded_share": 0.103,
+   "baseline_brier": 0.0924
+  },
+  "validation": [
+   {
+    "model": "logistic_regression",
+    "cv_auc": 0.8407,
+    "cv_brier": 0.077,
+    "cv_calibration_gap": 0.0101,
+    "leave_one_upazila_out_auc_mean": 0.8647,
+    "leave_one_upazila_out_auc_min": 0.827,
+    "auc_vs_19jul_flood_same_event": 0.7993,
+    "mean_risk_near_flooded_test_points": 0.1322,
+    "mean_risk_near_dry_test_points": 0.064,
+    "chosen": false
+   },
+   {
+    "model": "random_forest",
+    "cv_auc": 0.8839,
+    "cv_brier": 0.0685,
+    "cv_calibration_gap": 0.005,
+    "leave_one_upazila_out_auc_mean": 0.8525,
+    "leave_one_upazila_out_auc_min": 0.754,
+    "auc_vs_19jul_flood_same_event": 0.8262,
+    "mean_risk_near_flooded_test_points": 0.1654,
+    "mean_risk_near_dry_test_points": 0.0399,
+    "chosen": true
+   },
+   {
+    "model": "lightgbm",
+    "cv_auc": 0.8809,
+    "cv_brier": 0.0696,
+    "cv_calibration_gap": 0.0128,
+    "leave_one_upazila_out_auc_mean": 0.836,
+    "leave_one_upazila_out_auc_min": 0.704,
+    "auc_vs_19jul_flood_same_event": 0.8207,
+    "mean_risk_near_flooded_test_points": 0.1706,
+    "mean_risk_near_dry_test_points": 0.0379,
+    "chosen": false
+   }
+  ],
+  "leave_one_upazila_out": [
+   {
+    "upazila": "Satkania",
+    "flooded_km2": 32.3,
+    "test_cells": 17470,
+    "logistic_regression": 0.876,
+    "random_forest": 0.888,
+    "lightgbm": 0.882
+   },
+   {
+    "upazila": "Banshkhali",
+    "flooded_km2": 27.5,
+    "test_cells": 20737,
+    "logistic_regression": 0.867,
+    "random_forest": 0.754,
+    "lightgbm": 0.704
+   },
+   {
+    "upazila": "Fatikchhari",
+    "flooded_km2": 23.4,
+    "test_cells": 49163,
+    "logistic_regression": 0.894,
+    "random_forest": 0.905,
+    "lightgbm": 0.898
+   },
+   {
+    "upazila": "Raozan",
+    "flooded_km2": 17.1,
+    "test_cells": 17091,
+    "logistic_regression": 0.827,
+    "random_forest": 0.833,
+    "lightgbm": 0.828
+   },
+   {
+    "upazila": "Patiya",
+    "flooded_km2": 15.0,
+    "test_cells": 15530,
+    "logistic_regression": 0.827,
+    "random_forest": 0.851,
+    "lightgbm": 0.85
+   },
+   {
+    "upazila": "Rangunia",
+    "flooded_km2": 14.4,
+    "test_cells": 29223,
+    "logistic_regression": 0.897,
+    "random_forest": 0.884,
+    "lightgbm": 0.854
+   }
+  ],
+  "calibration": [
+   {
+    "bin": "0.0-0.1",
+    "cells": 211528,
+    "mean_predicted": 0.025,
+    "observed_flood_share": 0.023
+   },
+   {
+    "bin": "0.1-0.2",
+    "cells": 37213,
+    "mean_predicted": 0.143,
+    "observed_flood_share": 0.152
+   },
+   {
+    "bin": "0.2-0.3",
+    "cells": 19224,
+    "mean_predicted": 0.246,
+    "observed_flood_share": 0.258
+   },
+   {
+    "bin": "0.3-0.4",
+    "cells": 12012,
+    "mean_predicted": 0.346,
+    "observed_flood_share": 0.358
+   },
+   {
+    "bin": "0.4-0.5",
+    "cells": 8360,
+    "mean_predicted": 0.448,
+    "observed_flood_share": 0.454
+   },
+   {
+    "bin": "0.5-0.6",
+    "cells": 6274,
+    "mean_predicted": 0.548,
+    "observed_flood_share": 0.569
+   },
+   {
+    "bin": "0.6-0.7",
+    "cells": 3877,
+    "mean_predicted": 0.643,
+    "observed_flood_share": 0.689
+   },
+   {
+    "bin": "0.7-0.8",
+    "cells": 1353,
+    "mean_predicted": 0.739,
+    "observed_flood_share": 0.724
+   },
+   {
+    "bin": "0.8-0.9",
+    "cells": 107,
+    "mean_predicted": 0.821,
+    "observed_flood_share": 0.813
+   },
+   {
+    "bin": "0.9-1.0",
+    "cells": 0,
+    "mean_predicted": null,
+    "observed_flood_share": null
+   }
+  ],
+  "classes": {
+   "cutoffs": {
+    "medium": 0.0985,
+    "high": 0.3125,
+    "very_high": 0.4845
+   },
+   "target_observed_share": {
+    "medium": 0.1,
+    "high": 0.333,
+    "very_high": 0.5
+   },
+   "observed_in_cross_validation": [
+    {
+     "risk_class": "low",
+     "score_from": 0.0,
+     "score_to": 0.099,
+     "cv_cells": 210624,
+     "observed_flood_share": 0.023
+    },
+    {
+     "risk_class": "medium",
+     "score_from": 0.099,
+     "score_to": 0.312,
+     "cv_cells": 59111,
+     "observed_flood_share": 0.191
+    },
+    {
+     "risk_class": "high",
+     "score_from": 0.312,
+     "score_to": 0.484,
+     "cv_cells": 17429,
+     "observed_flood_share": 0.397
+    },
+    {
+     "risk_class": "very high",
+     "score_from": 0.484,
+     "score_to": 1.0,
+     "cv_cells": 12784,
+     "observed_flood_share": 0.62
+    }
+   ],
+   "area_km2": {
+    "low": 878.4,
+    "medium": 309.0,
+    "high": 104.4,
+    "very high": 101.1
+   },
+   "colours": {
+    "low": "#ffffcc",
+    "medium": "#fecc5c",
+    "high": "#fd8d3c",
+    "very high": "#bd0026"
+   }
+  },
+  "canopy_check": [
+   {
+    "binned_by": "hand",
+    "band_m": "0-1",
+    "open_km2": 1109.5,
+    "tree_km2": 1168.0,
+    "open_mean_risk": 0.162,
+    "tree_mean_risk": 0.08,
+    "open_high_or_very_high_pct": 18.5,
+    "tree_high_or_very_high_pct": 2.4,
+    "tree_to_open_ratio": 0.49,
+    "within_limits": false
+   },
+   {
+    "binned_by": "hand",
+    "band_m": "1-2",
+    "open_km2": 112.7,
+    "tree_km2": 419.9,
+    "open_mean_risk": 0.021,
+    "tree_mean_risk": 0.025,
+    "open_high_or_very_high_pct": 0.3,
+    "tree_high_or_very_high_pct": 0.0,
+    "tree_to_open_ratio": 1.19,
+    "within_limits": true
+   },
+   {
+    "binned_by": "hand",
+    "band_m": "2-3.5",
+    "open_km2": 76.8,
+    "tree_km2": 198.8,
+    "open_mean_risk": 0.012,
+    "tree_mean_risk": 0.011,
+    "open_high_or_very_high_pct": 0.1,
+    "tree_high_or_very_high_pct": 0.0,
+    "tree_to_open_ratio": 0.92,
+    "within_limits": true
+   },
+   {
+    "binned_by": "hand",
+    "band_m": "3.5-5",
+    "open_km2": 39.2,
+    "tree_km2": 73.4,
+    "open_mean_risk": 0.01,
+    "tree_mean_risk": 0.005,
+    "open_high_or_very_high_pct": 0.2,
+    "tree_high_or_very_high_pct": 0.0,
+    "tree_to_open_ratio": 0.5,
+    "within_limits": true
+   }
+  ],
+  "shap": {
+   "model": "random_forest",
+   "cells": 1000,
+   "sentence": "Flood risk is driven mostly by slope (lower means more risk), then elevation (lower means more risk), then distance to the coast (higher means more risk).",
+   "ranking": [
+    {
+     "feature": "slope",
+     "label": "Slope",
+     "mean_abs_shap": 0.0435,
+     "higher_value_means": "less risk"
+    },
+    {
+     "feature": "elev",
+     "label": "Elevation",
+     "mean_abs_shap": 0.037,
+     "higher_value_means": "less risk"
+    },
+    {
+     "feature": "dist_coast",
+     "label": "Distance to the coast",
+     "mean_abs_shap": 0.0369,
+     "higher_value_means": "more risk"
+    },
+    {
+     "feature": "dist_june_water",
+     "label": "Distance to June water",
+     "mean_abs_shap": 0.0281,
+     "higher_value_means": "more risk"
+    },
+    {
+     "feature": "hand",
+     "label": "Height above nearest river (HAND)",
+     "mean_abs_shap": 0.0263,
+     "higher_value_means": "less risk"
+    },
+    {
+     "feature": "elev_min90",
+     "label": "Lowest elevation within 90 m",
+     "mean_abs_shap": 0.0163,
+     "higher_value_means": "less risk"
+    },
+    {
+     "feature": "relief_1km",
+     "label": "Height above the 1 km surroundings",
+     "mean_abs_shap": 0.0138,
+     "higher_value_means": "less risk"
+    },
+    {
+     "feature": "hand_min90",
+     "label": "Lowest HAND within 90 m",
+     "mean_abs_shap": 0.004,
+     "higher_value_means": "less risk"
+    }
+   ]
+  },
+  "logistic_coefficients": [
+   {
+    "feature": "elev",
+    "standardised_coefficient": -9.381999969482422
+   },
+   {
+    "feature": "elev_min90",
+    "standardised_coefficient": 7.0
+   },
+   {
+    "feature": "slope",
+    "standardised_coefficient": -2.549999952316284
+   },
+   {
+    "feature": "dist_coast",
+    "standardised_coefficient": 0.722000002861023
+   },
+   {
+    "feature": "dist_june_water",
+    "standardised_coefficient": 0.5400000214576721
+   },
+   {
+    "feature": "hand_min90",
+    "standardised_coefficient": -0.3190000057220459
+   },
+   {
+    "feature": "hand",
+    "standardised_coefficient": -0.24699999392032623
+   },
+   {
+    "feature": "relief_1km",
+    "standardised_coefficient": 0.2029999941587448
+   }
+  ],
+  "upazilas": [
+   {
+    "id": "satkania",
+    "name": "Satkania",
+    "land_km2": 96.7,
+    "people_total": 156431,
+    "high_open_km2": 13.16,
+    "high_open_people": 21995,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 16.32,
+    "very_high_open_people": 24300,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 29.5,
+    "high_or_very_high_people": 46295,
+    "high_or_very_high_people_pct": 29.6
+   },
+   {
+    "id": "banshkhali",
+    "name": "Banshkhali",
+    "land_km2": 112.3,
+    "people_total": 146532,
+    "high_open_km2": 15.38,
+    "high_open_people": 20188,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 18.46,
+    "very_high_open_people": 23701,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 33.8,
+    "high_or_very_high_people": 43889,
+    "high_or_very_high_people_pct": 30.0
+   },
+   {
+    "id": "raozan",
+    "name": "Raozan",
+    "land_km2": 86.4,
+    "people_total": 132027,
+    "high_open_km2": 11.85,
+    "high_open_people": 17608,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 17.64,
+    "very_high_open_people": 24118,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 29.5,
+    "high_or_very_high_people": 41726,
+    "high_or_very_high_people_pct": 31.6
+   },
+   {
+    "id": "fatikchhari",
+    "name": "Fatikchhari",
+    "land_km2": 197.6,
+    "people_total": 198162,
+    "high_open_km2": 12.95,
+    "high_open_people": 18003,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 7.97,
+    "very_high_open_people": 9970,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 20.9,
+    "high_or_very_high_people": 27973,
+    "high_or_very_high_people_pct": 14.1
+   },
+   {
+    "id": "chandanaish",
+    "name": "Chandanaish",
+    "land_km2": 47.9,
+    "people_total": 87105,
+    "high_open_km2": 6.76,
+    "high_open_people": 12481,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 8.04,
+    "very_high_open_people": 12619,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 14.8,
+    "high_or_very_high_people": 25099,
+    "high_or_very_high_people_pct": 28.8
+   },
+   {
+    "id": "patiya",
+    "name": "Patiya",
+    "land_km2": 85.3,
+    "people_total": 123567,
+    "high_open_km2": 9.94,
+    "high_open_people": 10023,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 8.82,
+    "very_high_open_people": 7797,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 18.8,
+    "high_or_very_high_people": 17820,
+    "high_or_very_high_people_pct": 14.4
+   },
+   {
+    "id": "rangunia",
+    "name": "Rangunia",
+    "land_km2": 119.2,
+    "people_total": 139827,
+    "high_open_km2": 5.85,
+    "high_open_people": 7040,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 9.5,
+    "very_high_open_people": 10306,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 15.3,
+    "high_or_very_high_people": 17345,
+    "high_or_very_high_people_pct": 12.4
+   },
+   {
+    "id": "hathazari",
+    "name": "Hathazari",
+    "land_km2": 70.8,
+    "people_total": 160913,
+    "high_open_km2": 7.42,
+    "high_open_people": 11050,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 3.97,
+    "very_high_open_people": 4729,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 11.4,
+    "high_or_very_high_people": 15780,
+    "high_or_very_high_people_pct": 9.8
+   },
+   {
+    "id": "anowara",
+    "name": "Anowara",
+    "land_km2": 66.2,
+    "people_total": 114643,
+    "high_open_km2": 5.35,
+    "high_open_people": 7037,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 2.6,
+    "very_high_open_people": 3273,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 8.0,
+    "high_or_very_high_people": 10310,
+    "high_or_very_high_people_pct": 9.0
+   },
+   {
+    "id": "mirsharai",
+    "name": "Mirsharai",
+    "land_km2": 142.7,
+    "people_total": 139793,
+    "high_open_km2": 6.44,
+    "high_open_people": 6372,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 1.45,
+    "very_high_open_people": 968,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 7.9,
+    "high_or_very_high_people": 7340,
+    "high_or_very_high_people_pct": 5.3
+   },
+   {
+    "id": "boalkhali",
+    "name": "Boalkhali",
+    "land_km2": 27.6,
+    "people_total": 26797,
+    "high_open_km2": 4.92,
+    "high_open_people": 3874,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 4.91,
+    "very_high_open_people": 3396,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 9.8,
+    "high_or_very_high_people": 7270,
+    "high_or_very_high_people_pct": 27.1
+   },
+   {
+    "id": "lohagara",
+    "name": "Lohagara",
+    "land_km2": 83.4,
+    "people_total": 120228,
+    "high_open_km2": 1.47,
+    "high_open_people": 3070,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.47,
+    "very_high_open_people": 776,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 1.9,
+    "high_or_very_high_people": 3845,
+    "high_or_very_high_people_pct": 3.2
+   },
+   {
+    "id": "chandgaon",
+    "name": "Chandgaon",
+    "land_km2": 10.2,
+    "people_total": 230886,
+    "high_open_km2": 0.06,
+    "high_open_people": 580,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.02,
+    "very_high_open_people": 128,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.1,
+    "high_or_very_high_people": 709,
+    "high_or_very_high_people_pct": 0.3
+   },
+   {
+    "id": "sandwip",
+    "name": "Sandwip",
+    "land_km2": 111.3,
+    "people_total": 96638,
+    "high_open_km2": 2.67,
+    "high_open_people": 280,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.93,
+    "very_high_open_people": 19,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 3.6,
+    "high_or_very_high_people": 298,
+    "high_or_very_high_people_pct": 0.3
+   },
+   {
+    "id": "bakalia",
+    "name": "Bakalia",
+    "land_km2": 5.9,
+    "people_total": 103794,
+    "high_open_km2": 0.02,
+    "high_open_people": 116,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 116,
+    "high_or_very_high_people_pct": 0.1
+   },
+   {
+    "id": "sitakunda",
+    "name": "Sitakunda",
+    "land_km2": 56.5,
+    "people_total": 159777,
+    "high_open_km2": 0.13,
+    "high_open_people": 84,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.02,
+    "very_high_open_people": 13,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.1,
+    "high_or_very_high_people": 96,
+    "high_or_very_high_people_pct": 0.1
+   },
+   {
+    "id": "bayejid-bostami",
+    "name": "Bayejid Bostami",
+    "land_km2": 11.8,
+    "people_total": 298746,
+    "high_open_km2": 0.0,
+    "high_open_people": 10,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 10,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "double-mooring",
+    "name": "Double Mooring",
+    "land_km2": 6.3,
+    "people_total": 251000,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "chittagong-port",
+    "name": "Chittagong Port",
+    "land_km2": 8.5,
+    "people_total": 129838,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "halishahar",
+    "name": "Halishahar",
+    "land_km2": 7.6,
+    "people_total": 231989,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "khulshi",
+    "name": "Khulshi",
+    "land_km2": 5.4,
+    "people_total": 237105,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "pahartali",
+    "name": "Pahartali",
+    "land_km2": 5.1,
+    "people_total": 144278,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "kotwali",
+    "name": "Kotwali",
+    "land_km2": 6.8,
+    "people_total": 202891,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "panchlaish",
+    "name": "Panchlaish",
+    "land_km2": 4.9,
+    "people_total": 256589,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   },
+   {
+    "id": "patenga",
+    "name": "Patenga",
+    "land_km2": 16.5,
+    "people_total": 175357,
+    "high_open_km2": 0.0,
+    "high_open_people": 0,
+    "high_tree_km2": 0.0,
+    "high_tree_people": 0,
+    "very_high_open_km2": 0.0,
+    "very_high_open_people": 0,
+    "very_high_tree_km2": 0.0,
+    "very_high_tree_people": 0,
+    "high_or_very_high_km2": 0.0,
+    "high_or_very_high_people": 0,
+    "high_or_very_high_people_pct": 0.0
+   }
+  ],
+  "totals": {
+   "high_or_very_high_km2": 205.4,
+   "high_or_very_high_people": 265921,
+   "people_total": 4064913
+  },
+  "overlay": {
+   "image": "flood_risk.png",
+   "bounds": "flood_risk_bounds.json",
+   "width": 2899,
+   "height": 4000
+  }
+ },
+ "landslide": {
+  "title": "Landslide risk",
+  "meaning": "A likelihood map, not a forecast: a ranking of steep land by how prone it is to landslides in rain like July 2026.",
+  "method": "Weighted index (not a trained model)",
+  "min_slope_deg": 5.0,
+  "min_relief_m": 20.0,
+  "weights": {
+   "slope": 0.4,
+   "relief": 0.2,
+   "rainfall": 0.2,
+   "land_cover": 0.1,
+   "hill_cutting": 0.1
+  },
+  "slope_definition": "slope of 5 degrees or more AND a rise of 20 m or more within 300 m; in built-up cells the slope comes from a lightly smoothed DEM, so buildings on flat land are not counted",
+  "factor_scaling": {
+   "slope": "0 at 5 degrees, 1 at 35 or more",
+   "relief": "height range within 300 m, 1 at 150 m or more",
+   "rainfall": "IMERG 5-18 Jul, 0 at 300 mm, 1 at 700 mm",
+   "land_cover": {
+    "bare": 1.0,
+    "built-up": 0.8,
+    "cropland": 0.7,
+    "other": 0.6,
+    "tree": 0.4
+   },
+   "hill_cutting": "1 next to built-up land, 0 at 500 m or more"
+  },
+  "why_not_a_model": "The NASA Global Landslide Catalog has 38 points in the grid (19 in the district, 2007-2017), under the 40 needed, and most are located only to within 5-25 km, which cannot label 30 m cells.",
+  "limits": [
+   "Weights are a judgement, not fitted to landslide records.",
+   "Susceptibility, not a forecast.",
+   "Classes are ranks within the district's steep land, so 20% is high or very high by construction.",
+   "The DEM is a surface model: canopy still adds some false slope; buildings on flat land are screened out by the relief rule.",
+   "Rainfall cells are about 10 km wide.",
+   "No geology, soil or road-cut data."
+  ],
+  "classes": {
+   "index_cutoffs": {
+    "medium": 0.32,
+    "high": 0.412,
+    "very_high": 0.508
+   },
+   "share_of_steep_land": {
+    "very_high": 0.05,
+    "high": 0.15,
+    "medium": 0.3,
+    "low": 0.5
+   },
+   "summary": [
+    {
+     "risk_class": "low",
+     "km2": 607.5,
+     "mean_slope_deg": 9.3,
+     "mean_rain_mm": 414.0,
+     "tree_cover_pct": 94.1,
+     "mean_curvature": 0.009,
+     "mean_elevation_m": 44.0,
+     "mean_lhasa_max": 0.021,
+     "lhasa_ge_0_3_pct": 0.0,
+     "mean_nasa_class": 2.04
+    },
+    {
+     "risk_class": "medium",
+     "km2": 364.5,
+     "mean_slope_deg": 12.2,
+     "mean_rain_mm": 580.0,
+     "tree_cover_pct": 96.0,
+     "mean_curvature": 0.021,
+     "mean_elevation_m": 51.0,
+     "mean_lhasa_max": 0.041,
+     "lhasa_ge_0_3_pct": 0.0,
+     "mean_nasa_class": 2.2
+    },
+    {
+     "risk_class": "high",
+     "km2": 182.3,
+     "mean_slope_deg": 17.9,
+     "mean_rain_mm": 590.0,
+     "tree_cover_pct": 98.4,
+     "mean_curvature": 0.051,
+     "mean_elevation_m": 60.0,
+     "mean_lhasa_max": 0.048,
+     "lhasa_ge_0_3_pct": 0.0,
+     "mean_nasa_class": 2.35
+    },
+    {
+     "risk_class": "very high",
+     "km2": 60.8,
+     "mean_slope_deg": 25.2,
+     "mean_rain_mm": 591.0,
+     "tree_cover_pct": 99.5,
+     "mean_curvature": 0.073,
+     "mean_elevation_m": 70.0,
+     "mean_lhasa_max": 0.055,
+     "lhasa_ge_0_3_pct": 0.0,
+     "mean_nasa_class": 2.59
+    }
+   ],
+   "colours": {
+    "low": "#ede7f6",
+    "medium": "#b39ddb",
+    "high": "#7e57c2",
+    "very high": "#4a148c"
+   }
+  },
+  "checks": {
+   "baseline_high_or_very_high_pct_of_steep_land": 20.0,
+   "hill_risk_sites": {
+    "sites": 36,
+    "on_steep_land": 31,
+    "high_or_very_high_at_site_pct": 55.6,
+    "high_or_very_high_within_100m_pct": 63.9,
+    "class_counts_at_site": {
+     "low": 10,
+     "medium": 1,
+     "high": 5,
+     "very high": 15,
+     "not steep": 5
+    },
+    "note": "Not independent of the index: both use slope and the same rainfall, so agreement is expected."
+   },
+   "catalog_points": {
+    "source": "NASA Global Landslide Catalog export (data.nasa.gov), events 2007-2017",
+    "in_district": 19,
+    "with_steep_land_in_radius": 19,
+    "located_to_1km": 4,
+    "mean_high_or_very_high_pct_in_radius": 38.8,
+    "points_above_baseline": 17,
+    "mean_high_or_very_high_pct_1km_points": 46.0,
+    "note": "Most points are located only to within 5-25 km, so this compares the steep land around each point with the district."
+   },
+   "named_places": [
+    {
+     "place": "CCC ward 7 (West Sholashahar)",
+     "area": "within 1 km of the geocoded point (approximate)",
+     "steep_km2": 0.55,
+     "high_or_very_high_pct": 44.6,
+     "above_district_share": true
+    },
+    {
+     "place": "CCC ward 8 (Sholokbahar)",
+     "area": "within 1 km of the geocoded point (approximate)",
+     "steep_km2": 0.43,
+     "high_or_very_high_pct": 47.3,
+     "above_district_share": true
+    },
+    {
+     "place": "CCC ward 9 (North Pahartali)",
+     "area": "within 1 km of the geocoded point (approximate)",
+     "steep_km2": 0.46,
+     "high_or_very_high_pct": 69.3,
+     "above_district_share": true
+    },
+    {
+     "place": "CCC ward 14 (Lalkhan Bazar)",
+     "area": "within 1 km of the geocoded point (approximate)",
+     "steep_km2": 1.09,
+     "high_or_very_high_pct": 50.5,
+     "above_district_share": true
+    },
+    {
+     "place": "Banshkhali",
+     "area": "whole upazila",
+     "steep_km2": 98.63,
+     "high_or_very_high_pct": 36.2,
+     "above_district_share": true
+    }
+   ],
+   "lhasa": {
+    "steep_land_with_lhasa_pct": 32.6,
+    "spearman_index_vs_lhasa": 0.544,
+    "note": "LHASA files cover 5-9 and 13-18 Jul (10-12 Jul missing) and only part of the area; cells are about 1 km."
+   },
+   "nasa_susceptibility": {
+    "source": "NASA global landslide susceptibility map, 2023 update, about 1 km, classes 1 (very low) to 5 (very high)",
+    "spearman_index_vs_nasa_class": 0.268,
+    "our_high_or_very_high_in_nasa_high_or_very_high_pct": 6.6,
+    "all_steep_land_in_nasa_high_or_very_high_pct": 3.5
+   }
+  },
+  "explain": {
+   "sentence": "High and very high cells differ from low ones mostly through slope, which adds 0.14 more to their index.",
+   "factors": [
+    {
+     "factor": "slope",
+     "label": "Slope",
+     "weight": 0.4,
+     "mean_contribution_all_steep": 0.0965,
+     "mean_contribution_high_or_very_high": 0.1959,
+     "mean_contribution_low": 0.0567,
+     "share_of_index_in_high_or_very_high_pct": 40.9,
+     "lift_high_minus_low": 0.1392
+    },
+    {
+     "factor": "relief",
+     "label": "Relief within 300 m",
+     "weight": 0.2,
+     "mean_contribution_all_steep": 0.0692,
+     "mean_contribution_high_or_very_high": 0.0896,
+     "mean_contribution_low": 0.0587,
+     "share_of_index_in_high_or_very_high_pct": 18.7,
+     "lift_high_minus_low": 0.0309
+    },
+    {
+     "factor": "rainfall",
+     "label": "Rain, 5-18 July",
+     "weight": 0.2,
+     "mean_contribution_all_steep": 0.1014,
+     "mean_contribution_high_or_very_high": 0.1454,
+     "mean_contribution_low": 0.0604,
+     "share_of_index_in_high_or_very_high_pct": 30.4,
+     "lift_high_minus_low": 0.085
+    },
+    {
+     "factor": "land_cover",
+     "label": "Land cover",
+     "weight": 0.1,
+     "mean_contribution_all_steep": 0.0412,
+     "mean_contribution_high_or_very_high": 0.0404,
+     "mean_contribution_low": 0.0416,
+     "share_of_index_in_high_or_very_high_pct": 8.4,
+     "lift_high_minus_low": -0.0012
+    },
+    {
+     "factor": "hill_cutting",
+     "label": "Nearness to built-up land",
+     "weight": 0.1,
+     "mean_contribution_all_steep": 0.0088,
+     "mean_contribution_high_or_very_high": 0.0076,
+     "mean_contribution_low": 0.0077,
+     "share_of_index_in_high_or_very_high_pct": 1.6,
+     "lift_high_minus_low": -0.0001
+    }
+   ]
+  },
+  "upazilas": [
+   {
+    "id": "khulshi",
+    "name": "Khulshi",
+    "steep_km2": 4.9,
+    "steep_km2_before_fix": 6.4,
+    "high_km2": 1.65,
+    "very_high_km2": 0.46,
+    "people_within_100m_high_or_very_high": 182340,
+    "people_within_100m_very_high": 72008,
+    "high_or_very_high_pct_of_steep": 43.3
+   },
+   {
+    "id": "bayejid-bostami",
+    "name": "Bayejid Bostami",
+    "steep_km2": 16.2,
+    "steep_km2_before_fix": 17.6,
+    "high_km2": 4.42,
+    "very_high_km2": 0.97,
+    "people_within_100m_high_or_very_high": 141734,
+    "people_within_100m_very_high": 74141,
+    "high_or_very_high_pct_of_steep": 33.3
+   },
+   {
+    "id": "kotwali",
+    "name": "Kotwali",
+    "steep_km2": 1.6,
+    "steep_km2_before_fix": 3.1,
+    "high_km2": 0.61,
+    "very_high_km2": 0.13,
+    "people_within_100m_high_or_very_high": 99171,
+    "people_within_100m_very_high": 37758,
+    "high_or_very_high_pct_of_steep": 46.1
+   },
+   {
+    "id": "sitakunda",
+    "name": "Sitakunda",
+    "steep_km2": 94.0,
+    "steep_km2_before_fix": 100.8,
+    "high_km2": 15.62,
+    "very_high_km2": 6.04,
+    "people_within_100m_high_or_very_high": 96788,
+    "people_within_100m_very_high": 38430,
+    "high_or_very_high_pct_of_steep": 23.0
+   },
+   {
+    "id": "panchlaish",
+    "name": "Panchlaish",
+    "steep_km2": 0.7,
+    "steep_km2_before_fix": 1.7,
+    "high_km2": 0.28,
+    "very_high_km2": 0.03,
+    "people_within_100m_high_or_very_high": 70618,
+    "people_within_100m_very_high": 19556,
+    "high_or_very_high_pct_of_steep": 42.3
+   },
+   {
+    "id": "rangunia",
+    "name": "Rangunia",
+    "steep_km2": 135.7,
+    "steep_km2_before_fix": 149.7,
+    "high_km2": 14.34,
+    "very_high_km2": 1.86,
+    "people_within_100m_high_or_very_high": 65465,
+    "people_within_100m_very_high": 11531,
+    "high_or_very_high_pct_of_steep": 11.9
+   },
+   {
+    "id": "banshkhali",
+    "name": "Banshkhali",
+    "steep_km2": 98.6,
+    "steep_km2_before_fix": 105.8,
+    "high_km2": 27.63,
+    "very_high_km2": 8.07,
+    "people_within_100m_high_or_very_high": 52472,
+    "people_within_100m_very_high": 18845,
+    "high_or_very_high_pct_of_steep": 36.2
+   },
+   {
+    "id": "lohagara",
+    "name": "Lohagara",
+    "steep_km2": 87.4,
+    "steep_km2_before_fix": 111.8,
+    "high_km2": 16.97,
+    "very_high_km2": 3.87,
+    "people_within_100m_high_or_very_high": 50017,
+    "people_within_100m_very_high": 10165,
+    "high_or_very_high_pct_of_steep": 23.8
+   },
+   {
+    "id": "satkania",
+    "name": "Satkania",
+    "steep_km2": 68.7,
+    "steep_km2_before_fix": 91.3,
+    "high_km2": 13.68,
+    "very_high_km2": 4.08,
+    "people_within_100m_high_or_very_high": 43350,
+    "people_within_100m_very_high": 12875,
+    "high_or_very_high_pct_of_steep": 25.9
+   },
+   {
+    "id": "chandanaish",
+    "name": "Chandanaish",
+    "steep_km2": 79.2,
+    "steep_km2_before_fix": 89.7,
+    "high_km2": 23.13,
+    "very_high_km2": 12.13,
+    "people_within_100m_high_or_very_high": 39455,
+    "people_within_100m_very_high": 23328,
+    "high_or_very_high_pct_of_steep": 44.5
+   },
+   {
+    "id": "hathazari",
+    "name": "Hathazari",
+    "steep_km2": 57.7,
+    "steep_km2_before_fix": 71.6,
+    "high_km2": 9.39,
+    "very_high_km2": 2.42,
+    "people_within_100m_high_or_very_high": 28579,
+    "people_within_100m_very_high": 10682,
+    "high_or_very_high_pct_of_steep": 20.5
+   },
+   {
+    "id": "patiya",
+    "name": "Patiya",
+    "steep_km2": 74.7,
+    "steep_km2_before_fix": 85.2,
+    "high_km2": 24.41,
+    "very_high_km2": 10.79,
+    "people_within_100m_high_or_very_high": 24569,
+    "people_within_100m_very_high": 13765,
+    "high_or_very_high_pct_of_steep": 47.1
+   },
+   {
+    "id": "anowara",
+    "name": "Anowara",
+    "steep_km2": 4.7,
+    "steep_km2_before_fix": 8.5,
+    "high_km2": 0.63,
+    "very_high_km2": 0.02,
+    "people_within_100m_high_or_very_high": 13677,
+    "people_within_100m_very_high": 1176,
+    "high_or_very_high_pct_of_steep": 13.8
+   },
+   {
+    "id": "fatikchhari",
+    "name": "Fatikchhari",
+    "steep_km2": 313.5,
+    "steep_km2_before_fix": 374.0,
+    "high_km2": 13.36,
+    "very_high_km2": 4.62,
+    "people_within_100m_high_or_very_high": 12381,
+    "people_within_100m_very_high": 5711,
+    "high_or_very_high_pct_of_steep": 5.7
+   },
+   {
+    "id": "mirsharai",
+    "name": "Mirsharai",
+    "steep_km2": 114.1,
+    "steep_km2_before_fix": 132.6,
+    "high_km2": 5.82,
+    "very_high_km2": 1.98,
+    "people_within_100m_high_or_very_high": 10948,
+    "people_within_100m_very_high": 3276,
+    "high_or_very_high_pct_of_steep": 6.8
+   },
+   {
+    "id": "boalkhali",
+    "name": "Boalkhali",
+    "steep_km2": 34.1,
+    "steep_km2_before_fix": 44.2,
+    "high_km2": 9.77,
+    "very_high_km2": 3.26,
+    "people_within_100m_high_or_very_high": 7091,
+    "people_within_100m_very_high": 3580,
+    "high_or_very_high_pct_of_steep": 38.2
+   },
+   {
+    "id": "raozan",
+    "name": "Raozan",
+    "steep_km2": 29.1,
+    "steep_km2_before_fix": 56.7,
+    "high_km2": 0.53,
+    "very_high_km2": 0.01,
+    "people_within_100m_high_or_very_high": 5283,
+    "people_within_100m_very_high": 387,
+    "high_or_very_high_pct_of_steep": 1.9
+   },
+   {
+    "id": "pahartali",
+    "name": "Pahartali",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 0.4,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 1507,
+    "people_within_100m_very_high": 520,
+    "high_or_very_high_pct_of_steep": 6.7
+   },
+   {
+    "id": "patenga",
+    "name": "Patenga",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 1.8,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 925,
+    "people_within_100m_very_high": 925,
+    "high_or_very_high_pct_of_steep": 66.7
+   },
+   {
+    "id": "chandgaon",
+    "name": "Chandgaon",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 0.9,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 0,
+    "people_within_100m_very_high": 0,
+    "high_or_very_high_pct_of_steep": null
+   },
+   {
+    "id": "bakalia",
+    "name": "Bakalia",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 0.2,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 0,
+    "people_within_100m_very_high": 0,
+    "high_or_very_high_pct_of_steep": null
+   },
+   {
+    "id": "double-mooring",
+    "name": "Double Mooring",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 0.5,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 0,
+    "people_within_100m_very_high": 0,
+    "high_or_very_high_pct_of_steep": 0.0
+   },
+   {
+    "id": "chittagong-port",
+    "name": "Chittagong Port",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 0.7,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 0,
+    "people_within_100m_very_high": 0,
+    "high_or_very_high_pct_of_steep": 0.0
+   },
+   {
+    "id": "halishahar",
+    "name": "Halishahar",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 0.4,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 0,
+    "people_within_100m_very_high": 0,
+    "high_or_very_high_pct_of_steep": null
+   },
+   {
+    "id": "sandwip",
+    "name": "Sandwip",
+    "steep_km2": 0.0,
+    "steep_km2_before_fix": 11.3,
+    "high_km2": 0.0,
+    "very_high_km2": 0.0,
+    "people_within_100m_high_or_very_high": 0,
+    "people_within_100m_very_high": 0,
+    "high_or_very_high_pct_of_steep": null
+   }
+  ],
+  "totals": {
+   "steep_km2": 1215.0,
+   "high_or_very_high_km2": 243.0,
+   "people_within_100m_high_or_very_high": 946370,
+   "people_within_100m_very_high": 358659
+  },
+  "overlay": {
+   "image": "landslide_risk.png",
+   "bounds": "landslide_risk_bounds.json",
+   "width": 2265,
+   "height": 4001
+  }
+ }
+}
