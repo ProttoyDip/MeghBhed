@@ -29,7 +29,7 @@ test.describe('language', () => {
     await page.goto('/statistics')
     await page.getByRole('button', { name: /switch to Bangla/i }).click()
     // table total: 5,87,479 people in lakh grouping
-    await expect(page.locator('tfoot')).toContainText('৫,৮৭,৪৭৯')
+    await expect(page.locator('tfoot').first()).toContainText('৫,৮৭,৪৭৯')
     await expect(page.locator('tbody tr').first()).toContainText('সাতকানিয়া')
   })
 })
@@ -43,8 +43,8 @@ test.describe('theme', () => {
 
     await page.getByRole('button', { name: 'Switch to dark theme' }).click()
     await expect(html).toHaveAttribute('data-theme', 'dark')
-    const bg = await page.evaluate(() => getComputedStyle(document.body).backgroundColor)
-    expect(bg).toBe('rgb(13, 21, 32)')
+    // the theme cross-fades over 0.35 s (theme.js), so wait for the end colour
+    await expect.poll(() => page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe('rgb(13, 21, 32)')
 
     await page.reload()
     await expect(html).toHaveAttribute('data-theme', 'dark')

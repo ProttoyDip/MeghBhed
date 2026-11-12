@@ -76,7 +76,7 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 // when bundling. Point it at the worker file explicitly.
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url'
 import { ArrowLeftRight } from 'lucide-vue-next'
-import { DATA_URLS, scenes, upazilas, viewport } from '../data/results'
+import { DATA_URLS, scenes, upazilas, viewport, riskOverlays } from '../data/results'
 import { t, n, date, loc, lang } from '../i18n'
 import { theme } from '../theme'
 
@@ -90,6 +90,9 @@ const props = defineProps({
   showHidden: { type: Boolean, default: true },
   showHill: { type: Boolean, default: false },
   showTrees: { type: Boolean, default: false }, // "under trees: unverified", off unless asked for
+  floodUrl: { type: String, default: DATA_URLS.flood }, // the landing page passes the light preview file
+  showFloodRisk: { type: Boolean, default: false }, // likelihood maps, drawn under the observed flood
+  showLandslideRisk: { type: Boolean, default: false },
   selected: { type: String, default: null },
   interactive: { type: Boolean, default: true },
   showDates: { type: Boolean, default: true },
@@ -201,7 +204,7 @@ function floodFilter(kind) {
 const FLOOD_LAYERS = { 'water-fill': 'open', 'water-line': 'open', 'hidden-fill': 'hidden', 'hidden-line': 'hidden', 'trees-fill': 'trees' }
 
 function addOverlay(map, { withHidden }) {
-  map.addSource('flood', { type: 'geojson', data: DATA_URLS.flood })
+  map.addSource('flood', { type: 'geojson', data: props.floodUrl })
   map.addSource('hill', { type: 'geojson', data: DATA_URLS.hill })
   const c = colors()
   map.addLayer({ id: 'water-fill', type: 'fill', source: 'flood', filter: floodFilter('open'), paint: { 'fill-color': c.water, 'fill-opacity': 0.72 } })
@@ -231,6 +234,18 @@ function addOverlay(map, { withHidden }) {
   })
 }
 
+// Risk maps are images (about 0.5 MB each), so each is only fetched the first time it is switched on.
+function setRisk(map, key, on) {
+  const id = `risk-${key}`
+  const overlay = riskOverlays[key]
+  if (!map || !overlay || !map.getLayer('water-fill')) return
+  if (on && !map.getSource(id)) {
+    map.addSource(id, { type: 'image', url: overlay.url, coordinates: overlay.coordinates })
+    map.addLayer({ id, type: 'raster', source: id, paint: { 'raster-opacity': 0.85, 'raster-resampling': 'nearest', 'raster-fade-duration': 0 } }, 'water-fill')
+  }
+  setVis(map, id, on)
+}
+
 function setVis(map, id, on) {
   if (map?.getLayer(id)) map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none')
 }
@@ -248,6 +263,8 @@ function applyVisibility() {
     setVis(map, 'water-fill', props.showWater && hasFlood)
     setVis(map, 'water-line', props.showWater && hasFlood)
     setVis(map, 'hill', props.showHill)
+    setRisk(map, 'flood', props.showFloodRisk)
+    setRisk(map, 'landslide', props.showLandslideRisk)
   }
   setVis(lband, 'hidden-fill', props.showHidden && hasFlood)
   setVis(lband, 'hidden-line', props.showHidden && hasFlood)
@@ -391,7 +408,7 @@ onBeforeUnmount(() => {
 })
 
 watch(() => props.scene, refreshData)
-watch(() => [props.basemap, props.showWater, props.showHidden, props.showHill, props.showTrees], applyVisibility)
+watch(() => [props.basemap, props.showWater, props.showHidden, props.showHill, props.showTrees, props.showFloodRisk, props.showLandslideRisk], applyVisibility)
 watch(() => props.selected, highlightMarkers)
 watch(theme, () => {
   applyColors()

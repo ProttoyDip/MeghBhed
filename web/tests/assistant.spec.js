@@ -76,3 +76,25 @@ test('welcome gradient unloads once a conversation starts; reset restores it', a
   await expect(section.locator('canvas')).toHaveCount(1)
   await expect(page.locator('h1')).toBeVisible()
 })
+
+test('an answer from an AI service names the service and model; the helper is named otherwise', async ({ page }) => {
+  await prime(page, {
+    ask: {
+      providers: [{ id: 'groq', label: 'Groq', model: 'openai/gpt-oss-20b' }],
+      reply: { answer: 'In Satkania about 106,169 people live within 100 m of the missed flood (an upper bound).', source: 'stats.json → Satkania', provider: 'Groq', model: 'openai/gpt-oss-20b', fallback: false },
+    },
+  })
+  await page.goto('/assistant')
+  await expect(page.getByLabel('Model')).toContainText('Groq · openai/gpt-oss-20b')
+  await ask(page, 'How many people in Satkania?')
+  await expect(lastAnswer(page)).toContainText('106,169 people live within 100 m')
+  await expect(lastAnswer(page).getByTestId('answered-by')).toHaveText('Answered by Groq · openai/gpt-oss-20b')
+  await expect(lastAnswer(page)).toContainText('Source: stats.json → Satkania')
+})
+
+test('with no AI service configured the built-in helper answers and says so', async ({ page }) => {
+  await ask(page, 'How many people in Hathazari?')
+  await expect(lastAnswer(page).getByTestId('answered-by')).toHaveText('Answered by the built-in helper')
+  await expect(page.getByLabel('Model')).toHaveCount(0)
+  await expect(page.getByText('Questions are sent to an external AI service.')).toBeVisible()
+})

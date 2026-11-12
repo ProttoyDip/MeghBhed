@@ -165,6 +165,40 @@
         <p class="mt-3 text-xs text-ink-3">{{ t('stats.footnote') }}</p>
       </section>
 
+      <!-- Risk maps: likelihood, kept apart from the observed flood above -->
+      <section v-if="riskRows.length" class="mt-16" aria-labelledby="risk-title">
+        <h2 id="risk-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('stats.risk.title') }}</h2>
+        <p class="mt-1 max-w-3xl text-sm text-ink-2">{{ t('stats.risk.lead') }}</p>
+        <div class="thin-scroll mt-5 overflow-x-auto">
+          <table class="w-full min-w-[42rem] border-collapse text-left text-sm" data-table="risk">
+            <thead>
+              <tr class="border-b-2 border-ink">
+                <th v-for="(c, i) in t('stats.risk.cols')" :key="c" scope="col" class="py-2.5 pr-4 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-ink-3 last:pr-0" :class="i ? 'text-right' : ''">{{ c }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="r in riskRows" :key="r.id" class="border-b border-rule">
+                <td class="py-3 pr-4 font-medium text-ink">{{ loc(r) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(r.floodPeople) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink-2">{{ fixed(r.floodKm2) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(r.slidePeople) }}</td>
+                <td class="num py-3 text-right font-mono text-ink-2">{{ fixed(r.slideKm2) }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="border-t-2 border-ink font-semibold">
+                <td class="py-3 pr-4 text-ink">{{ t('stats.risk.total') }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(riskTotals.floodPeople) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink-2">{{ fixed(riskTotals.floodKm2) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(riskTotals.slidePeople) }}</td>
+                <td class="num py-3 text-right font-mono text-ink-2">{{ fixed(riskTotals.slideKm2) }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="mt-3 max-w-3xl text-xs text-ink-3">{{ risk.flood?.scope === 'open land' ? t('stats.risk.noteOpen') : t('stats.risk.note') }}</p>
+      </section>
+
       <!-- Model comparison -->
       <section v-if="modelRows.length" class="mt-16" aria-labelledby="models-title">
         <h2 id="models-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('stats.models.title') }}</h2>
@@ -191,7 +225,7 @@
             </tbody>
           </table>
         </div>
-        <p class="mt-3 max-w-3xl text-xs text-ink-3">{{ t('stats.models.note') }}</p>
+        <p class="mt-3 max-w-3xl text-xs text-ink-3">{{ t('stats.models.note') }} <router-link to="/validation" class="font-medium text-ink underline underline-offset-2">{{ t('stats.models.more') }}</router-link></p>
       </section>
 
       <div role="status" aria-live="polite" class="fixed bottom-5 left-1/2 z-50 -translate-x-1/2">
@@ -210,7 +244,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { FileSpreadsheet, MapPinned, Info, Search, ArrowDown, ArrowUpRight, CircleCheck, CircleDashed, Check } from 'lucide-vue-next'
 import CountUp from '../components/CountUp.vue'
 import GradientBackdrop from '../components/GradientBackdrop.vue' // SOFFIT GRADIENT (trial)
-import { upazilas, totals, agreeLabel, modelComparison } from '../data/results'
+import { upazilas, totals, agreeLabel, modelComparison, risk } from '../data/results'
 import { t, n, fixed, loc, lang } from '../i18n'
 import { onVisible, reducedMotion } from '../motion'
 
@@ -223,8 +257,35 @@ const kpis = [
   { value: totals.hill, decimals: 0 },
 ]
 
+// High and very high risk per upazila, from the two likelihood maps (pipeline/11 and 12)
+const riskRows = computed(() => {
+  if (!risk.flood && !risk.landslide) return []
+  const slide = Object.fromEntries((risk.landslide?.upazilas ?? []).map((u) => [u.id, u]))
+  const flood = Object.fromEntries((risk.flood?.upazilas ?? []).map((u) => [u.id, u]))
+  const idsAll = [...new Set([...Object.keys(flood), ...Object.keys(slide)])]
+  const known = Object.fromEntries(upazilas.map((u) => [u.id, u]))
+  return idsAll
+    .map((id) => ({
+      id,
+      name: flood[id]?.name ?? slide[id]?.name,
+      bn: known[id]?.bn,
+      floodPeople: flood[id]?.high_or_very_high_people ?? 0,
+      floodKm2: flood[id]?.high_or_very_high_km2 ?? 0,
+      slidePeople: slide[id]?.people_within_100m_high_or_very_high ?? 0,
+      slideKm2: (slide[id]?.high_km2 ?? 0) + (slide[id]?.very_high_km2 ?? 0),
+    }))
+    .filter((r) => r.floodPeople + r.slidePeople > 0)
+    .sort((a, b) => b.floodPeople + b.slidePeople - (a.floodPeople + a.slidePeople))
+})
+const riskTotals = computed(() =>
+  riskRows.value.reduce(
+    (s, r) => ({ floodPeople: s.floodPeople + r.floodPeople, floodKm2: s.floodKm2 + r.floodKm2, slidePeople: s.slidePeople + r.slidePeople, slideKm2: s.slideKm2 + r.slideKm2 }),
+    { floodPeople: 0, floodKm2: 0, slidePeople: 0, slideKm2: 0 },
+  ),
+)
+
 // Rule vs classifiers for the open-flood map (pipeline/10_flood_models.py)
-const modelNames = { 'rule (HH drop and HH level)': 'stats.models.rule', random_forest: 'stats.models.rf', lightgbm: 'stats.models.lgbm' }
+const modelNames = { 'rule (HH drop and HH level)': 'stats.models.rule', logistic_regression: 'stats.models.lr', random_forest: 'stats.models.rf', lightgbm: 'stats.models.lgbm' }
 const modelRows = computed(() =>
   modelComparison.models.map((m) => ({
     key: m.model,

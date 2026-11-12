@@ -1,6 +1,6 @@
 // Rule-based stand-in for the planned grounded assistant. It answers only from
 // the pipeline's figures in stats.json (loaded by results.js). No network calls.
-import { upazilas, totals, agreeLabel, agreeLabelBn, formatInt, toBanglaDigits } from './results'
+import { upazilas, totals, agreeLabel, agreeLabelBn, formatInt, toBanglaDigits, modelComparison, risk } from './results'
 
 const SOURCE = 'stats.json (provisional) · NISAR GCOV 12 & 19 Jul · DSWx-S1 16 Jul · WorldPop'
 
@@ -13,6 +13,43 @@ function findUpazila(q) {
 
 const num = (n, bn) => (bn ? toBanglaDigits(formatInt(n)) : formatInt(n))
 const km = (n, bn) => (bn ? `${toBanglaDigits(n.toFixed(1))} বর্গকিমি` : `${n.toFixed(1)} km²`)
+const pc = (v, bn) => (bn ? `${toBanglaDigits((v * 100).toFixed(1))}%` : `${(v * 100).toFixed(1)}%`)
+const MODEL_NAMES = { 'rule (HH drop and HH level)': ['Threshold rule', 'থ্রেশহোল্ড নিয়ম'], logistic_regression: ['Logistic regression', 'লজিস্টিক রিগ্রেশন'], random_forest: ['Random Forest', 'Random Forest'], lightgbm: ['LightGBM', 'LightGBM'] }
+
+// Model comparison: numbers come only from model_comparison.json
+function modelAnswer(bn) {
+  const rows = modelComparison.tuned ?? []
+  if (!rows.length) return null
+  const rule = rows.find((m) => m.model === modelComparison.pipeline_uses) ?? rows[0]
+  const best = [...rows].filter((m) => m !== rule).sort((a, b) => b.f1 - a.f1)[0]
+  const name = (m) => MODEL_NAMES[m.model]?.[bn ? 1 : 0] ?? m.model
+  return {
+    text: bn
+      ? `যাচাইয়ে সবচেয়ে ভালো নম্বর পেয়েছে ${name(best)} (F1 ${pc(best.f1, bn)}, নির্ভুলতা ${pc(best.accuracy, bn)}), কিন্তু মানচিত্রে থ্রেশহোল্ড নিয়মটিই ব্যবহৃত হয়েছে। কারণ, বন্যার খবর নেই এমন জায়গার কাছে নিয়মটি খোলা জমির মাত্র ${toBanglaDigits(rule.test_flagged_pct_near_dry_points.toFixed(1))}% চিহ্নিত করে, আর ${name(best)} করে ${toBanglaDigits(best.test_flagged_pct_near_dry_points.toFixed(1))}%।`
+      : `${name(best)} scores highest in validation (F1 ${pc(best.f1)}, accuracy ${pc(best.accuracy)}), but the map uses the threshold rule. Near places with no flood report the rule flags only ${rule.test_flagged_pct_near_dry_points.toFixed(1)}% of open ground, against ${best.test_flagged_pct_near_dry_points.toFixed(1)}% for ${name(best)}.`,
+    facts: rows.map((m) => [name(m), `F1 ${pc(m.f1, bn)} · ${bn ? 'নির্ভুলতা' : 'accuracy'} ${pc(m.accuracy, bn)}`]),
+    link: { to: '/validation', label: bn ? 'কতটা ভালো কাজ করে' : 'How well it works' },
+    source: 'model_comparison.json · 5 km spatial cross-validation',
+  }
+}
+
+// Risk maps: numbers come only from risk.json
+function riskAnswer(bn) {
+  const f = risk.flood?.totals
+  const s = risk.landslide?.totals
+  if (!f && !s) return null
+  const facts = []
+  if (f) facts.push([bn ? 'বন্যার ঝুঁকি: বেশি বা খুব বেশি' : 'Flood risk: high or very high', `${km(f.high_or_very_high_km2, bn)} · ${num(f.high_or_very_high_people, bn)} ${bn ? 'জন' : 'people'}`])
+  if (s) facts.push([bn ? 'ভূমিধসের ঝুঁকি: বেশি বা খুব বেশি' : 'Landslide risk: high or very high', `${km(s.high_or_very_high_km2, bn)} · ${num(s.people_within_100m_high_or_very_high, bn)} ${bn ? 'জন ১০০ মিটারের মধ্যে' : 'people within 100 m'}`])
+  return {
+    text: bn
+      ? 'ঝুঁকির মানচিত্র দুটি সম্ভাবনা দেখায়, পূর্বাভাস নয়। বন্যার ঝুঁকির মডেলটি একটি মাত্র বন্যা (জুলাই ২০২৬) থেকে শেখানো এবং শুধু খোলা জমির জন্য, তাই এর মানুষের সংখ্যা সর্বনিম্ন সীমা। ভূমিধসের ঝুঁকি একটি ভারযুক্ত সূচক, প্রশিক্ষিত মডেল নয়।'
+      : 'The two risk maps show likelihood, not a forecast. The flood-risk model was trained on a single flood (July 2026) and covers open land only, so its people figure is a lower bound. Landslide risk is a weighted index, not a trained model.',
+    facts,
+    link: { to: '/map', label: bn ? 'ম্যাপে ঝুঁকির স্তর চালু করুন' : 'Turn on the risk layers on the map' },
+    source: 'risk.json · pipeline/11_flood_risk.py, 12_landslide_risk.py',
+  }
+}
 
 function upazilaAnswer(u, bn) {
   const facts = bn
@@ -53,6 +90,16 @@ export function answer(q) {
         : [['Missed by the 16 Jul C-band map', km(totals.hidden)], ['Seen by both', km(totals.both)], ['Hill Risk sites', num(totals.hill)]],
       source: SOURCE,
     }
+  }
+
+  if (/model|accura|precision|recall|\bf1\b|classifier|how well|validat|random forest|lightgbm|মডেল|নির্ভুল|কতটা ভালো/.test(lower)) {
+    const a = modelAnswer(bn)
+    if (a) return a
+  }
+
+  if (!/hill risk|পাহাড় ঝুঁকি/.test(lower) && /risk|susceptib|likel|ঝুঁকি|সম্ভাবনা/.test(lower)) {
+    const a = riskAnswer(bn)
+    if (a) return a
   }
 
   if (/landslide|hill|slope|ভূমিধস|পাহাড়/.test(lower)) {

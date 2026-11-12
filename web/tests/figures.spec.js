@@ -35,7 +35,7 @@ test('table sorts by name', async ({ page }) => {
 test('district filter and name search work, with an empty state', async ({ page }) => {
   await page.getByLabel('District').selectOption('Chattogram')
   await expect(upazilaRows(page)).toHaveCount(15)
-  await expect(page.locator('tfoot')).toContainText('Total · 15 upazilas')
+  await expect(page.locator('tfoot').first()).toContainText('Total · 15 upazilas')
 
   await page.getByLabel('District').selectOption('')
   await page.getByLabel('Filter by name').fill('zzz')
@@ -75,7 +75,7 @@ test('KML export is valid and has one placemark per upazila', async ({ page }) =
 })
 
 test('clicking a row opens that upazila on the map', async ({ page }) => {
-  await page.locator('tbody tr', { hasText: 'Raozan' }).click()
+  await upazilaRows(page).filter({ hasText: 'Raozan' }).click()
   await expect(page).toHaveURL(/\/map\?u=raozan/)
   await expect(page.locator('aside')).toContainText('16.0 km²')
 })

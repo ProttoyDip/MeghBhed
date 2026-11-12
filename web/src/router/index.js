@@ -8,6 +8,7 @@ const routes = [
   { path: '/', name: 'Home', component: Home, meta: { title: 'meta.home' } },
   { path: '/map', name: 'Map', component: () => import('../views/Map.vue'), meta: { title: 'meta.map', fullBleed: true } },
   { path: '/statistics', name: 'Statistics', component: () => import('../views/Statistics.vue'), meta: { title: 'meta.figures' } },
+  { path: '/validation', name: 'Validation', component: () => import('../views/Validation.vue'), meta: { title: 'meta.validation' } },
   { path: '/assistant', name: 'Assistant', component: () => import('../views/Assistant.vue'), meta: { title: 'meta.ask', fullBleed: true } },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/NotFound.vue'), meta: { title: 'meta.notFound' } },
 ]

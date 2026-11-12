@@ -12,6 +12,7 @@
             {{ t('home.titleA') }}<span class="text-missed">{{ t('home.titleAccent') }}</span>{{ t('home.titleB') }}
           </h1>
           <p class="mt-6 max-w-[32rem] text-lg leading-relaxed text-ink-2 pretty">{{ t('home.lead') }}</p>
+          <p class="mt-4 max-w-[32rem] border-l-2 border-missed pl-3 text-sm font-medium leading-relaxed text-ink">{{ t('home.passLine') }}</p>
 
           <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <router-link to="/map" class="btn btn-ink group px-5 py-3">
@@ -32,7 +33,8 @@
               <span class="font-mono text-[11px] text-ink-3">22.4°N 91.9°E</span>
             </div>
             <div class="h-[360px] sm:h-[460px] lg:h-[520px]">
-              <SwipeMap :interactive="false" :show-dates="false" :initial-split="46" :initial-view="{ center: [91.98, 22.4], zoom: 8.6 }" />
+              <!-- The preview uses a small, simplified copy of the flood polygons, not the full 4 MB file -->
+              <SwipeMap :interactive="false" :show-dates="false" :initial-split="46" :initial-view="{ center: [91.98, 22.4], zoom: 8.6 }" :flood-url="DATA_URLS.floodPreview" />
             </div>
             <div class="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-rule px-3 py-2.5 text-xs text-ink-2">
               <span class="inline-flex items-center gap-2"><span class="h-3 w-4 rounded-[2px] bg-water"></span> {{ t('home.legendOpen') }}</span>
@@ -41,6 +43,14 @@
           </div>
           <figcaption class="mt-3 w-fit rounded-sm bg-paper/85 px-1.5 py-0.5 font-mono text-[11px] text-ink-3">{{ t('home.figCaption') }}</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <!-- Data sources, in one line -->
+    <section class="border-b border-rule bg-card" :aria-label="t('home.sourcesLabel')">
+      <div class="mx-auto flex max-w-[88rem] flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 sm:px-6">
+        <span class="label !text-[10px]">{{ t('home.sourcesLabel') }}</span>
+        <a v-for="d in datasets" :key="d.name" :href="d.url" target="_blank" rel="noopener" class="font-mono text-[11px] text-ink-2 underline decoration-rule underline-offset-4 hover:text-ink hover:decoration-ink">{{ d.name }}</a>
       </div>
     </section>
 
@@ -110,8 +120,13 @@
               </tr>
             </tbody>
           </table>
-          <p class="mt-3 text-sm text-ink-2">{{ t('home.why.note') }}</p>
         </div>
+
+        <!-- The result of the test -->
+        <p v-reveal class="mt-8 flex max-w-3xl gap-3 border-l-[3px] border-hill bg-hill-soft/60 px-4 py-3 leading-relaxed text-ink">
+          <TriangleAlert class="mt-0.5 h-5 w-5 shrink-0 text-hill" />
+          <span><strong class="font-semibold">{{ t('home.why.resultLabel') }}</strong> {{ t('home.why.result') }}</span>
+        </p>
       </div>
     </section>
 
@@ -261,7 +276,7 @@ import { ArrowRight, ArrowUpRight, TriangleAlert } from 'lucide-vue-next'
 import ScatterDiagram from '../components/ScatterDiagram.vue'
 import CountUp from '../components/CountUp.vue'
 import GradientBackdrop from '../components/GradientBackdrop.vue' // SOFFIT GRADIENT (trial)
-import { sitrep } from '../data/results'
+import { sitrep, DATA_URLS } from '../data/results'
 import { t, n, fixed, lang } from '../i18n'
 
 const SwipeMap = defineAsyncComponent(() => import('../components/SwipeMap.vue'))
@@ -286,13 +301,13 @@ const useLinks = ['/map', '/statistics', '/statistics', null]
 
 const stepData = [
   'NISAR L2 GCOV · Provisional V1 · 10 m',
-  'ESA WorldCover 2021 · 10 m',
-  'OPERA DSWx-S1 V1 · 30 m',
+  'ESA WorldCover 2021 · 10 m · HAND 30 m',
+  'OPERA DSWx-S1 V1 · 30 m · 16 Jul and four June dates',
   'WorldPop · 100 m · HDX COD-AB',
 ]
 
 const datasets = [
-  { name: 'NISAR L2 GCOV', provider: 'NASA / ISRO, ASF DAAC', use: 'Hidden-flood detection', useBn: 'লুকানো বন্যা শনাক্তকরণ', res: '10 m', url: 'https://nisar-docs.asf.alaska.edu/' },
+  { name: 'NISAR L2 GCOV', provider: 'NASA / ISRO, ASF DAAC', use: 'Flood detection', useBn: 'বন্যা শনাক্তকরণ', res: '10 m', url: 'https://nisar-docs.asf.alaska.edu/' },
   { name: 'OPERA DSWx-S1', provider: 'NASA JPL, PO.DAAC', use: 'C-band comparison', useBn: 'C-band তুলনা', res: '30 m', url: 'https://doi.org/10.5067/OPDSWS1-L3V1' },
   { name: 'ESA WorldCover 2021', provider: 'ESA', use: 'Tree and built-up masks', useBn: 'গাছ ও বসতির মাস্ক', res: '10 m', url: 'https://esa-worldcover.org/' },
   { name: 'WorldPop counts', provider: 'Univ. of Southampton', use: 'People per upazila', useBn: 'উপজেলাপ্রতি জনসংখ্যা', res: '100 m', url: 'https://hub.worldpop.org/' },

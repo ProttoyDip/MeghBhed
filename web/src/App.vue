@@ -149,6 +149,7 @@ const navItems = [
   { key: 'nav.overview', path: '/' },
   { key: 'nav.map', path: '/map' },
   { key: 'nav.figures', path: '/statistics' },
+  { key: 'nav.validation', path: '/validation' },
   { key: 'nav.ask', path: '/assistant' },
 ]
 </script>

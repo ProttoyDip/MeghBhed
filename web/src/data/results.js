@@ -13,7 +13,9 @@ export const DATA_URLS = {
   stats: '/data/stats.json',
   models: '/data/model_comparison.json',
   flood: '/data/flood.geojson',
+  floodPreview: '/data/flood_preview.geojson', // small simplified copy for the landing page
   hill: '/data/hill_risk.geojson',
+  risk: '/data/risk.json',
 }
 
 // 'flood' says what the overlay shows for each NISAR date:
@@ -48,6 +50,13 @@ export const method = reactive({})
 export const modelComparison = reactive({ models: [], test: {}, pipeline_uses: '' })
 export const loadState = reactive({ ok: false, error: null })
 
+// Risk maps (pipeline/11_flood_risk.py and 12_landslide_risk.py): likelihood maps, not forecasts.
+// risk.flood / risk.landslide hold the per-upazila tables, class cut-offs and validation numbers;
+// overlays hold each map image and the lon/lat of its four corners, for MapLibre's image source.
+export const risk = reactive({ flood: null, landslide: null })
+export const riskOverlays = reactive({ flood: null, landslide: null })
+export const RISK_CLASSES = ['low', 'medium', 'high', 'very high']
+
 export const agreeLabel = {
   'both-dates': 'Drained within a week',
   'one-date': 'Still wet on 19 July or not covered',
@@ -74,6 +83,19 @@ async function getJson(url) {
   return res.json()
 }
 
+// Risk maps load in the background; the pages that use them react when they arrive.
+async function loadRisk() {
+  const r = await getJson(DATA_URLS.risk).catch(() => null)
+  for (const key of ['flood', 'landslide']) {
+    const block = r?.[key]
+    if (!block?.overlay) continue
+    const bounds = await getJson(`/data/${block.overlay.bounds}`).catch(() => null)
+    if (!bounds) continue
+    risk[key] = block
+    riskOverlays[key] = { url: `/data/${block.overlay.image}`, coordinates: bounds.coordinates }
+  }
+}
+
 // Called once from main.js before the app mounts, so pages can read the arrays directly.
 export async function loadResults() {
   try {
@@ -87,6 +109,7 @@ export async function loadResults() {
     Object.assign(method, stats.method)
     if (models) Object.assign(modelComparison, models)
     loadState.ok = true
+    loadRisk() // not awaited: the risk maps are optional and must not delay the first paint
   } catch (e) {
     // The pages still render (with no rows) and say that the figures did not load
     loadState.error = String(e?.message ?? e)

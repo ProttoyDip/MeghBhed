@@ -1,9 +1,17 @@
 // Shared helpers for the e2e suite.
 
-export const ROUTES = ['/', '/map', '/statistics', '/assistant', '/does-not-exist']
+export const ROUTES = ['/', '/map', '/statistics', '/validation', '/assistant', '/does-not-exist']
 
 // Start a test with a known language + theme (stored the same way the app stores them)
-export async function prime(page, { lang = 'en', theme = 'light' } = {}) {
+export async function prime(page, { lang = 'en', theme = 'light', ask = null } = {}) {
+  // The assistant's server function: by default no AI service is configured, so the built-in helper answers.
+  // Pass ask: { providers, reply } to play the part of a configured service.
+  await page.route('**/api/ask', (route) =>
+    route.fulfill({
+      contentType: 'application/json',
+      body: JSON.stringify(route.request().method() === 'GET' ? { providers: ask?.providers ?? [] } : (ask?.reply ?? { answer: null, source: null, provider: null, model: null, fallback: true })),
+    }),
+  )
   await page.addInitScript(
     ([l, th]) => {
       if (!sessionStorage.getItem('__primed')) {

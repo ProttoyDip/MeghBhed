@@ -53,6 +53,7 @@
                   </dl>
                   <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <p v-if="m.source" class="font-mono text-[11px] text-ink-3">{{ t('common.source') }}: {{ m.source }}</p>
+                    <p class="font-mono text-[11px] text-ink-3" data-testid="answered-by">{{ m.provider ? t('ask.answeredBy', { provider: m.provider, model: m.model }) : t('ask.answeredByHelper') }}</p>
                     <router-link v-if="m.link" :to="m.link.to" class="group inline-flex items-center gap-1 text-sm font-medium text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-ink">
                       {{ m.link.label }} <ArrowRight class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                     </router-link>
@@ -68,6 +69,13 @@
       <!-- Composer -->
       <div class="relative px-4 pb-4 pt-3 sm:px-8">
         <div v-if="messages.length" class="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-linear-to-t from-paper to-transparent"></div>
+        <div v-if="providers.length" class="mx-auto mb-2 flex max-w-2xl items-center justify-end gap-2">
+          <label for="ask-model" class="font-mono text-[11px] text-ink-3">{{ t('ask.modelLabel') }}</label>
+          <select id="ask-model" v-model="choice" class="max-w-[70%] rounded-md border border-rule bg-card px-2 py-1 font-mono text-[11px] text-ink focus:border-ink focus:outline-none">
+            <option value="">{{ t('ask.modelAuto') }}</option>
+            <option v-for="p in providers" :key="p.id" :value="p.id">{{ p.label }} · {{ p.model }}</option>
+          </select>
+        </div>
         <PromptInput v-model="input" :placeholder="t('ask.placeholder')" :disabled="busy" @submit="send" />
         <p class="mx-auto mt-2.5 max-w-2xl text-center text-[11px] text-ink-3">{{ t('ask.footnote') }}</p>
       </div>
@@ -83,6 +91,7 @@
       <ul class="mt-3 space-y-2 text-sm text-ink-2">
         <li v-for="w in t('ask.wont')" :key="w" class="flex gap-2"><X class="mt-0.5 h-4 w-4 shrink-0 text-missed" />{{ w }}</li>
       </ul>
+      <p class="mt-4 flex gap-2 text-sm text-ink-2"><Info class="mt-0.5 h-4 w-4 shrink-0 text-hill" />{{ t('ask.external') }}</p>
       <p class="label mt-8">{{ t('ask.covered') }}</p>
       <p class="mt-3 text-sm leading-relaxed text-ink-2">{{ upazilas.map((u) => loc(u)).join(', ') }}</p>
     </aside>
@@ -90,20 +99,53 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue'
-import { ArrowRight, CornerDownLeft, Check, X, SquarePen, Sparkles } from 'lucide-vue-next'
+import { ref, nextTick, onMounted } from 'vue'
+import { ArrowRight, CornerDownLeft, Check, X, SquarePen, Sparkles, Info } from 'lucide-vue-next'
 import PromptInput from '../components/PromptInput.vue'
 import GradientBackdrop from '../components/GradientBackdrop.vue' // SOFFIT GRADIENT (trial)
 import { answer } from '../data/assistant'
 import { upazilas } from '../data/results'
-import { t, loc } from '../i18n'
+import { t, loc, lang } from '../i18n'
 
 const input = ref('')
 const busy = ref(false)
 const messages = ref([])
 const scrollRef = ref(null)
 let nextId = 0
-let pendingTimer = 0
+let current = null // the question being answered: { id, abort }
+
+const MIN_WAIT_MS = 650 // keeps the loading state from flashing
+const MAX_WAIT_MS = 20000 // after this the built-in helper answers
+
+// Which AI services the server has keys for (names and model ids only), for the model picker
+const providers = ref([])
+const choice = ref('') // '' = automatic order
+onMounted(async () => {
+  try {
+    const res = await fetch('/api/ask')
+    if (res.ok) providers.value = (await res.json()).providers ?? []
+  } catch {
+    // no server function (static hosting): the helper answers
+  }
+})
+
+// Ask the server. Returns null when the helper should answer: no service configured, every
+// service failed its grounding check, a network error, or no reply within MAX_WAIT_MS.
+async function askServer(question, signal) {
+  try {
+    const res = await fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ question, lang: lang.value, provider: choice.value || undefined }),
+      signal,
+    })
+    if (!res.ok) return null
+    const data = await res.json()
+    return data.fallback || !data.answer ? null : data
+  } catch {
+    return null
+  }
+}
 
 async function scrollDown() {
   await nextTick()
@@ -120,17 +162,28 @@ function send(text) {
   messages.value.push({ id: pendingId, role: 'assistant', pending: true })
   scrollDown()
 
-  pendingTimer = setTimeout(() => {
+  const abort = new AbortController()
+  const mine = (current = { id: pendingId, abort })
+  const timeout = setTimeout(() => abort.abort(), MAX_WAIT_MS)
+  const wait = new Promise((resolve) => setTimeout(resolve, MIN_WAIT_MS))
+  Promise.all([askServer(q, abort.signal), wait]).then(([data]) => {
+    clearTimeout(timeout)
+    if (current !== mine) return // "New chat" was pressed meanwhile
+    const reply = data
+      ? { text: data.answer, facts: [], source: data.source, provider: data.provider, model: data.model }
+      : answer(q) // the built-in keyword helper
     const i = messages.value.findIndex((m) => m.id === pendingId)
-    if (i !== -1) messages.value.splice(i, 1, { id: pendingId, role: 'assistant', ...answer(q) })
+    if (i !== -1) messages.value.splice(i, 1, { id: pendingId, role: 'assistant', ...reply })
     busy.value = false
+    current = null
     scrollDown()
-  }, 650)
+  })
 }
 
 // Clear the conversation (and any answer still being looked up) and return to the welcome screen
 function newChat() {
-  clearTimeout(pendingTimer)
+  current?.abort.abort()
+  current = null
   busy.value = false
   messages.value = []
   input.value = ''
