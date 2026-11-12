@@ -78,12 +78,13 @@ If it prints *"classifier flags >3x the baseline"*, open `outputs/feature_import
 
 ## 5. Put the results in the app (Partho)
 
-`08_stats.py` copies three files to `web/public/data/`:
+`08_stats.py` copies these files to `web/public/data/`:
 
 | File | Used by |
 | --- | --- |
 | `stats.json` | Statistics page, map side panel, AI assistant |
 | `flood.geojson` | Map: `kind` = `hidden` (missed by the 16 Jul C-band map), `open` (seen by both) or `trees` (unverified), each with `drained` |
+| `flood_preview.geojson` | Landing-page map preview: a light copy (under 450 KB) with larger patches only |
 | `hill_risk.geojson` | Map: Hill Risk points |
 
 The upazila objects in `stats.json` keep the fields the app was designed around: `id, name, bn, district, districtBn, center, hidden, both, people, agree, hill`, plus the fields listed under "Version 4 changes" below. The app reads them through `web/src/data/results.js`.
@@ -160,3 +161,50 @@ So the headline map changed from "flood hidden under trees" to "open flood on 12
   set `DETECTOR = "ml"`.
 
 After updating: `python pipeline/run_all.py --from 3`, then `python pipeline/10_flood_models.py`.
+
+## Risk maps (steps 11 and 12)
+
+Two likelihood (susceptibility) maps, **not forecasts**. They do not change the flood map, the thresholds or the labels.
+
+```
+python pipeline/11_flood_risk.py        # about 6 minutes
+python pipeline/12_landslide_risk.py    # under 1 minute
+```
+
+They need steps 1–8 to have run. Step 11 also needs `shap` (in `environment.yml`). Shared helpers are in `risk_common.py`.
+
+| Script | What it makes |
+| --- | --- |
+| `11_flood_risk.py` | **Flood risk in rain like July 2026.** A Random Forest trained on the 12 July open flood, from terrain only (HAND, elevation, slope, relief, distance to June water and to the coast), on open land. Writes `work/flood_risk_30m.tif` (0–1), `outputs/flood_risk_classes_30m.tif` (1 low to 4 very high), validation CSVs and SHAP plots in `outputs/xai/` |
+| `12_landslide_risk.py` | **Landslide risk** on slopes of 5° or more. A weighted index (slope 0.40, relief 0.20, rain 0.20, land cover 0.10, nearness to buildings 0.10), not a trained model. Writes `outputs/landslide_risk_classes_30m.tif` and check tables. Optional inputs in `data/landslide/`: `glc_export.csv` (NASA Global Landslide Catalog) and `susceptibility_2023.tif` (NASA global susceptibility map) |
+
+Both write to `outputs/risk.json` and, for the app, to `web/public/data/`: `flood_risk.png`, `landslide_risk.png` (transparent Web Mercator images, at most 4,000 px a side), their `*_bounds.json` corner files, and `risk.json` (per-upazila tables, class cut-offs, validation numbers, SHAP ranking).
+
+Read before using the numbers (details in `docs/METHOD.md` section 10):
+
+- **One flood.** The flood-risk model has seen only July 2026.
+- **Canopy bias.** The DEM is a surface model, so tree-covered land scores far too low for flood risk. Treat that map as an open-land map and its people figures as a lower bound.
+- **Buildings look like slopes.** City thanas get inflated landslide scores.
+- **The landslide index is a judgement**, checked against a few coarse records, not validated.
+
+## Data folders added after the first run
+
+All are under `data/` and git-ignored.
+
+| Folder | What is in it | Where it comes from | Used by |
+| --- | --- | --- | --- |
+| `data/dswx_s1_pre/` | OPERA DSWx-S1 `B01_WTR` for 7, 9, 19 and 21 June 2026, tiles T46QCK, T46QCL, T46QDK, T46QDL (16 files) | PO.DAAC, collection `OPERA_L3_DSWX-S1_V1`, found through NASA CMR; Earthdata login | Step 3 (June water), the label build |
+| `data/landslide/glc_export.csv` | NASA Global Landslide Catalog export, events 1988–2017 | `https://data.nasa.gov/docs/legacy/Global_Landslide_Catalog_Export/Global_Landslide_Catalog_Export_rows.csv` | Step 12, as a coarse check only |
+| `data/landslide/susceptibility_2023.tif` | NASA global landslide susceptibility map, 2023 update, about 1 km (the file NASA names `global-landslide-susceptibility-map-2-27-23.tif`) | `https://gpm.nasa.gov/sites/default/files/downloads/global-landslide-susceptibility-map-2-27-23.tif` | Step 12, comparison only |
+| `data/nisar_gunw/` | Two NISAR L2 GUNW interferograms on track 69: 18 Jun → 30 Jun (before the flood) and 30 Jun → 12 Jul (across the flood) | ASF, `NISAR_L2_GUNW_PROVISIONAL_V1`; Earthdata login | The coherence test only; no pipeline step reads it |
+
+The newer COOLR landslide catalogue could not be fetched: its services returned 404 or did not respond in November 2026. Step 12 runs without it.
+
+`10_flood_models.py` now also fits logistic regression, tunes each classifier's cut-off to the precision–recall break-even point inside each spatial fold, and writes SHAP rankings and two waterfall examples. See `docs/METHOD.md` section 11.
+
+## Later changes (steps 10 to 13)
+
+- **`10_flood_models.py`** reports three rows per trained model: the default cut-off, the fold-tuned cut-off (nested), and the "precision-recall break-even point on cross-validated predictions". The last is marked: precision, recall and F1 are equal there by definition, and it is not a threshold tested on unseen data.
+- **`11_flood_risk.py`** now estimates the ground under trees from the open land within 300 m. Tree-covered land then scores 0.49 to 1.19 times open land at the same ground HAND; the lowest band misses the 0.5 limit set in advance, so the script restricts the map and its people figures to open land ("Flood risk on open land"; the people figure is a lower bound). If the check passes on other data, the script keeps all land by itself.
+- **`12_landslide_risk.py`** counts a cell as slope only where the ground rises 20 m or more within 300 m, and takes slope from a lightly smoothed DEM in built-up cells. Flat built-up thanas no longer appear.
+- **`13_tree_flood.py`** (new, about 2 minutes, needs `data/nisar_gunw/`) tests an under-tree flood layer from the loss of NISAR coherence against four criteria fixed in advance. It writes `outputs/tree_flood_validation.json` and `outputs/tree_flood_models.csv`. **Two criteria fail**, so it writes no layer and nothing in the app changes. See `docs/METHOD.md` section 12.

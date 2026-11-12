@@ -4,6 +4,8 @@ Writes to outputs/ (and copies to web/public/data/):
   stats.json            per-upazila numbers in the same fields the app uses in concept.js
   flood.geojson         flood polygons: kind "hidden" (missed by the 16 Jul C-band map), "open" (seen by both)
                         or "trees" (under trees, unverified), each with a "drained" property
+  flood_preview.geojson a light copy for the landing page: larger "hidden" and "open" patches only,
+                        simplified harder, kind as the only property
   upazila_stats.csv     the same table for the slides and the validation check
   labels_30m.tif, drained_30m.tif   the 30 m comparison map and the drained flag
 
@@ -32,6 +34,7 @@ import config as C
 from common import ensure_dirs, load_grid, read_full
 
 MAX_GEOJSON_MB = 5.0
+MAX_PREVIEW_KB = 450      # flood_preview.geojson, the light copy for the landing page's small map
 
 
 def within(mask, metres):
@@ -175,6 +178,18 @@ def main():
             if size_mb <= MAX_GEOJSON_MB:
                 break
         print(f"flood.geojson: {len(g):,} polygons, {size_mb:.2f} MB (simplified to {tol:g} m)")
+        # light copy for the landing page: no under-tree cells, and only patches big enough to see at district scale
+        prev = g0[g0.kind.isin(["hidden", "open"])][["kind", "geometry"]]
+        for min_ha in (2, 3, 5, 8, 12, 20, 40):
+            pv = prev[prev.geometry.area >= min_ha * 1e4].copy()
+            pv["geometry"] = pv.geometry.simplify(C.RES_CMP * 2)
+            pv = pv[~pv.geometry.is_empty]
+            write_geojson(pv.to_crs(4326), C.OUT / "flood_preview.geojson", digits=4)
+            kb = (C.OUT / "flood_preview.geojson").stat().st_size / 1e3
+            if kb <= MAX_PREVIEW_KB:
+                break
+        print(f"flood_preview.geojson: {len(pv):,} polygons of {min_ha} ha or more, {kb:.0f} KB, "
+              f"{pv.geometry.area.sum() / 1e6:.0f} of {prev.geometry.area.sum() / 1e6:.0f} km² kept")
     shutil.copy(C.WORK / "labels_30m.tif", C.OUT / "labels_30m.tif")
     shutil.copy(C.WORK / "drained_30m.tif", C.OUT / "drained_30m.tif")
 
@@ -188,7 +203,7 @@ def main():
 
     if C.WEB_DATA.parent.exists():
         C.WEB_DATA.mkdir(parents=True, exist_ok=True)
-        for f in ("stats.json", "flood.geojson", "hill_risk.geojson"):
+        for f in ("stats.json", "flood.geojson", "flood_preview.geojson", "hill_risk.geojson"):
             if (C.OUT / f).exists():
                 shutil.copy(C.OUT / f, C.WEB_DATA / f)
         print(f"copied app files to {C.WEB_DATA}")
