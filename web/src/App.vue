@@ -41,16 +41,7 @@
           </button>
 
           <!-- Theme -->
-          <button
-            type="button"
-            class="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-md border border-rule text-ink transition-colors hover:border-ink/40 hover:bg-paper-2"
-            :aria-label="theme === 'dark' ? t('nav.toLight') : t('nav.toDark')"
-            :title="theme === 'dark' ? t('nav.toLight') : t('nav.toDark')"
-            @click="toggleTheme"
-          >
-            <Sun class="absolute h-[18px] w-[18px] transition-all duration-500" :class="theme === 'dark' ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-50 opacity-0'" :stroke-width="1.75" />
-            <Moon class="absolute h-[18px] w-[18px] transition-all duration-500" :class="theme === 'dark' ? 'rotate-90 scale-50 opacity-0' : 'rotate-0 scale-100 opacity-100'" :stroke-width="1.75" />
-          </button>
+          <SunMoonToggle />
 
           <a
             href="https://github.com/ProttoyDip/MeghBhed"
@@ -136,10 +127,10 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { Github, Menu, X, ArrowRight, Languages, Sun, Moon } from 'lucide-vue-next'
+import { Github, Menu, X, ArrowRight, Languages } from 'lucide-vue-next'
 import CursorFollower from './components/CursorFollower.vue'
 import { t, lang, toggleLang } from './i18n'
-import { theme, toggleTheme } from './theme'
+import SunMoonToggle from './components/SunMoonToggle.vue'
 
 const repo = 'https://github.com/ProttoyDip/MeghBhed'
 const menuOpen = ref(false)

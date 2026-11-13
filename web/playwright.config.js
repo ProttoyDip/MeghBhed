@@ -12,7 +12,9 @@ export default defineConfig({
   use: {
     baseURL: 'http://127.0.0.1:5173',
     channel: 'chrome',
-    trace: 'retain-on-failure',
+    // No trace screenshots: the Home page has a never-ending marquee, and screencasting every frame of it
+    // slowed the whole suite past its timeouts. Failure traces still keep DOM snapshots, actions and network.
+    trace: { mode: 'retain-on-failure', screenshots: false, snapshots: true },
     // MapLibre and the gradient need WebGL in headless Chrome
     launchOptions: { args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] },
   },

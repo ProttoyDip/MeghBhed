@@ -227,3 +227,52 @@ a, button, input, select, [tabindex] {
     display: none;
   }
 }
+
+/* Data-sources marquee on the Home page: two identical copies slide left by one copy's width, forever */
+.marquee {
+  position: relative;
+  overflow: hidden;
+}
+/* soft edges: two fixed fades in the strip colour on top of the moving links (cheaper than a mask) */
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  z-index: 1;
+  width: 2.5rem;
+  pointer-events: none;
+}
+.marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--color-card), transparent);
+}
+.marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--color-card), transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+.marquee-copy {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.25rem 1.25rem 0.25rem 0;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee::before, .marquee::after { display: none; }
+  .marquee-track { animation: none; width: auto; }
+  .marquee-copy { flex-wrap: wrap; row-gap: 0.5rem; }
+  .marquee-copy[aria-hidden="true"] { display: none; }
+}
