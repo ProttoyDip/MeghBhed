@@ -26,3 +26,9 @@ dist-ssr
 # Playwright
 test-results/
 playwright-report/
+
+# API keys for the assistant: never commit these. Only the empty template is tracked.
+.env
+.env.local
+.env.*.local
+!.env.example

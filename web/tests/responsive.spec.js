@@ -7,11 +7,28 @@ for (const route of ROUTES) {
   test(`${route}: no horizontal overflow on a phone`, async ({ page }) => {
     await prime(page)
     await page.goto(route)
-    await page.waitForTimeout(500)
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
-    expect(overflow).toBeLessThanOrEqual(0)
+    // Wait for the page's data (tables, figures) to render: the overflow used to come from a table
+    await expect(page.locator('main h1').first()).toBeAttached()
+    await page.waitForLoadState('networkidle')
+    await page.waitForTimeout(800)
+    const size = await page.evaluate(() => ({ doc: document.documentElement.scrollWidth, layout: window.innerWidth, screen: document.documentElement.clientWidth }))
+    // A wider document makes phones zoom the whole page out, cropping the header and content
+    expect(size.doc).toBeLessThanOrEqual(size.screen)
+    expect(size.layout).toBeLessThanOrEqual(size.screen)
   })
 }
+
+test('on a 320 px phone in Bangla, the header controls all fit on screen', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 })
+  await prime(page, { lang: 'bn' })
+  await page.goto('/statistics')
+  await expect(page.locator('main h1').first()).toBeAttached()
+  for (const button of await page.locator('header button').filter({ visible: true }).all()) {
+    const box = await button.boundingBox()
+    expect(box.x + box.width).toBeLessThanOrEqual(320)
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320)
+})
 
 test('mobile menu opens, navigates and closes', async ({ page }) => {
   await prime(page)
@@ -45,7 +62,7 @@ test('"New chat" is reachable on a phone and starts over', async ({ page }) => {
   await page.goto('/assistant')
   await expect(page.getByRole('button', { name: 'New chat' })).toHaveCount(0)
   await page.getByRole('button', { name: 'How many people in total?' }).click()
-  await expect(page.locator('ol > li').last()).toContainText('112,900')
+  await expect(page.locator('ol > li').last()).toContainText('587,479')
 
   const newChat = page.getByRole('button', { name: 'New chat' })
   await expect(newChat).toBeInViewport()

@@ -43,8 +43,8 @@
             <p class="mt-1 text-sm text-ink-2">{{ t('stats.chartSub') }}</p>
           </div>
           <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-2" :aria-label="t('stats.legend')">
-            <li class="inline-flex items-center gap-2"><span class="h-3 w-4 rounded-[2px] bg-water"></span>{{ t('common.openWater') }} · {{ t('common.bothSensors') }}</li>
-            <li class="inline-flex items-center gap-2"><span class="hatch-missed h-3 w-4 rounded-[2px] border border-missed"></span>{{ t('common.underTrees') }} · {{ t('common.nisarOnly') }}</li>
+            <li class="inline-flex items-center gap-2"><span class="h-3 w-4 rounded-[2px] bg-water"></span>{{ t('common.openWater') }}</li>
+            <li class="inline-flex items-center gap-2"><span class="hatch-missed h-3 w-4 rounded-[2px] border border-missed"></span>{{ t('common.underTrees') }}</li>
           </ul>
         </div>
 
@@ -106,13 +106,12 @@
               <select v-model="district" class="h-full rounded-md border border-rule bg-card px-3 text-sm text-ink focus:border-ink focus:outline-none">
                 <option value="">{{ t('stats.allDistricts') }}</option>
                 <option value="Chattogram">{{ lang === 'bn' ? 'চট্টগ্রাম' : 'Chattogram' }}</option>
-                <option value="Feni">{{ lang === 'bn' ? 'ফেনী' : 'Feni' }}</option>
               </select>
             </label>
           </div>
         </div>
 
-        <div class="thin-scroll mt-5 overflow-x-auto">
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
           <table class="w-full min-w-[46rem] border-collapse text-left text-sm">
             <thead>
               <tr class="border-b-2 border-ink">
@@ -166,6 +165,69 @@
         <p class="mt-3 text-xs text-ink-3">{{ t('stats.footnote') }}</p>
       </section>
 
+      <!-- Risk maps: likelihood, kept apart from the observed flood above -->
+      <section v-if="riskRows.length" class="mt-16" aria-labelledby="risk-title">
+        <h2 id="risk-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('stats.risk.title') }}</h2>
+        <p class="mt-1 max-w-3xl text-sm text-ink-2">{{ t('stats.risk.lead') }}</p>
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
+          <table class="w-full min-w-[42rem] border-collapse text-left text-sm" data-table="risk">
+            <thead>
+              <tr class="border-b-2 border-ink">
+                <th v-for="(c, i) in t('stats.risk.cols')" :key="c" scope="col" class="py-2.5 pr-4 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-ink-3 last:pr-0" :class="i ? 'text-right' : ''">{{ c }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="r in riskRows" :key="r.id" class="border-b border-rule">
+                <td class="py-3 pr-4 font-medium text-ink">{{ loc(r) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(r.floodPeople) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink-2">{{ fixed(r.floodKm2) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(r.slidePeople) }}</td>
+                <td class="num py-3 text-right font-mono text-ink-2">{{ fixed(r.slideKm2) }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr class="border-t-2 border-ink font-semibold">
+                <td class="py-3 pr-4 text-ink">{{ t('stats.risk.total') }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(riskTotals.floodPeople) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink-2">{{ fixed(riskTotals.floodKm2) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ n(riskTotals.slidePeople) }}</td>
+                <td class="num py-3 text-right font-mono text-ink-2">{{ fixed(riskTotals.slideKm2) }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <p class="mt-3 max-w-3xl text-xs text-ink-3">{{ risk.flood?.scope === 'open land' ? t('stats.risk.noteOpen') : t('stats.risk.note') }}</p>
+      </section>
+
+      <!-- Model comparison -->
+      <section v-if="modelRows.length" class="mt-16" aria-labelledby="models-title">
+        <h2 id="models-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('stats.models.title') }}</h2>
+        <p class="mt-1 max-w-3xl text-sm text-ink-2">{{ t('stats.models.lead') }}</p>
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
+          <table class="w-full min-w-[42rem] border-collapse text-left text-sm">
+            <thead>
+              <tr class="border-b-2 border-ink">
+                <th v-for="(c, i) in t('stats.models.cols')" :key="c" scope="col" class="py-2.5 pr-4 font-mono text-[11px] font-medium uppercase tracking-[0.1em] text-ink-3 last:pr-0" :class="i ? 'text-right' : ''">{{ c }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="m in modelRows" :key="m.key" class="border-b border-rule">
+                <td class="py-3 pr-4">
+                  <span class="font-medium text-ink">{{ m.name }}</span>
+                  <span v-if="m.used" class="ml-2 rounded-sm border border-ok/60 px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.08em] text-ok">{{ t('stats.models.used') }}</span>
+                </td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink">{{ fixed(m.f1, 2) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink-2">{{ fixed(m.falseAlarm) }}%</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink-2">{{ n(Math.round(m.km2)) }}</td>
+                <td class="num py-3 pr-4 text-right font-mono text-ink-2">{{ fixed(m.nearFlooded) }}%</td>
+                <td class="num py-3 text-right font-mono text-ink-2">{{ fixed(m.nearDry) }}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 max-w-3xl text-xs text-ink-3">{{ t('stats.models.note') }} <router-link to="/validation" class="font-medium text-ink underline underline-offset-2">{{ t('stats.models.more') }}</router-link></p>
+      </section>
+
       <div role="status" aria-live="polite" class="fixed bottom-5 left-1/2 z-50 -translate-x-1/2">
         <transition name="page">
           <p v-if="toast" class="flex items-center gap-2 rounded-md bg-ink px-4 py-2.5 text-sm text-paper shadow-lg">
@@ -182,26 +244,69 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { FileSpreadsheet, MapPinned, Info, Search, ArrowDown, ArrowUpRight, CircleCheck, CircleDashed, Check } from 'lucide-vue-next'
 import CountUp from '../components/CountUp.vue'
 import GradientBackdrop from '../components/GradientBackdrop.vue' // SOFFIT GRADIENT (trial)
-import { upazilas, totals, agreeLabel } from '../data/concept'
+import { upazilas, totals, agreeLabel, modelComparison, risk } from '../data/results'
 import { t, n, fixed, loc, lang } from '../i18n'
 import { onVisible, reducedMotion } from '../motion'
 
-const share = (u) => Math.round((u.hidden / (u.hidden + u.both)) * 100)
+const share = (u) => (u.hidden + u.both > 0 ? Math.round((u.hidden / (u.hidden + u.both)) * 100) : 0)
 
 const kpis = [
   { value: totals.people, decimals: 0 },
   { value: totals.hidden, decimals: 1, unit: 'km2' },
-  { value: Math.round((totals.hidden / (totals.hidden + totals.both)) * 100), decimals: 0, unit: '%' },
+  { value: share(totals), decimals: 0, unit: '%' },
   { value: totals.hill, decimals: 0 },
 ]
+
+// High and very high risk per upazila, from the two likelihood maps (pipeline/11 and 12)
+const riskRows = computed(() => {
+  if (!risk.flood && !risk.landslide) return []
+  const slide = Object.fromEntries((risk.landslide?.upazilas ?? []).map((u) => [u.id, u]))
+  const flood = Object.fromEntries((risk.flood?.upazilas ?? []).map((u) => [u.id, u]))
+  const idsAll = [...new Set([...Object.keys(flood), ...Object.keys(slide)])]
+  const known = Object.fromEntries(upazilas.map((u) => [u.id, u]))
+  return idsAll
+    .map((id) => ({
+      id,
+      name: flood[id]?.name ?? slide[id]?.name,
+      bn: known[id]?.bn,
+      floodPeople: flood[id]?.high_or_very_high_people ?? 0,
+      floodKm2: flood[id]?.high_or_very_high_km2 ?? 0,
+      slidePeople: slide[id]?.people_within_100m_high_or_very_high ?? 0,
+      slideKm2: (slide[id]?.high_km2 ?? 0) + (slide[id]?.very_high_km2 ?? 0),
+    }))
+    .filter((r) => r.floodPeople + r.slidePeople > 0)
+    .sort((a, b) => b.floodPeople + b.slidePeople - (a.floodPeople + a.slidePeople))
+})
+const riskTotals = computed(() =>
+  riskRows.value.reduce(
+    (s, r) => ({ floodPeople: s.floodPeople + r.floodPeople, floodKm2: s.floodKm2 + r.floodKm2, slidePeople: s.slidePeople + r.slidePeople, slideKm2: s.slideKm2 + r.slideKm2 }),
+    { floodPeople: 0, floodKm2: 0, slidePeople: 0, slideKm2: 0 },
+  ),
+)
+
+// Rule vs classifiers for the open-flood map (pipeline/10_flood_models.py)
+const modelNames = { 'rule (HH drop and HH level)': 'stats.models.rule', logistic_regression: 'stats.models.lr', random_forest: 'stats.models.rf', lightgbm: 'stats.models.lgbm' }
+const modelRows = computed(() =>
+  modelComparison.models.map((m) => ({
+    key: m.model,
+    name: modelNames[m.model] ? t(modelNames[m.model]) : m.model,
+    used: m.model === modelComparison.pipeline_uses,
+    f1: m.f1,
+    falseAlarm: m.false_alarm_rate * 100,
+    km2: m.flagged_km2,
+    nearFlooded: m.test_flagged_pct_near_flooded_points,
+    nearDry: m.test_flagged_pct_near_dry_points,
+  })),
+)
 
 // Chart
 const chartRef = ref(null)
 const hover = ref(null)
 const grown = ref(reducedMotion)
-const chartRows = [...upazilas].sort((a, b) => b.hidden - a.hidden)
-const maxTotal = Math.ceil(Math.max(...upazilas.map((u) => u.hidden + u.both)) / 2) * 2
-const ticks = Array.from({ length: maxTotal / 2 + 1 }, (_, i) => i * 2).filter((v) => v % 4 === 0 || maxTotal <= 8)
+const chartRows = [...upazilas].filter((u) => u.hidden + u.both > 0).sort((a, b) => b.hidden - a.hidden)
+const maxTotal = Math.max(2, Math.ceil(Math.max(0, ...upazilas.map((u) => u.hidden + u.both)) / 2) * 2)
+const tickStep = maxTotal <= 8 ? 2 : maxTotal <= 20 ? 4 : 8
+const ticks = Array.from({ length: Math.floor(maxTotal / tickStep) + 1 }, (_, i) => i * tickStep)
 
 let stopGrow = () => {}
 onMounted(() => {
@@ -269,12 +374,14 @@ function download(name, type, text) {
   setTimeout(() => (toast.value = ''), 2600)
 }
 
+const NOTE = 'PROVISIONAL results. People = living within 100 m of flagged cells (upper bound)'
+
 function exportCsv() {
-  const head = 'upazila,upazila_bn,district,hidden_flood_km2,open_water_km2,missed_share_pct,people,status,lon,lat,note'
+  const head = 'upazila,upazila_bn,district,missed_by_16jul_cband_km2,seen_by_both_km2,missed_share_pct,people_within_100m,people_conservative,drained_by_19jul_pct,status,lon,lat,note'
   const lines = rows.value.map((u) =>
-    [u.name, u.bn, u.district, u.hidden, u.both, u.share, u.people, agreeLabel[u.agree], u.center[0], u.center[1], 'ILLUSTRATIVE concept data'].join(','),
+    [u.name, u.bn, u.district, u.hidden, u.both, u.share, u.people, u.people_conservative ?? '', u.drained_pct ?? '', agreeLabel[u.agree], u.center[0], u.center[1], NOTE].join(','),
   )
-  download('meghbhed_upazilas_concept.csv', 'text/csv;charset=utf-8', '﻿' + [head, ...lines].join('\n'))
+  download('meghbhed_upazilas_provisional.csv', 'text/csv;charset=utf-8', '﻿' + [head, ...lines].join('\n'))
 }
 
 function exportKml() {
@@ -282,19 +389,19 @@ function exportKml() {
     .map(
       (u) => `  <Placemark>
     <name>${u.name} (${u.district})</name>
-    <description>${agreeLabel[u.agree]}. Under trees: ${u.hidden} km². People: ${u.people}. ILLUSTRATIVE concept data.</description>
+    <description>${agreeLabel[u.agree]}. Missed by the 16 Jul C-band map: ${u.hidden} km². People within 100 m: ${u.people}. ${NOTE}.</description>
     <ExtendedData>
-      <Data name="hidden_flood_km2"><value>${u.hidden}</value></Data>
-      <Data name="people"><value>${u.people}</value></Data>
+      <Data name="missed_by_16jul_cband_km2"><value>${u.hidden}</value></Data>
+      <Data name="people_within_100m"><value>${u.people}</value></Data>
     </ExtendedData>
     <Point><coordinates>${u.center[0]},${u.center[1]},0</coordinates></Point>
   </Placemark>`,
     )
     .join('\n')
   download(
-    'meghbhed_upazilas_concept.kml',
+    'meghbhed_upazilas_provisional.kml',
     'application/vnd.google-earth.kml+xml',
-    `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n  <name>MeghBhed: likely-missed upazilas (concept)</name>\n${marks}\n</Document>\n</kml>\n`,
+    `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n  <name>MeghBhed: flood missed by the 16 Jul C-band map, by upazila (provisional)</name>\n${marks}\n</Document>\n</kml>\n`,
   )
 }
 </script>

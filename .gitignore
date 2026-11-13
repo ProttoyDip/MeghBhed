@@ -11,3 +11,11 @@ __pycache__/
 # Raw inputs are never committed (NISAR GCOV HDF5 files are several GB); see docs/DATA.md
 data/raw/
 *.h5
+
+.vercel
+.env*
+
+# Pipeline data and intermediates (see pipeline/README.md)
+/data/
+/work/
+outputs/*.tif

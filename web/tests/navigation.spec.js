@@ -7,7 +7,8 @@ const pages = [
   { path: '/', nav: 'Overview', h1: /See the flood the maps missed/, title: /See the flood the maps missed · MeghBhed/ },
   { path: '/map', nav: 'Flood map', h1: /Flood map/, title: /Flood map · MeghBhed/ },
   { path: '/statistics', nav: 'Upazila figures', h1: /Who the C-band map missed/, title: /Upazila figures · MeghBhed/ },
-  { path: '/assistant', nav: 'Ask MeghBhed', h1: /Ask about the flood under the trees/, title: /Ask MeghBhed · MeghBhed/ },
+  { path: '/validation', nav: 'How well it works', h1: /How well it works/, title: /How well it works · MeghBhed/ },
+  { path: '/assistant', nav: 'Ask MeghBhed', h1: /Ask about the flood the map missed/, title: /Ask MeghBhed · MeghBhed/ },
 ]
 
 for (const p of pages) {
@@ -51,14 +52,16 @@ test('unknown URLs show the 404 page with a way back', async ({ page }) => {
 
 test('skip link targets the main content', async ({ page }) => {
   await page.goto('/')
-  await page.keyboard.press('Tab')
   const skip = page.getByRole('link', { name: 'Skip to content' })
+  await expect(skip).toBeAttached() // the app mounts after its data file loads
+  await page.keyboard.press('Tab')
   await expect(skip).toBeFocused()
   await expect(skip).toHaveAttribute('href', '#main')
 })
 
 test('footer links point at real destinations', async ({ page }) => {
   await page.goto('/')
+  await expect(page.locator('footer a').first()).toBeAttached() // the app mounts after its data file loads
   const hrefs = await page.locator('footer a').evaluateAll((as) => as.map((a) => a.getAttribute('href')))
   expect(hrefs.length).toBeGreaterThanOrEqual(6)
   for (const h of hrefs) expect(h).toMatch(/^https:\/\//)

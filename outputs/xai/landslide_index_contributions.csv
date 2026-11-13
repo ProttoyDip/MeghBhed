@@ -1,0 +1,6 @@
+factor,label,weight,mean_contribution_all_steep,mean_contribution_high_or_very_high,mean_contribution_low,share_of_index_in_high_or_very_high_pct,lift_high_minus_low
+slope,Slope,0.4,0.0965,0.1959,0.0567,40.9,0.1392
+relief,Relief within 300 m,0.2,0.0692,0.0896,0.0587,18.7,0.0309
+rainfall,"Rain, 5-18 July",0.2,0.1014,0.1454,0.0604,30.4,0.085
+land_cover,Land cover,0.1,0.0412,0.0404,0.0416,8.4,-0.0012
+hill_cutting,Nearness to built-up land,0.1,0.0088,0.0076,0.0077,1.6,-0.0001

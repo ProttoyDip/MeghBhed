@@ -87,9 +87,13 @@ test('motion on: smooth scrolling, cursor ring and scroll reveals are active', a
 test('hero gradient renders with WebGL2', async ({ page }) => {
   await prime(page)
   await page.goto('/')
-  const hasGl = await page.evaluate(() => {
-    const c = document.querySelector('section canvas:not(.maplibregl-canvas)')
-    return !!c && c.width > 0 && c.height > 0
-  })
-  expect(hasGl).toBe(true)
+  // the app mounts after its data file loads, so wait for the canvas rather than reading it at once
+  await expect
+    .poll(() =>
+      page.evaluate(() => {
+        const c = document.querySelector('section canvas:not(.maplibregl-canvas)')
+        return !!c && c.width > 0 && c.height > 0
+      }),
+    )
+    .toBe(true)
 })

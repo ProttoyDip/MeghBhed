@@ -1,0 +1,2570 @@
+[
+ {
+  "lon": 91.835321,
+  "lat": 22.481459,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 1.0,
+  "nontree_share": 0.41
+ },
+ {
+  "lon": 91.902426,
+  "lat": 22.488885,
+  "label": 1,
+  "upazila": "Raozan",
+  "fw_share": 0.77,
+  "nontree_share": 0.28
+ },
+ {
+  "lon": 91.930134,
+  "lat": 22.272279,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.75,
+  "nontree_share": 0.21
+ },
+ {
+  "lon": 91.947042,
+  "lat": 22.256581,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.69,
+  "nontree_share": 0.51
+ },
+ {
+  "lon": 91.84641,
+  "lat": 22.468712,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.75,
+  "nontree_share": 0.29
+ },
+ {
+  "lon": 91.830387,
+  "lat": 22.478714,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.84,
+  "nontree_share": 0.43
+ },
+ {
+  "lon": 91.990355,
+  "lat": 22.238699,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.74,
+  "nontree_share": 0.39
+ },
+ {
+  "lon": 91.829058,
+  "lat": 22.486472,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.91,
+  "nontree_share": 0.31
+ },
+ {
+  "lon": 91.873474,
+  "lat": 22.475136,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.98,
+  "nontree_share": 0.28
+ },
+ {
+  "lon": 91.909845,
+  "lat": 22.235289,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.77,
+  "nontree_share": 0.17
+ },
+ {
+  "lon": 91.909128,
+  "lat": 22.227606,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.85,
+  "nontree_share": 0.39
+ },
+ {
+  "lon": 91.831836,
+  "lat": 22.479808,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.55,
+  "nontree_share": 0.44
+ },
+ {
+  "lon": 91.940647,
+  "lat": 22.28111,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.92,
+  "nontree_share": 0.37
+ },
+ {
+  "lon": 92.048494,
+  "lat": 22.120892,
+  "label": 1,
+  "upazila": "Satkania",
+  "fw_share": 0.7,
+  "nontree_share": 0.59
+ },
+ {
+  "lon": 91.966113,
+  "lat": 22.156977,
+  "label": 1,
+  "upazila": "Satkania",
+  "fw_share": 0.86,
+  "nontree_share": 0.4
+ },
+ {
+  "lon": 91.89229,
+  "lat": 22.222072,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.76,
+  "nontree_share": 0.44
+ },
+ {
+  "lon": 91.94137,
+  "lat": 22.301078,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.8,
+  "nontree_share": 0.19
+ },
+ {
+  "lon": 92.129234,
+  "lat": 22.108696,
+  "label": 1,
+  "upazila": "Satkania",
+  "fw_share": 0.93,
+  "nontree_share": 0.35
+ },
+ {
+  "lon": 91.82969,
+  "lat": 22.480696,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.7,
+  "nontree_share": 0.56
+ },
+ {
+  "lon": 91.846204,
+  "lat": 22.411353,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.68,
+  "nontree_share": 0.32
+ },
+ {
+  "lon": 91.94194,
+  "lat": 22.251128,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.69,
+  "nontree_share": 0.35
+ },
+ {
+  "lon": 91.948142,
+  "lat": 22.252253,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.72,
+  "nontree_share": 0.35
+ },
+ {
+  "lon": 91.931481,
+  "lat": 22.273824,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.79,
+  "nontree_share": 0.37
+ },
+ {
+  "lon": 91.964721,
+  "lat": 22.385869,
+  "label": 1,
+  "upazila": "Boalkhali",
+  "fw_share": 0.78,
+  "nontree_share": 0.2
+ },
+ {
+  "lon": 91.829162,
+  "lat": 22.55494,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.67,
+  "nontree_share": 0.55
+ },
+ {
+  "lon": 91.931308,
+  "lat": 22.271112,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.59,
+  "nontree_share": 0.17
+ },
+ {
+  "lon": 92.008483,
+  "lat": 22.185785,
+  "label": 1,
+  "upazila": "Chandanaish",
+  "fw_share": 0.65,
+  "nontree_share": 0.43
+ },
+ {
+  "lon": 91.847003,
+  "lat": 22.467452,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.82,
+  "nontree_share": 0.17
+ },
+ {
+  "lon": 91.911292,
+  "lat": 22.511076,
+  "label": 1,
+  "upazila": "Raozan",
+  "fw_share": 0.67,
+  "nontree_share": 0.22
+ },
+ {
+  "lon": 91.842434,
+  "lat": 22.479342,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.8,
+  "nontree_share": 0.38
+ },
+ {
+  "lon": 91.9087,
+  "lat": 22.232842,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.78,
+  "nontree_share": 0.19
+ },
+ {
+  "lon": 91.900599,
+  "lat": 22.486434,
+  "label": 1,
+  "upazila": "Raozan",
+  "fw_share": 0.64,
+  "nontree_share": 0.29
+ },
+ {
+  "lon": 91.900877,
+  "lat": 22.488062,
+  "label": 1,
+  "upazila": "Raozan",
+  "fw_share": 0.79,
+  "nontree_share": 0.26
+ },
+ {
+  "lon": 91.942295,
+  "lat": 22.255467,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.7,
+  "nontree_share": 0.32
+ },
+ {
+  "lon": 91.89404,
+  "lat": 22.221633,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.92,
+  "nontree_share": 0.2
+ },
+ {
+  "lon": 91.824843,
+  "lat": 22.525191,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.63,
+  "nontree_share": 0.36
+ },
+ {
+  "lon": 91.934849,
+  "lat": 22.27773,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.74,
+  "nontree_share": 0.28
+ },
+ {
+  "lon": 91.849857,
+  "lat": 22.463227,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.65,
+  "nontree_share": 0.11
+ },
+ {
+  "lon": 91.990216,
+  "lat": 22.24448,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.79,
+  "nontree_share": 0.24
+ },
+ {
+  "lon": 91.899616,
+  "lat": 22.265391,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.66,
+  "nontree_share": 0.24
+ },
+ {
+  "lon": 91.827405,
+  "lat": 22.509584,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.7,
+  "nontree_share": 0.13
+ },
+ {
+  "lon": 91.904362,
+  "lat": 22.489892,
+  "label": 1,
+  "upazila": "Raozan",
+  "fw_share": 0.92,
+  "nontree_share": 0.3
+ },
+ {
+  "lon": 91.940269,
+  "lat": 22.279753,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.72,
+  "nontree_share": 0.23
+ },
+ {
+  "lon": 91.842571,
+  "lat": 22.462814,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.77,
+  "nontree_share": 0.3
+ },
+ {
+  "lon": 91.931328,
+  "lat": 22.28123,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.64,
+  "nontree_share": 0.42
+ },
+ {
+  "lon": 91.927909,
+  "lat": 22.271361,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.9,
+  "nontree_share": 0.3
+ },
+ {
+  "lon": 91.925294,
+  "lat": 22.270621,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.89,
+  "nontree_share": 0.29
+ },
+ {
+  "lon": 91.981416,
+  "lat": 22.213531,
+  "label": 1,
+  "upazila": "Chandanaish",
+  "fw_share": 0.71,
+  "nontree_share": 0.4
+ },
+ {
+  "lon": 91.837005,
+  "lat": 22.651646,
+  "label": 1,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.69,
+  "nontree_share": 0.56
+ },
+ {
+  "lon": 91.935224,
+  "lat": 22.163733,
+  "label": 1,
+  "upazila": "Satkania",
+  "fw_share": 0.7,
+  "nontree_share": 0.4
+ },
+ {
+  "lon": 91.902687,
+  "lat": 22.207509,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.82,
+  "nontree_share": 0.2
+ },
+ {
+  "lon": 91.944889,
+  "lat": 22.271924,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.6,
+  "nontree_share": 0.27
+ },
+ {
+  "lon": 92.003727,
+  "lat": 22.186298,
+  "label": 1,
+  "upazila": "Chandanaish",
+  "fw_share": 0.7,
+  "nontree_share": 0.32
+ },
+ {
+  "lon": 91.939973,
+  "lat": 22.241631,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.82,
+  "nontree_share": 0.2
+ },
+ {
+  "lon": 91.902199,
+  "lat": 22.232889,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.67,
+  "nontree_share": 0.21
+ },
+ {
+  "lon": 91.867118,
+  "lat": 22.479789,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.68,
+  "nontree_share": 0.2
+ },
+ {
+  "lon": 91.980663,
+  "lat": 22.357516,
+  "label": 1,
+  "upazila": "Boalkhali",
+  "fw_share": 0.67,
+  "nontree_share": 0.34
+ },
+ {
+  "lon": 91.969952,
+  "lat": 22.255464,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.69,
+  "nontree_share": 0.17
+ },
+ {
+  "lon": 91.88953,
+  "lat": 22.239849,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.77,
+  "nontree_share": 0.29
+ },
+ {
+  "lon": 91.988495,
+  "lat": 22.348893,
+  "label": 1,
+  "upazila": "Boalkhali",
+  "fw_share": 0.74,
+  "nontree_share": 0.49
+ },
+ {
+  "lon": 91.820896,
+  "lat": 22.543499,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.83,
+  "nontree_share": 0.36
+ },
+ {
+  "lon": 91.936249,
+  "lat": 22.285056,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.8,
+  "nontree_share": 0.32
+ },
+ {
+  "lon": 91.92127,
+  "lat": 22.301849,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.83,
+  "nontree_share": 0.3
+ },
+ {
+  "lon": 91.8322,
+  "lat": 22.5406,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.55,
+  "nontree_share": 0.35
+ },
+ {
+  "lon": 91.828886,
+  "lat": 22.553041,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.69,
+  "nontree_share": 0.56
+ },
+ {
+  "lon": 91.929367,
+  "lat": 22.258363,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 1.0,
+  "nontree_share": 0.2
+ },
+ {
+  "lon": 92.000226,
+  "lat": 22.228733,
+  "label": 1,
+  "upazila": "Chandanaish",
+  "fw_share": 0.85,
+  "nontree_share": 0.39
+ },
+ {
+  "lon": 91.930027,
+  "lat": 22.273633,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.89,
+  "nontree_share": 0.31
+ },
+ {
+  "lon": 91.948714,
+  "lat": 22.292544,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.7,
+  "nontree_share": 0.22
+ },
+ {
+  "lon": 91.845946,
+  "lat": 22.477832,
+  "label": 1,
+  "upazila": "Hathazari",
+  "fw_share": 0.84,
+  "nontree_share": 0.24
+ },
+ {
+  "lon": 91.892709,
+  "lat": 22.500742,
+  "label": 1,
+  "upazila": "Raozan",
+  "fw_share": 0.79,
+  "nontree_share": 0.28
+ },
+ {
+  "lon": 91.909126,
+  "lat": 22.315588,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.62,
+  "nontree_share": 0.23
+ },
+ {
+  "lon": 91.911061,
+  "lat": 22.228613,
+  "label": 1,
+  "upazila": "Anowara",
+  "fw_share": 0.6,
+  "nontree_share": 0.34
+ },
+ {
+  "lon": 91.946641,
+  "lat": 22.323063,
+  "label": 1,
+  "upazila": "Patiya",
+  "fw_share": 0.82,
+  "nontree_share": 0.22
+ },
+ {
+  "lon": 92.001206,
+  "lat": 22.213563,
+  "label": 1,
+  "upazila": "Chandanaish",
+  "fw_share": 0.78,
+  "nontree_share": 0.34
+ },
+ {
+  "lon": 91.918615,
+  "lat": 22.50706,
+  "label": 1,
+  "upazila": "Raozan",
+  "fw_share": 0.92,
+  "nontree_share": 0.14
+ },
+ {
+  "lon": 92.109892,
+  "lat": 22.270563,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.125584,
+  "lat": 22.291245,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.873445,
+  "lat": 22.717753,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.03
+ },
+ {
+  "lon": 91.617731,
+  "lat": 22.770571,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.081753,
+  "lat": 22.299223,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.065572,
+  "lat": 22.338336,
+  "label": 0,
+  "upazila": "Boalkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.075378,
+  "lat": 22.309124,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.128784,
+  "lat": 22.291804,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.02
+ },
+ {
+  "lon": 91.708629,
+  "lat": 22.632689,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.625359,
+  "lat": 22.835485,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.02
+ },
+ {
+  "lon": 91.599957,
+  "lat": 22.861095,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.101638,
+  "lat": 22.301593,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.066118,
+  "lat": 22.34394,
+  "label": 0,
+  "upazila": "Boalkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.07036,
+  "lat": 22.333847,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.055338,
+  "lat": 22.358511,
+  "label": 0,
+  "upazila": "Boalkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.759967,
+  "lat": 22.462651,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.073591,
+  "lat": 22.3298,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.608955,
+  "lat": 22.80048,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.07892,
+  "lat": 22.302008,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.071601,
+  "lat": 22.337106,
+  "label": 0,
+  "upazila": "Boalkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.065642,
+  "lat": 22.342401,
+  "label": 0,
+  "upazila": "Boalkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.098251,
+  "lat": 22.299948,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.04
+ },
+ {
+  "lon": 92.129434,
+  "lat": 22.296505,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.076479,
+  "lat": 22.318796,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.068108,
+  "lat": 22.336634,
+  "label": 0,
+  "upazila": "Boalkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.081472,
+  "lat": 22.297686,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.706866,
+  "lat": 22.633939,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.074445,
+  "lat": 22.332786,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.130231,
+  "lat": 22.277629,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 91.877678,
+  "lat": 22.700079,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.095319,
+  "lat": 22.287917,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.02
+ },
+ {
+  "lon": 92.100107,
+  "lat": 22.222361,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.016611,
+  "lat": 21.922326,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.11
+ },
+ {
+  "lon": 91.87518,
+  "lat": 22.719933,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 91.611926,
+  "lat": 22.795629,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.11478,
+  "lat": 22.280437,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.064571,
+  "lat": 22.371934,
+  "label": 0,
+  "upazila": "Rangunia",
+  "fw_share": 0.0,
+  "nontree_share": 0.06
+ },
+ {
+  "lon": 92.143348,
+  "lat": 22.307148,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.09238,
+  "lat": 22.292147,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.06
+ },
+ {
+  "lon": 92.113197,
+  "lat": 22.20816,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.073358,
+  "lat": 22.33567,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.073843,
+  "lat": 22.321129,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.106162,
+  "lat": 22.246694,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.112457,
+  "lat": 22.27943,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.123308,
+  "lat": 22.282651,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.11692,
+  "lat": 22.295173,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.102989,
+  "lat": 22.272513,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.11
+ },
+ {
+  "lon": 91.618785,
+  "lat": 22.772296,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.067905,
+  "lat": 22.338078,
+  "label": 0,
+  "upazila": "Boalkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.092921,
+  "lat": 22.253487,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.080067,
+  "lat": 22.289819,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.09465,
+  "lat": 22.286378,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.05
+ },
+ {
+  "lon": 91.872774,
+  "lat": 22.716394,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.100801,
+  "lat": 22.280811,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.598915,
+  "lat": 22.810598,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.654846,
+  "lat": 22.720128,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.077191,
+  "lat": 22.328737,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.694795,
+  "lat": 22.603583,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.104797,
+  "lat": 22.29348,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.074532,
+  "lat": 22.304964,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.60766,
+  "lat": 22.841564,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.715268,
+  "lat": 22.567348,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.693778,
+  "lat": 22.649458,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.601284,
+  "lat": 22.807548,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.026458,
+  "lat": 21.912267,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.100603,
+  "lat": 22.220647,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.073286,
+  "lat": 22.331966,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.068526,
+  "lat": 22.3323,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.594428,
+  "lat": 22.868,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.703456,
+  "lat": 22.592905,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.610416,
+  "lat": 22.800493,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.10792,
+  "lat": 22.22954,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.02
+ },
+ {
+  "lon": 92.075562,
+  "lat": 22.310661,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.701319,
+  "lat": 22.623688,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.025511,
+  "lat": 21.923463,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.132803,
+  "lat": 22.301221,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.101301,
+  "lat": 22.21758,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.1056,
+  "lat": 22.212906,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.698447,
+  "lat": 22.618697,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.133305,
+  "lat": 22.298513,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.601621,
+  "lat": 22.850813,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.03
+ },
+ {
+  "lon": 91.608457,
+  "lat": 22.839854,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.642167,
+  "lat": 22.702589,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.638517,
+  "lat": 22.717281,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.612787,
+  "lat": 22.797172,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.643716,
+  "lat": 22.821824,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.118319,
+  "lat": 21.914411,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.828953,
+  "lat": 22.371575,
+  "label": 0,
+  "upazila": "Panchlaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.1
+ },
+ {
+  "lon": 92.207339,
+  "lat": 21.975572,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.753792,
+  "lat": 22.52276,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.711291,
+  "lat": 22.628916,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.596925,
+  "lat": 22.843095,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.06
+ },
+ {
+  "lon": 92.131654,
+  "lat": 22.282876,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.106042,
+  "lat": 22.204417,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.771197,
+  "lat": 22.478544,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.751986,
+  "lat": 22.51823,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.14314,
+  "lat": 22.293507,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.03
+ },
+ {
+  "lon": 92.145771,
+  "lat": 22.307793,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.611744,
+  "lat": 22.852076,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 92.120875,
+  "lat": 21.908101,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.02
+ },
+ {
+  "lon": 92.21146,
+  "lat": 22.001158,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.140537,
+  "lat": 22.306411,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.003508,
+  "lat": 21.927125,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.06
+ },
+ {
+  "lon": 91.607658,
+  "lat": 22.860891,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.589843,
+  "lat": 22.868411,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.693338,
+  "lat": 22.603391,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.83342,
+  "lat": 22.348302,
+  "label": 0,
+  "upazila": "Kotwali",
+  "fw_share": 0.0,
+  "nontree_share": 0.27
+ },
+ {
+  "lon": 92.128204,
+  "lat": 22.275812,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.694004,
+  "lat": 22.604932,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.085909,
+  "lat": 22.242336,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.128525,
+  "lat": 22.286563,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.095441,
+  "lat": 22.208514,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.080959,
+  "lat": 22.242489,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.890216,
+  "lat": 22.690502,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.04
+ },
+ {
+  "lon": 91.612229,
+  "lat": 22.765736,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.197633,
+  "lat": 21.979319,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.593387,
+  "lat": 22.902854,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.953116,
+  "lat": 22.131058,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.22
+ },
+ {
+  "lon": 91.754217,
+  "lat": 22.518789,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.879767,
+  "lat": 22.694674,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.29
+ },
+ {
+  "lon": 92.137602,
+  "lat": 22.29429,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.706756,
+  "lat": 22.635293,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.128577,
+  "lat": 22.278253,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 92.134452,
+  "lat": 22.30141,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.897188,
+  "lat": 22.682963,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.714279,
+  "lat": 22.621534,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.723519,
+  "lat": 22.56904,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.761181,
+  "lat": 22.47919,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.614652,
+  "lat": 22.795833,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.086004,
+  "lat": 22.197621,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.01998,
+  "lat": 21.925237,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.04
+ },
+ {
+  "lon": 92.128757,
+  "lat": 22.280422,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.026961,
+  "lat": 21.923743,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.880072,
+  "lat": 22.693051,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.23
+ },
+ {
+  "lon": 92.031281,
+  "lat": 21.914915,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.113667,
+  "lat": 21.915109,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.129184,
+  "lat": 22.274281,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.652017,
+  "lat": 22.720646,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.63211,
+  "lat": 22.744773,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.601546,
+  "lat": 22.886759,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.602118,
+  "lat": 22.888028,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.597379,
+  "lat": 22.808327,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.586067,
+  "lat": 22.903601,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.645259,
+  "lat": 22.695029,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.608029,
+  "lat": 22.795685,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.004468,
+  "lat": 21.928215,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.07
+ },
+ {
+  "lon": 92.209573,
+  "lat": 21.974499,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.209041,
+  "lat": 22.000605,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.642675,
+  "lat": 22.700426,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.643584,
+  "lat": 22.697092,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.595646,
+  "lat": 22.891765,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.77138,
+  "lat": 22.479901,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.758921,
+  "lat": 22.481883,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.206939,
+  "lat": 21.977919,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.757553,
+  "lat": 22.504544,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.604602,
+  "lat": 22.807035,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.873625,
+  "lat": 22.719561,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 92.032764,
+  "lat": 21.92468,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.758809,
+  "lat": 22.461739,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.054884,
+  "lat": 22.267272,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 92.128415,
+  "lat": 22.273013,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.87597,
+  "lat": 22.718494,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.1
+ },
+ {
+  "lon": 91.620629,
+  "lat": 22.772944,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.949149,
+  "lat": 22.129949,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.887389,
+  "lat": 22.691024,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.04
+ },
+ {
+  "lon": 91.584559,
+  "lat": 22.889228,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.75782,
+  "lat": 22.507255,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.732026,
+  "lat": 22.532165,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.802836,
+  "lat": 22.381952,
+  "label": 0,
+  "upazila": "Bayejid Bostami",
+  "fw_share": 0.0,
+  "nontree_share": 0.48
+ },
+ {
+  "lon": 91.891872,
+  "lat": 22.690423,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.130774,
+  "lat": 22.283956,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.714892,
+  "lat": 22.56599,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.878009,
+  "lat": 22.707308,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.05
+ },
+ {
+  "lon": 92.022664,
+  "lat": 21.915045,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.820786,
+  "lat": 22.361128,
+  "label": 0,
+  "upazila": "Khulshi",
+  "fw_share": 0.0,
+  "nontree_share": 0.56
+ },
+ {
+  "lon": 91.756624,
+  "lat": 22.477891,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.5885,
+  "lat": 22.894591,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 91.586216,
+  "lat": 22.889242,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.757531,
+  "lat": 22.463446,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.948769,
+  "lat": 22.102756,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.02
+ },
+ {
+  "lon": 92.028393,
+  "lat": 21.912549,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 91.634174,
+  "lat": 22.723295,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.119485,
+  "lat": 21.913604,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.02134,
+  "lat": 21.924522,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.747446,
+  "lat": 22.504194,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.589009,
+  "lat": 22.883126,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.893405,
+  "lat": 22.681311,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.12
+ },
+ {
+  "lon": 92.13154,
+  "lat": 22.285676,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.020784,
+  "lat": 21.906813,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.733481,
+  "lat": 22.532537,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.034901,
+  "lat": 21.923609,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 91.642496,
+  "lat": 22.698889,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.748165,
+  "lat": 22.499864,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.063567,
+  "lat": 22.245822,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.758004,
+  "lat": 22.464804,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.695306,
+  "lat": 22.600968,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.591701,
+  "lat": 22.877279,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.02
+ },
+ {
+  "lon": 92.119015,
+  "lat": 21.911343,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.880337,
+  "lat": 22.696304,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.29
+ },
+ {
+  "lon": 92.039294,
+  "lat": 21.918304,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.206293,
+  "lat": 22.006915,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.767585,
+  "lat": 22.480414,
+  "label": 0,
+  "upazila": "Hathazari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.124204,
+  "lat": 21.917785,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.06
+ },
+ {
+  "lon": 91.898662,
+  "lat": 22.681257,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.115312,
+  "lat": 21.915388,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.631805,
+  "lat": 22.746125,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.606182,
+  "lat": 22.900437,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.008148,
+  "lat": 21.928147,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.011672,
+  "lat": 21.93657,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.653527,
+  "lat": 22.824797,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.09
+ },
+ {
+  "lon": 91.631767,
+  "lat": 22.73041,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.877703,
+  "lat": 22.697099,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.587074,
+  "lat": 22.90054,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.639238,
+  "lat": 22.713313,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 92.206157,
+  "lat": 21.97918,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.736221,
+  "lat": 22.54123,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.602733,
+  "lat": 22.894537,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.584795,
+  "lat": 22.913435,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.04
+ },
+ {
+  "lon": 92.03229,
+  "lat": 21.908868,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.650937,
+  "lat": 22.721631,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.895072,
+  "lat": 22.691981,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.714639,
+  "lat": 22.561833,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 92.088817,
+  "lat": 22.197727,
+  "label": 0,
+  "upazila": "Chandanaish",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.621614,
+  "lat": 22.771869,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.629731,
+  "lat": 22.729489,
+  "label": 0,
+  "upazila": "Mirsharai",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.897205,
+  "lat": 22.680885,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.01
+ },
+ {
+  "lon": 91.693455,
+  "lat": 22.652798,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.190615,
+  "lat": 21.96998,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.2
+ },
+ {
+  "lon": 91.936882,
+  "lat": 22.622531,
+  "label": 0,
+  "upazila": "Raozan",
+  "fw_share": 0.0,
+  "nontree_share": 0.03
+ },
+ {
+  "lon": 91.641389,
+  "lat": 22.751807,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.760832,
+  "lat": 22.463742,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.882456,
+  "lat": 22.687106,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.03
+ },
+ {
+  "lon": 91.834617,
+  "lat": 22.356169,
+  "label": 0,
+  "upazila": "Kotwali",
+  "fw_share": 0.0,
+  "nontree_share": 0.23
+ },
+ {
+  "lon": 91.931366,
+  "lat": 22.618611,
+  "label": 0,
+  "upazila": "Raozan",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.893333,
+  "lat": 22.690253,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.971712,
+  "lat": 22.080318,
+  "label": 0,
+  "upazila": "Satkania",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.756275,
+  "lat": 22.462533,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.016675,
+  "lat": 21.927204,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.122067,
+  "lat": 21.918948,
+  "label": 0,
+  "upazila": "Lohagara",
+  "fw_share": 0.0,
+  "nontree_share": 0.05
+ },
+ {
+  "lon": 91.698936,
+  "lat": 22.64941,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.738381,
+  "lat": 22.538989,
+  "label": 0,
+  "upazila": "Sitakunda",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.658069,
+  "lat": 22.748967,
+  "label": 0,
+  "upazila": "Fatikchhari",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.020545,
+  "lat": 21.927589,
+  "label": 0,
+  "upazila": "Banshkhali",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 92.060947,
+  "lat": 22.245807,
+  "label": 0,
+  "upazila": "Patiya",
+  "fw_share": 0.0,
+  "nontree_share": 0.0
+ },
+ {
+  "lon": 91.837548,
+  "lat": 22.354113,
+  "label": 0,
+  "upazila": "Kotwali",
+  "fw_share": 0.0,
+  "nontree_share": 0.66
+ }
+]

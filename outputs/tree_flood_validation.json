@@ -1,0 +1,235 @@
+{
+ "accepted": false,
+ "criteria": [
+  {
+   "criterion": "test AUC >= 0.75",
+   "value": 0.7998,
+   "passed": true
+  },
+  {
+   "criterion": "test recall >= 40% with test false alarms <= 15%",
+   "value": "recall 0.0476, false alarms 0.0000",
+   "passed": false
+  },
+  {
+   "criterion": "passing share within 100 m of new floodwater >= 2x the share beyond 1 km",
+   "value": "18.07% against 7.26% (ratio 2.49)",
+   "passed": true
+  },
+  {
+   "criterion": "passing share in the reported upazilas higher than in the others",
+   "value": "10.17% against 16.74%",
+   "passed": false
+  }
+ ],
+ "feature": {
+  "background": "scene-wide median",
+  "radius_m": 150,
+  "scene_wide_background": -0.1004,
+  "choice_on_train_sites": [
+   {
+    "background": "scene-wide median",
+    "radius_m": 150,
+    "train_auc": 0.8047,
+    "train_flooded": 74,
+    "train_dry": 211
+   },
+   {
+    "background": "local median within 10 km",
+    "radius_m": 150,
+    "train_auc": 0.8036,
+    "train_flooded": 74,
+    "train_dry": 211
+   },
+   {
+    "background": "scene-wide median",
+    "radius_m": 90,
+    "train_auc": 0.7853,
+    "train_flooded": 74,
+    "train_dry": 211
+   },
+   {
+    "background": "local median within 10 km",
+    "radius_m": 90,
+    "train_auc": 0.778,
+    "train_flooded": 74,
+    "train_dry": 211
+   }
+  ]
+ },
+ "threshold": {
+  "coherence_change_at_or_below": -0.0752,
+  "dry_train_false_alarm_target": 0.1,
+  "fold_thresholds": [
+   -0.0888,
+   -0.0911,
+   -0.0895,
+   -0.0387,
+   -0.0646
+  ],
+  "train_cv": {
+   "precision": 0.38095238095238093,
+   "recall": 0.21621621621621623,
+   "f1": 0.27586206896551724,
+   "accuracy": 0.7052631578947368,
+   "false_alarm_rate": 0.12322274881516587,
+   "auc": 0.8047265274753427,
+   "flooded": 74,
+   "dry": 211
+  },
+  "test": {
+   "precision": 1.0,
+   "recall": 0.047619047619047616,
+   "f1": 0.0909090909090909,
+   "accuracy": 0.5061728395061729,
+   "false_alarm_rate": 0.0,
+   "auc": 0.7997557997557998,
+   "flooded": 42,
+   "dry": 39
+  },
+  "test_left_out": [
+   "Noapara"
+  ]
+ },
+ "eligible": {
+  "rule": "at least half tree cover, inside the district, not WorldCover 80/90/95, before-flood coherence >= 0.3, ground HAND <= 5 m (from open land within 300 m)",
+  "km2": 1575.9,
+  "tree_km2_in_district": 2737.3,
+  "passing_pct": 14.67
+ },
+ "distance_response": [
+  {
+   "distance_to_new_floodwater": "0-100 m",
+   "eligible_km2": 149.9,
+   "passing_pct": 18.07
+  },
+  {
+   "distance_to_new_floodwater": "100-300 m",
+   "eligible_km2": 513.6,
+   "passing_pct": 16.97
+  },
+  {
+   "distance_to_new_floodwater": "300-1000 m",
+   "eligible_km2": 751.0,
+   "passing_pct": 14.01
+  },
+  {
+   "distance_to_new_floodwater": "over 1000 m",
+   "eligible_km2": 161.5,
+   "passing_pct": 7.26
+  }
+ ],
+ "reported_upazilas": [
+  "Satkania",
+  "Lohagara",
+  "Chandanaish",
+  "Banshkhali",
+  "Patiya",
+  "Anowara"
+ ],
+ "models": [
+  {
+   "model": "coherence threshold rule",
+   "scored_on": "train sites, 5 km spatial CV",
+   "precision": 0.381,
+   "recall": 0.2162,
+   "f1": 0.2759,
+   "accuracy": 0.7053,
+   "false_alarm_rate": 0.1232,
+   "auc": 0.8047,
+   "flooded": 74,
+   "dry": 211
+  },
+  {
+   "model": "coherence threshold rule",
+   "scored_on": "test sites",
+   "precision": 1.0,
+   "recall": 0.0476,
+   "f1": 0.0909,
+   "accuracy": 0.5062,
+   "false_alarm_rate": 0.0,
+   "auc": 0.7998,
+   "flooded": 42,
+   "dry": 39
+  },
+  {
+   "model": "logistic_regression",
+   "scored_on": "train sites, 5 km spatial CV",
+   "precision": 0.663,
+   "recall": 0.8243,
+   "f1": 0.7349,
+   "accuracy": 0.8456,
+   "false_alarm_rate": 0.1469,
+   "auc": 0.9358,
+   "flooded": 74,
+   "dry": 211
+  },
+  {
+   "model": "logistic_regression",
+   "scored_on": "test sites",
+   "precision": 0.8235,
+   "recall": 0.3333,
+   "f1": 0.4746,
+   "accuracy": 0.6173,
+   "false_alarm_rate": 0.0769,
+   "auc": 0.7692,
+   "flooded": 42,
+   "dry": 39
+  },
+  {
+   "model": "random_forest",
+   "scored_on": "train sites, 5 km spatial CV",
+   "precision": 0.8421,
+   "recall": 0.8649,
+   "f1": 0.8533,
+   "accuracy": 0.9228,
+   "false_alarm_rate": 0.0569,
+   "auc": 0.9575,
+   "flooded": 74,
+   "dry": 211
+  },
+  {
+   "model": "random_forest",
+   "scored_on": "test sites",
+   "precision": 0.6786,
+   "recall": 0.4524,
+   "f1": 0.5429,
+   "accuracy": 0.6049,
+   "false_alarm_rate": 0.2308,
+   "auc": 0.6532,
+   "flooded": 42,
+   "dry": 39
+  },
+  {
+   "model": "lightgbm",
+   "scored_on": "train sites, 5 km spatial CV",
+   "precision": 0.8429,
+   "recall": 0.7973,
+   "f1": 0.8194,
+   "accuracy": 0.9088,
+   "false_alarm_rate": 0.0521,
+   "auc": 0.9517,
+   "flooded": 74,
+   "dry": 211
+  },
+  {
+   "model": "lightgbm",
+   "scored_on": "test sites",
+   "precision": 0.6667,
+   "recall": 0.381,
+   "f1": 0.4848,
+   "accuracy": 0.5802,
+   "false_alarm_rate": 0.2051,
+   "auc": 0.6166,
+   "flooded": 42,
+   "dry": 39
+  }
+ ],
+ "limits": [
+  "One flood, one track: a single pair of 12-day coherence images across the flood and one before it.",
+  "Coherence also falls with rain, wind and crop growth; the high-forest background removes the scene-wide part only.",
+  "Train sites are groves that C-band shows surrounded by new water; test sites are union-level reports.",
+  "At the threshold, 10% of dry train groves pass by design, so part of the layer is noise.",
+  "Deep forest with no open land within 300 m has no ground-height estimate and is not eligible."
+ ]
+}

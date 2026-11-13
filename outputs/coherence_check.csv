@@ -1,0 +1,20 @@
+table,group,km2,coh_before_median,coh_before_mean,coh_flood_median,coh_flood_mean,change_median,change_mean,before_coh_ge_0_3_pct,feature,flooded_is,flooded_sites,dry_sites,auc,median_flooded,median_dry
+"1 tree cover, HAND <= 5 m, by distance to new floodwater",0-100 m,145.3,0.3826,0.3936,0.2717,0.2898,-0.102,-0.1039,74.7,,,,,,,
+"1 tree cover, HAND <= 5 m, by distance to new floodwater",100-300 m,408.2,0.4077,0.4188,0.2979,0.3186,-0.0998,-0.1002,79.1,,,,,,,
+"1 tree cover, HAND <= 5 m, by distance to new floodwater",300-1000 m,579.8,0.425,0.4366,0.3243,0.3475,-0.0881,-0.0891,81.6,,,,,,,
+"1 tree cover, HAND <= 5 m, by distance to new floodwater",over 1000 m,153.9,0.3838,0.4033,0.3066,0.3349,-0.0646,-0.0684,72.4,,,,,,,
+"1 tree cover, HAND <= 5 m, by distance to new floodwater",all,1287.2,0.4095,0.4221,0.3068,0.3303,-0.0904,-0.0918,78.9,,,,,,,
+reference,tree cover on HAND > 20 m (cannot flood),426.6,0.3441,0.3688,0.2797,0.3017,-0.062,-0.0671,63.1,,,,,,,
+3 sanity: open low ground,mapped open flood (labels 1 and 2),186.8,0.3537,0.3816,0.1957,0.2011,-0.1572,-0.1804,62.9,,,,,,,
+3 sanity: open low ground,not flagged,1117.3,0.3866,0.4088,0.2718,0.307,-0.0916,-0.1018,70.6,,,,,,,
+3 sanity: open low ground,C-band new open water,23.4,0.2954,0.3229,0.2018,0.2137,-0.0888,-0.1092,48.6,,,,,,,
+2 sites: tree cells within 150 m,train,,,,,,,,,change,lower,74.0,211.0,0.8047,-0.1337,-0.0609
+2 sites: tree cells within 150 m,train,,,,,,,,,coh_flood,lower,74.0,211.0,0.6342,0.2606,0.2782
+2 sites: tree cells within 150 m,train,,,,,,,,,coh_before,lower,74.0,211.0,0.3418,0.4053,0.3394
+2 sites: tree cells within 150 m,test,,,,,,,,,change,lower,42.0,42.0,0.7698,-0.0772,-0.0172
+2 sites: tree cells within 150 m,test,,,,,,,,,coh_flood,lower,42.0,42.0,0.6434,0.3545,0.4169
+2 sites: tree cells within 150 m,test,,,,,,,,,coh_before,lower,42.0,42.0,0.4427,0.4434,0.4381
+2 sites: tree cells within 150 m,test (without Noapara),,,,,,,,,change,lower,42.0,39.0,0.7998,-0.0772,-0.0045
+2 sites: tree cells within 150 m,test (without Noapara),,,,,,,,,coh_flood,lower,42.0,39.0,0.6923,0.3545,0.4233
+2 sites: tree cells within 150 m,test (without Noapara),,,,,,,,,coh_before,lower,42.0,39.0,0.4737,0.4434,0.4535
+3 sanity: open low ground,AUC of coherence fall against mapped open flood,,,,,,,,,,,,,0.6279,,

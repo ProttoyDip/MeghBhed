@@ -1,0 +1,9 @@
+model,scored_on,precision,recall,f1,accuracy,false_alarm_rate,auc,flooded,dry
+coherence threshold rule,"train sites, 5 km spatial CV",0.381,0.2162,0.2759,0.7053,0.1232,0.8047,74,211
+coherence threshold rule,test sites,1.0,0.0476,0.0909,0.5062,0.0,0.7998,42,39
+logistic_regression,"train sites, 5 km spatial CV",0.663,0.8243,0.7349,0.8456,0.1469,0.9358,74,211
+logistic_regression,test sites,0.8235,0.3333,0.4746,0.6173,0.0769,0.7692,42,39
+random_forest,"train sites, 5 km spatial CV",0.8421,0.8649,0.8533,0.9228,0.0569,0.9575,74,211
+random_forest,test sites,0.6786,0.4524,0.5429,0.6049,0.2308,0.6532,42,39
+lightgbm,"train sites, 5 km spatial CV",0.8429,0.7973,0.8194,0.9088,0.0521,0.9517,74,211
+lightgbm,test sites,0.6667,0.381,0.4848,0.5802,0.2051,0.6166,42,39

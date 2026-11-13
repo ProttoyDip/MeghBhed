@@ -52,18 +52,45 @@
             <label class="flex cursor-pointer items-center gap-3 rounded-md px-1 py-1.5 hover:bg-paper-2">
               <input v-model="layers.water" type="checkbox" class="h-4 w-4 accent-ink" />
               <span class="h-3.5 w-5 rounded-[2px] bg-water"></span>
-              <span class="text-sm text-ink">{{ t('common.openWater') }} <span class="text-ink-3">· {{ t('common.bothSensors') }}</span></span>
+              <span class="text-sm text-ink">{{ t('map.layerBoth') }}</span>
+            </label>
+            <label class="flex cursor-pointer items-start gap-3 rounded-md px-1 py-1.5 hover:bg-paper-2">
+              <input v-model="layers.hidden" type="checkbox" class="mt-0.5 h-4 w-4 shrink-0 accent-ink" />
+              <span class="hatch-missed mt-0.5 h-3.5 w-5 shrink-0 rounded-[2px] border border-missed"></span>
+              <span class="text-sm text-ink">{{ t('map.layerMissed') }}</span>
             </label>
             <label class="flex cursor-pointer items-center gap-3 rounded-md px-1 py-1.5 hover:bg-paper-2">
-              <input v-model="layers.hidden" type="checkbox" class="h-4 w-4 accent-ink" />
-              <span class="hatch-missed h-3.5 w-5 rounded-[2px] border border-missed"></span>
-              <span class="text-sm text-ink">{{ t('common.underTrees') }} <span class="text-ink-3">· {{ t('common.nisarOnly') }}</span></span>
+              <input v-model="layers.trees" type="checkbox" class="h-4 w-4 accent-ink" />
+              <span class="h-3.5 w-5 rounded-[2px] bg-ok"></span>
+              <span class="text-sm text-ink">{{ t('map.layerTrees') }}</span>
             </label>
             <label class="flex cursor-pointer items-center gap-3 rounded-md px-1 py-1.5 hover:bg-paper-2">
               <input v-model="layers.hill" type="checkbox" class="h-4 w-4 accent-ink" />
               <span class="flex h-3.5 w-5 items-center justify-center"><span class="h-3 w-3 rounded-full border-2 border-card bg-hill ring-1 ring-hill"></span></span>
               <span class="text-sm text-ink">{{ t('map.hillRisk') }} <span class="text-ink-3">· {{ t('map.checkGround') }}</span></span>
             </label>
+          </div>
+        </fieldset>
+
+        <!-- Risk maps: likelihood, not forecast; off by default -->
+        <fieldset v-if="riskLayers.length" class="mt-6">
+          <legend class="label mb-2">{{ t('map.riskTitle') }}</legend>
+          <div class="space-y-1">
+            <div v-for="r in riskLayers" :key="r.key">
+              <label class="flex cursor-pointer items-center gap-3 rounded-md px-1 py-1.5 hover:bg-paper-2">
+                <input v-model="layers[r.model]" type="checkbox" class="h-4 w-4 accent-ink" />
+                <span class="h-3.5 w-5 rounded-[2px]" :style="{ background: r.colours[2] }"></span>
+                <span class="text-sm text-ink">{{ t(r.label) }}</span>
+              </label>
+              <div v-if="layers[r.model]" class="mb-2 ml-8 rounded-md border border-rule bg-card p-2.5" :data-risk-legend="r.key">
+                <ul class="grid grid-cols-2 gap-x-3 gap-y-1 text-xs text-ink-2">
+                  <li v-for="(c, i) in r.colours" :key="i" class="flex items-center gap-2">
+                    <span class="h-3 w-4 shrink-0 rounded-[2px] border border-rule" :style="{ background: c }"></span>{{ t('map.riskClasses')[i] }}
+                  </li>
+                </ul>
+                <p class="mt-2 text-[11px] leading-snug text-ink-3">{{ t(r.note) }}</p>
+              </div>
+            </div>
           </div>
         </fieldset>
 
@@ -94,7 +121,7 @@
                 <span class="h-1.5 flex-1">
                   <span class="block h-full rounded-full bg-missed" :style="{ width: `${(u.people / maxPeople) * 100}%` }"></span>
                 </span>
-                <span class="num w-14 text-right font-mono text-xs text-ink">{{ n(u.people) }}</span>
+                <span class="num w-16 text-right font-mono text-xs text-ink">{{ n(u.people) }}</span>
               </button>
 
               <transition name="expand">
@@ -130,6 +157,9 @@
         :show-water="layers.water"
         :show-hidden="layers.hidden"
         :show-hill="layers.hill"
+        :show-trees="layers.trees"
+        :show-flood-risk="layers.floodRisk"
+        :show-landslide-risk="layers.landslideRisk"
         :selected="selected"
         @select="select"
         @pointer="(p) => (pointer = p)"
@@ -154,7 +184,7 @@ import { ref, reactive, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { ChevronUp, Plus, Minus, Maximize, ArrowRight, Map as MapGlyph, Satellite, CircleCheck, CircleDashed } from 'lucide-vue-next'
 import SwipeMap from '../components/SwipeMap.vue'
-import { scenes, upazilas, viewport } from '../data/concept'
+import { scenes, upazilas, viewport, risk, RISK_CLASSES } from '../data/results'
 import { t, n, fixed, date, loc } from '../i18n'
 
 const route = useRoute()
@@ -163,7 +193,20 @@ const panelOpen = ref(false)
 const compare = ref(true)
 const scene = ref('during1')
 const basemap = ref('light')
-const layers = reactive({ water: true, hidden: true, hill: false })
+const layers = reactive({ water: true, hidden: true, hill: false, trees: false, floodRisk: false, landslideRisk: false })
+
+// Legend colours come from risk.json, so they always match the image the pipeline drew
+const riskLayers = computed(() =>
+  [
+    // When the tree-cover check fails, the pipeline restricts the flood-risk map to open land and says so
+    risk.flood?.scope === 'open land'
+      ? { key: 'flood', model: 'floodRisk', label: 'map.floodRiskOpen', note: 'map.floodRiskOpenNote' }
+      : { key: 'flood', model: 'floodRisk', label: 'map.floodRisk', note: 'map.floodRiskNote' },
+    { key: 'landslide', model: 'landslideRisk', label: 'map.landslideRisk', note: 'map.landslideRiskNote' },
+  ]
+    .filter((r) => risk[r.key])
+    .map((r) => ({ ...r, colours: RISK_CLASSES.map((c) => risk[r.key].classes.colours[c]) })),
+)
 const selected = ref(null)
 const pointer = ref(null)
 const zoom = ref(viewport.zoom)
@@ -179,7 +222,7 @@ const basemaps = [
 
 const intro = computed(() => t('map.intro').split('{hl}'))
 const sortedUpazilas = computed(() => [...upazilas].sort((a, b) => b.people - a.people))
-const maxPeople = Math.max(...upazilas.map((u) => u.people))
+const maxPeople = Math.max(1, ...upazilas.map((u) => u.people))
 
 function focus(id) {
   const u = upazilas.find((x) => x.id === id)

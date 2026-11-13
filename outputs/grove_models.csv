@@ -1,0 +1,9 @@
+model,scored_on,n_flooded,n_dry,precision,recall,f1,false_alarm_rate,auc
+"current HH-rise rule (grove mean, 150 m)",train sites,74,224,0.0,0.0,0.0,0.004,
+"current HH-rise rule (grove mean, 150 m)",test sites,42,42,0.0,0.0,0.0,0.0,
+single feature: d(HH-HV) at 150 m,train sites,74,224,0.8,0.649,0.716,0.054,
+single feature: d(HH-HV) at 150 m,test sites,42,42,0.6,0.357,0.448,0.238,
+"random_forest (6 radar-change features, 150 m)","train sites, 5 km spatial CV",74,224,0.684,0.73,0.706,0.112,0.863
+"random_forest (6 radar-change features, 150 m)",test sites,42,42,0.543,0.452,0.494,0.381,0.518
+"lightgbm (6 radar-change features, 150 m)","train sites, 5 km spatial CV",74,224,0.739,0.689,0.713,0.08,0.837
+"lightgbm (6 radar-change features, 150 m)",test sites,42,42,0.541,0.476,0.506,0.405,0.509

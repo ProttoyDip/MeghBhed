@@ -1,0 +1,20 @@
+event_date,place,upazila,stated_accuracy,radius_used_m,steep_km2_in_radius,high_or_very_high_pct
+06/13/2017,5 landslides hit port of Chittagong,Kotwali,25km,5000,5.9,42.2
+06/13/2017,"Landslides in Bangladesh, Chittagong",Raozan,25km,5000,16.23,12.0
+02/03/2014, Chittagong,Khulshi,5km,5000,8.18,44.1
+09/21/2015,"Chittagong, Bangladesh",Khulshi,10km,5000,8.57,44.2
+06/24/2012,Chittagong,Kotwali,10km,5000,3.77,42.3
+05/21/2016,"Jangle Salimpur area, Sitakunda upazila, Chittag",Sitakunda,5km,5000,42.6,30.1
+10/19/2007,Madamdevihat in Chittagong and Dolhajra in Choko,Mirsharai,unknown,5000,12.03,1.0
+07/01/2011,"Batali, Chittagong",Khulshi,10km,5000,6.95,42.5
+01/30/2013,"Sitakunda, Chittagong Division,",Sitakunda,5km,5000,28.03,30.9
+07/26/2015,"Manila Hill, Chittagong District Shilpakala Acad",Bayejid Bostami,1km,1000,1.67,35.8
+06/01/2015,"Dakkhin Para, Banshkhali upazila of Chittagong",Banshkhali,25km,5000,26.95,44.0
+08/23/2008,Motijharna of Lalkhan Bazar,Kotwali,10km,5000,6.71,42.4
+07/27/2015,"Surson Rd, Chittagong",Kotwali,1km,1000,0.92,49.4
+07/28/2013,"Lal Khan Bazaar, Chittagong, Chittagong Division",Khulshi,1km,1000,1.04,49.2
+07/19/2015,Lal Khan Bazaar,Khulshi,1km,1000,1.05,49.7
+08/18/2008,"Lalkhan Bazar in Chittagong, Cox Bazar",Kotwali,10km,5000,5.73,43.2
+09/27/2015,"District Shilpakala Academy, Chittagong city",Panchlaish,25km,5000,10.31,45.8
+07/19/2015,"Amin Colony, Bayazid",Bayejid Bostami,5km,5000,21.38,42.8
+06/11/2007,Chittagong,Khulshi,25km,5000,9.37,45.0

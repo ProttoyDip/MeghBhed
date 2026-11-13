@@ -72,9 +72,9 @@ test('selecting an upazila shows its figures; selecting again clears it', async 
   await waitForMap(page)
   const row = page.getByRole('button', { name: /Fatikchhari\s*Chattogram/ })
   await row.click()
-  const detail = page.locator('aside').getByText('5.2 km²')
+  const detail = page.locator('aside').getByText('22.8 km²')
   await expect(detail).toBeVisible()
-  await expect(page.locator('aside')).toContainText('Likely missed by C-band')
+  await expect(page.locator('aside')).toContainText('Drained within a week')
   await expect(page.locator('.mb-marker.is-selected')).toHaveCount(2)
 
   await row.click()
@@ -84,14 +84,14 @@ test('selecting an upazila shows its figures; selecting again clears it', async 
 test('clicking a map marker selects that upazila', async ({ page }) => {
   await page.goto('/map')
   await waitForMap(page)
-  await page.locator('.mb-marker[data-id="parshuram"]').first().click({ force: true })
-  await expect(page.locator('aside')).toContainText('9.4 km²')
+  await page.locator('.mb-marker[data-id="satkania"]').first().click({ force: true })
+  await expect(page.locator('aside')).toContainText('27.7 km²')
 })
 
 test('deep link from the figures table opens with the upazila selected', async ({ page }) => {
   await page.goto('/map?u=hathazari')
   await waitForMap(page)
-  await expect(page.locator('aside')).toContainText('3.8 km²')
+  await expect(page.locator('aside')).toContainText('6.8 km²')
   await expect(page.locator('.mb-marker.is-selected[data-id="hathazari"]')).toHaveCount(2)
 })
 

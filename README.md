@@ -141,7 +141,7 @@ Many of the July 2026 deaths were caused by landslides in the hill districts. Me
 | Rainfall, July 2026 | NASA GPM IMERG V07 (0.1°, daily) | Trigger intensity |
 | Landslide hazard | NASA LHASA near-real-time nowcast (~1 km) | Independent model signal |
 | Radar change on slopes | NISAR GCOV (HH/HV change) | Surface disturbance |
-| Historical landslides | NASA Global Landslide Catalog (to 2016) | Context only |
+| Historical landslides | NASA Global Landslide Catalog (1988 to Sep 2017; 38 events in the grid, 2007–2017) | Context only |
 
 **Limits.** Landslide scars can be only a few pixels wide, and slopes cause radar layover and shadow. LHASA works at about 1 km. The output is a list of places to inspect, not a detection.
 
@@ -175,11 +175,12 @@ All inputs are free and open. Full details and access steps are in [docs/DATA.md
 | OPERA DSWx-S1 V1 | NASA JPL, PO.DAAC | C-band comparison | 30 m | Open, PO.DAAC policy; modified Copernicus data | [doi:10.5067/OPDSWS1-L3V1][dswx-doi] |
 | GPM IMERG V07 (daily) | NASA GES DISC | July 2026 rainfall | 0.1° | Open, EOSDIS policy | [doi:10.5067/GPM/IMERGDL/DAY/07][imerg-doi] |
 | LHASA landslide nowcast | NASA GSFC | Landslide hazard | ~1 km | Open | [NCCS data share][lhasa-nrt] |
-| Global Landslide Catalog | NASA GSFC | Historical context | Point events | NASA terms of use | [data.gov][glc] |
+| Global Landslide Catalog (export, 1988–2017) | NASA GSFC | Coarse check of the landslide risk map | Point events | NASA terms of use | [data.nasa.gov CSV][glc] |
 | ESA WorldCover 2021 v200 | ESA | Tree and built-up masks | 10 m | CC BY 4.0 | [doi:10.5281/zenodo.7254221][wc-doi] |
 | WorldPop population counts | WorldPop, Univ. of Southampton | People per upazila | 100 m | CC BY 4.0 | [hub.worldpop.org][worldpop] |
 | Copernicus DEM GLO-30 | ESA / Copernicus | Slope | 30 m | Copernicus DEM licence | [OpenTopography][cop-dem] |
-| Bangladesh admin boundaries (COD-AB) | BBS via OCHA HDX | Upazila polygons | Vector | CC BY-IGO | [HDX cod-ab-bgd][hdx] |
+| GLO-30 HAND | Alaska Satellite Facility (ASF) | Low ground (height above the nearest river) | 30 m | CC0 1.0 | [AWS Registry of Open Data][hand] |
+| Bangladesh admin boundaries (geoBoundaries gbOpen) | geoBoundaries; source BBS and OCHA ROAP | District and upazila polygons | Vector | CC BY 3.0 IGO | [geoboundaries.org][geoboundaries] |
 | Situation reports | UN Bangladesh / ICCG | Validation, context | Text | Cite source | [Sit Rep #2][sitrep2] |
 | NISAR L2 GUNW (optional) | NASA/ISRO, ASF DAAC | Coherence loss on slopes | 80 m | Open, EOSDIS policy | [ASF docs][nisar-products] |
 
@@ -317,15 +318,17 @@ Both voices in the prescreening video belong to the team's women members. <!-- T
 
 | Tool | Used for | Human contribution |
 | --- | --- | --- |
-| Claude (Anthropic) | Research, proposal and script drafting; prescreening-video animation and soundtrack generated as code | Team chose the problem and method, checked every fact, edited all text, recorded the voices |
-| ChatGPT / Codex, GitHub Copilot | Coding assistance during the hackathon (planned) | Team designs, reviews and tests all code |
-| In-app LLM | Answers user questions using only MeghBhed's computed `stats.json` | Team writes the grounding prompt and the fallback answers |
+| Claude (Anthropic), chat | Research, proposal and script drafting; discussion of the method; prescreening-video animation and soundtrack generated as code | Team chose the problem and method, checked every fact, edited all text, recorded the voices |
+| Claude Code (Anthropic) | Writing and editing the pipeline code, the web app and its tests, and the method and data documents (`docs/METHOD.md`, `docs/DATA.md`, READMEs) | Team set the method, rules and thresholds, checked the results against the data and reviewed every change |
+| rembg | Removing the background of the team photo | Team took and chose the photo |
+| In-app assistant ("Ask MeghBhed") | Answers questions about the results. Uses NVIDIA-hosted models (MiniMax M3.1 Flash, then Nemotron 3.5 Bolt and Nemotron 3.5 Lightning), then OpenRouter and Perplexity if those fail. Its only data are the pipeline's `stats.json`, `risk.json` and `model_comparison.json`; any answer with a number or date not in them is rejected. If no model gives a usable answer, a rule-based helper answers from the same files | Team wrote the grounding rules, the number check and the rule-based fallback |
+| NVIDIA-hosted Whisper Large V3 | Voice input: turns spoken questions (English or Bangla) into text; the browser's own speech recognition is the fallback | The user checks and can edit the text before sending |
 
 All voices in the video are real team members.
 
 ## Acknowledgements
 
-We thank NASA, ISRO and NASA JPL for the NISAR mission; the Alaska Satellite Facility DAAC and PO.DAAC for open data access; NASA GSFC and GES DISC for IMERG and LHASA; ESA for WorldCover and Copernicus data; WorldPop; OCHA and HDX for boundary data; and the NASA Space Apps Bangladesh organisers.
+We thank NASA, ISRO and NASA JPL for the NISAR mission; the Alaska Satellite Facility DAAC and PO.DAAC for open data access; NASA GSFC and GES DISC for IMERG and LHASA; ESA for WorldCover and Copernicus data; ASF for GLO-30 HAND; WorldPop; geoBoundaries, the Bangladesh Bureau of Statistics and OCHA for boundary data; and the NASA Space Apps Bangladesh organisers.
 
 ## References
 
@@ -377,8 +380,9 @@ The app will support both Bangla and English.
 [dswx-doi]: https://doi.org/10.5067/OPDSWS1-L3V1
 [imerg-doi]: https://doi.org/10.5067/GPM/IMERGDL/DAY/07
 [lhasa-nrt]: https://portal.nccs.nasa.gov/datashare/landslides/nrt/
-[glc]: https://catalog.data.gov/dataset/global-landslide-catalog-export
+[glc]: https://data.nasa.gov/docs/legacy/Global_Landslide_Catalog_Export/Global_Landslide_Catalog_Export_rows.csv
 [wc-doi]: https://doi.org/10.5281/zenodo.7254221
 [worldpop]: https://hub.worldpop.org/geodata/summary?id=25280
 [cop-dem]: https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032021.4326.1
-[hdx]: https://data.humdata.org/dataset/cod-ab-bgd
+[geoboundaries]: https://www.geoboundaries.org/
+[hand]: https://registry.opendata.aws/glo-30-hand/

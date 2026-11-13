@@ -3,10 +3,11 @@
     <a href="#main" class="sr-only z-50 rounded bg-ink px-3 py-2 text-paper focus:not-sr-only focus:fixed focus:left-3 focus:top-3">{{ t('nav.skip') }}</a>
 
     <header class="sticky top-0 z-40 border-b border-rule bg-paper/90 backdrop-blur-md">
-      <div class="mx-auto flex h-16 max-w-[88rem] items-center justify-between gap-4 px-4 sm:px-6">
-        <router-link to="/" class="group flex items-baseline gap-2.5" aria-label="MeghBhed">
+      <div class="mx-auto flex h-16 max-w-[88rem] items-center justify-between gap-2 px-4 sm:gap-4 sm:px-6">
+        <router-link to="/" class="group flex min-w-0 items-baseline gap-2.5" aria-label="MeghBhed">
           <span class="font-bangla text-[1.6rem] font-extrabold leading-none text-ink">মেঘভেদ</span>
-          <span class="font-display text-lg font-semibold tracking-tight text-ink-2 transition-colors group-hover:text-ink">MeghBhed</span>
+          <!-- Below 380 px the Bangla wordmark stands alone so the controls fit -->
+          <span class="font-display text-lg font-semibold tracking-tight text-ink-2 transition-colors group-hover:text-ink max-[379px]:hidden">MeghBhed</span>
         </router-link>
 
         <nav :aria-label="t('nav.menu')" class="hidden items-center gap-1 lg:flex">
@@ -21,7 +22,7 @@
           </router-link>
         </nav>
 
-        <div class="flex items-center gap-1.5">
+        <div class="flex shrink-0 items-center gap-1.5">
           <span class="mr-1 hidden items-center gap-1.5 border border-hill/60 bg-hill-soft px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-ink sm:inline-flex">
             <span class="2xl:hidden">{{ t('nav.conceptShort') }}</span>
             <span class="hidden 2xl:inline">{{ t('nav.concept') }}</span>
@@ -149,6 +150,7 @@ const navItems = [
   { key: 'nav.overview', path: '/' },
   { key: 'nav.map', path: '/map' },
   { key: 'nav.figures', path: '/statistics' },
+  { key: 'nav.validation', path: '/validation' },
   { key: 'nav.ask', path: '/assistant' },
 ]
 </script>
