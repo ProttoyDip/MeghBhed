@@ -93,7 +93,7 @@ In the app: load them with `fetch('/data/stats.json')` instead of importing the 
 
 ## 6. AI assistant (model 5, Sakin)
 
-Give the language model `stats.json` as its only source of numbers (system prompt: answer only from this file; if it isn't there, say so). The API key stays in Vercel environment variables.
+Give the language model `stats.json`, `risk.json` and `model_comparison.json` as its only source of numbers (system prompt: answer only from these files; if it isn't there, say so). The API key stays in Vercel environment variables.
 
 ## Notes
 

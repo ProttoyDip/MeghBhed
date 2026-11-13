@@ -44,7 +44,7 @@ The NISAR scenes below were found with the ASF Search API (`dataset=NISAR`, `pro
 
 1. **Download** GCOV HDF5 files with `earthaccess` or `asf_search` (Earthdata login required).
 2. **Read** the frequency A diagonal terms `HHHH` and `HVHV` (γ⁰, linear power) and the `mask` layer.
-3. **Crop** to the district boundaries (HDX COD-AB, admin level 2) plus a small buffer.
+3. **Crop** to the district boundaries ([geoBoundaries](https://www.geoboundaries.org/) gbOpen, admin level 2) plus a small buffer.
 4. **Convert to dB:** γ⁰<sub>dB</sub> = 10 · log<sub>10</sub>(γ⁰).
 5. **Speckle filter:** a small-window filter such as refined Lee, applied the same way to both dates.
 6. **Mask** invalid samples using the GCOV `mask` layer. The layer marks valid and invalid samples only (0 = invalid or partially focused, 1–5 = valid sub-swath number, 255 = outside the acquisition); it does **not** remove layover or shadow, so steep terrain is not screened out by this step.
@@ -135,7 +135,7 @@ Cells where DSWx-S1 has no valid data are left out of the comparison, not counte
 
 ## 5. People and upazila statistics
 
-Open flood is on fields, where few people live, so people are counted **within 100 m of flood cells**, using WorldPop spread onto the 30 m grid (`pipeline/08_stats.py`). Everything is summed by **upazila** (HDX COD-AB, admin level 3).
+Open flood is on fields, where few people live, so people are counted **within 100 m of flood cells**, using WorldPop spread onto the 30 m grid (`pipeline/08_stats.py`). Everything is summed by **upazila** (geoBoundaries gbOpen, admin level 3).
 
 Fields in `stats.json` (names kept from the concept app):
 
@@ -166,7 +166,7 @@ A **possible landslide — check on the ground** flag needs all of:
 | LHASA near-real-time nowcast | Moderate or high hazard on any day in the window | — |
 | NISAR GCOV change on the slope | Clear before/during backscatter change | Set at hackathon |
 
-The NASA Global Landslide Catalog ends in 2016 and is used only as historical context. The 5–18 Jul window is the period of heavy rain given in UN Sit Rep #2.
+The NASA Global Landslide Catalog export runs from 1988 to September 2017 (its 38 events in the grid date from 2007 to 2017) and is used only as historical context. The 5–18 Jul window is the period of heavy rain given in UN Sit Rep #2.
 
 Layover and shadow are **not** masked out: the GCOV `mask` layer marks valid and invalid samples only (see section 2), so steep slopes facing towards or away from the radar can show changes that are not real. Because of this, and because scars are only a few pixels wide, this layer produces **places to inspect, never detections**.
 
@@ -180,7 +180,7 @@ Layover and shadow are **not** masked out: the GCOV `mask` layer marks valid and
 | Likely-missed villages | CSV, KML | Relief organisations |
 | Hill Risk points | GeoJSON, CSV | Local responders |
 
-The AI assistant (Bangla/English) is given `stats.json` as its only source of numbers. If the numbers do not answer a question, it says so.
+The AI assistant (Bangla/English) is given `stats.json`, `risk.json` and `model_comparison.json` as its only source of numbers. If the numbers do not answer a question, it says so.
 
 ## 8. Validation
 
@@ -267,7 +267,7 @@ The rule set in advance was 0.5 to 1.5 times in every band. The lowest band, whi
 
 **What counts as slope.** A slope of 5° or more **and** a rise of 20 m or more within 300 m. In built-up cells the slope is taken from a lightly smoothed DEM. Without these two rules, buildings on flat land looked like slopes: steep land fell from 1,467 to 1,215 km², and Patenga, Double Mooring, Halishahar, Chittagong Port, Bakalia and Pahartali no longer have any.
 
-**No model is trained.** NASA's Global Landslide Catalog export has 38 points in the grid and 19 in the district (2007–2017). That is under the 40 set as the minimum, and most are located only to within 5–25 km. The newer COOLR catalogue could not be fetched. The map is a **weighted index**:
+**No model is trained.** NASA's Global Landslide Catalog export (11,033 events, 1988–2017) has 38 points in the grid and 19 in the district, all from 2007–2017. That is under the 40 set as the minimum, and most are located only to within 5–25 km. The newer COOLR catalogue could not be fetched. The map is a **weighted index**:
 
 | Factor | Weight | Score from 0 to 1 | Why |
 | --- | --- | --- | --- |

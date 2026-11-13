@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent      # repo root
 DATA = ROOT / "data"                                # output of download_meghbhed_data.sh
 WORK = ROOT / "work"                                # intermediate rasters (git-ignored)
 OUT = ROOT / "outputs"                              # final products
-LABELS = ROOT / "labels" / "sites.csv"              # Eva's flooded / dry sites
+LABELS = ROOT / "labels" / "sites.csv"              # flooded / dry label sites, built by labels/build/ (see labels/README.md)
 WEB_DATA = ROOT / "web" / "public" / "data"         # where the app reads real results
 
 # ---------------------------------------------------------------- study area

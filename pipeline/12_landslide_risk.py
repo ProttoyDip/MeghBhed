@@ -51,7 +51,7 @@ LABELS = dict(slope="Slope", relief="Relief within 300 m", rainfall="Rain, 5-18 
 LC_SCORE = {"bare": 1.0, "built-up": 0.8, "cropland": 0.7, "other": 0.6, "tree": 0.4}
 CLASS_TOP_SHARE = {4: 0.05, 3: 0.20, 2: 0.50}          # cumulative share of steep land, from the top
 COLOURS = {1: (237, 231, 246, 80), 2: (179, 157, 219, 160), 3: (126, 87, 194, 205), 4: (74, 20, 140, 230)}
-CATALOG = C.DATA / "landslide" / "glc_export.csv"       # NASA Global Landslide Catalog export (2007-2017)
+CATALOG = C.DATA / "landslide" / "glc_export.csv"       # NASA Global Landslide Catalog export (1988-2017; 38 events in the grid, 2007-2017)
 NASA_SUSC = C.DATA / "landslide" / "susceptibility_2023.tif"
 MAX_CATALOG_RADIUS_M = 5000
 # Places the July 2026 reports named as high landslide risk (BDRCS, 7 Jul; NAWG, 9 and 11 Jul).

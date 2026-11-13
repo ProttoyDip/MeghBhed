@@ -303,7 +303,7 @@ const stepData = [
   'NISAR L2 GCOV · Provisional V1 · 10 m',
   'ESA WorldCover 2021 · 10 m · HAND 30 m',
   'OPERA DSWx-S1 V1 · 30 m · 16 Jul and four June dates',
-  'WorldPop · 100 m · HDX COD-AB',
+  'WorldPop · 100 m · geoBoundaries',
 ]
 
 const datasets = [
@@ -314,7 +314,8 @@ const datasets = [
   { name: 'GPM IMERG V07', provider: 'NASA GES DISC', use: 'July rainfall', useBn: 'জুলাইয়ের বৃষ্টিপাত', res: '0.1°', url: 'https://doi.org/10.5067/GPM/IMERGDL/DAY/07' },
   { name: 'LHASA nowcast', provider: 'NASA GSFC', use: 'Landslide hazard', useBn: 'ভূমিধস ঝুঁকি', res: '~1 km', url: 'https://portal.nccs.nasa.gov/datashare/landslides/nrt/' },
   { name: 'Copernicus DEM GLO-30', provider: 'ESA / Copernicus', use: 'Slope', useBn: 'ঢাল', res: '30 m', url: 'https://portal.opentopography.org/datasetMetadata?otCollectionID=OT.032021.4326.1' },
-  { name: 'Admin boundaries (COD-AB)', provider: 'BBS via OCHA HDX', use: 'Upazila polygons', useBn: 'উপজেলার সীমানা', res: 'Vector', url: 'https://data.humdata.org/dataset/cod-ab-bgd' },
+  { name: 'GLO-30 HAND', provider: 'Alaska Satellite Facility (ASF)', use: 'Height above the nearest river', useBn: 'নিকটতম নদী থেকে উচ্চতা', res: '30 m', url: 'https://registry.opendata.aws/glo-30-hand/' },
+  { name: 'geoBoundaries gbOpen', provider: 'geoBoundaries (William & Mary)', use: 'District and upazila boundaries', useBn: 'জেলা ও উপজেলার সীমানা', res: 'Vector', url: 'https://www.geoboundaries.org/' },
 ]
 
 const team = [
