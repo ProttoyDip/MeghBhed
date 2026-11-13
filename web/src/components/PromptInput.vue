@@ -29,7 +29,7 @@
         :value="modelValue"
         :placeholder="placeholder"
         :aria-label="t('ask.input.label')"
-        :disabled="disabled || recording"
+        :disabled="disabled || recording || transcribing"
         maxlength="400"
         rows="1"
         class="thin-scroll absolute inset-x-0 top-0 z-[1] w-full resize-none bg-transparent py-3.5 pl-5 pr-14 text-[15px] leading-[22px] text-ink outline-none placeholder:text-ink-3 focus-visible:outline-none"
@@ -94,11 +94,11 @@
       <!-- Voice waveform -->
       <div
         class="absolute bottom-2 right-14 z-[10] flex h-8 items-center justify-end gap-[3px] transition-all duration-500"
-        :class="recording ? 'w-24 translate-x-0 opacity-100' : 'pointer-events-none w-0 translate-x-4 opacity-0'"
+        :class="recording || transcribing ? 'w-24 translate-x-0 opacity-100' : 'pointer-events-none w-0 translate-x-4 opacity-0'"
         :style="{ transitionTimingFunction: SPRING }"
         aria-hidden="true"
       >
-        <span class="mr-2 whitespace-nowrap font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-missed">{{ t('ask.input.listening') }}</span>
+        <span class="mr-2 whitespace-nowrap font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-missed" data-testid="voice-state">{{ transcribing ? t('ask.input.transcribing') : t('ask.input.listening') }}</span>
         <span v-for="(v, i) in audio" :key="i" class="w-1 rounded-full bg-missed transition-[height] duration-75 ease-out" :style="{ height: `${Math.max(4, v * 24)}px` }"></span>
       </div>
 
@@ -107,7 +107,7 @@
         type="button"
         class="absolute bottom-2 right-2 z-[10] flex h-9 w-9 items-center justify-center rounded-full transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-water disabled:opacity-40"
         :class="recording ? 'bg-missed text-card' : 'bg-ink text-paper hover:opacity-90 active:scale-95'"
-        :disabled="disabled || (!hasValue && !recording && !speechSupported)"
+        :disabled="disabled || transcribing || (!hasValue && !recording && !speechSupported)"
         :aria-label="showStop ? t('ask.input.stop') : showMic ? t('ask.input.speak') : t('ask.input.send')"
         @mousedown.prevent.stop
         @click="onAction"
@@ -128,7 +128,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { ArrowUp, Mic, Square, Sparkles } from 'lucide-vue-next'
 import { t, lang } from '../i18n'
 
@@ -157,26 +157,48 @@ const containerHeight = computed(() => Math.max(112, textareaHeight.value + 48))
 const hasValue = computed(() => props.modelValue.trim() !== '')
 
 // ---- voice ------------------------------------------------------------------
+// Two ways to turn speech into text:
+//  - server: record clean 16 kHz audio here and send it to /api/transcribe (NVIDIA Whisper). Used whenever
+//    the server says it is configured: it hears Bangla and English far better than most browsers.
+//  - browser: the browser's own SpeechRecognition, as a fallback when the server has no speech service.
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-const speechSupported = !!SpeechRecognition && !!navigator.mediaDevices?.getUserMedia
+const hasMic = !!navigator.mediaDevices?.getUserMedia
+const serverAsr = ref(false)
+const speechSupported = computed(() => hasMic && (serverAsr.value || !!SpeechRecognition))
 const voiceLang = ref(lang.value)
 watch(lang, (l) => (voiceLang.value = l))
+// Kept so a tap on the mic before the answer arrives waits for it instead of using the browser
+let asrCheck = Promise.resolve()
+onMounted(() => {
+  asrCheck = fetch('/api/transcribe')
+    .then(async (res) => (serverAsr.value = res.ok && (await res.json()).available === true))
+    .catch(() => (serverAsr.value = false))
+})
 
 const recording = ref(false)
+const transcribing = ref(false)
 const audio = ref([0, 0, 0, 0, 0])
 const voiceError = ref('')
 let stream = null
 let audioCtx = null
 let raf = 0
 let recognition = null
+let capture = null // server mode: what has been recorded so far
 
-const showArrow = computed(() => (hasValue.value || !speechSupported) && !recording.value)
+const TARGET_RATE = 16000
+const MAX_SECONDS = 30
+const SPEECH_LEVEL = 0.015 // loudness (RMS) above this counts as speech
+const END_SILENCE_MS = 1600 // stop this long after the speaker pauses
+const NO_SPEECH_MS = 7000 // give up if nothing is said at all
+
+const showArrow = computed(() => (hasValue.value || !speechSupported.value) && !recording.value)
 const showStop = computed(() => recording.value)
-const showMic = computed(() => speechSupported && !hasValue.value && !recording.value)
+const showMic = computed(() => speechSupported.value && !hasValue.value && !recording.value)
 
 function stopRecording() {
   recognition?.stop()
   recognition = null
+  if (capture) finishCapture()
   cancelAnimationFrame(raf)
   stream?.getTracks().forEach((tr) => tr.stop())
   stream = null
@@ -186,20 +208,117 @@ function stopRecording() {
   audio.value = [0, 0, 0, 0, 0]
 }
 
+// Resample to 16 kHz (linear interpolation) and turn into 16-bit little-endian PCM
+function toPcm16(chunks, rate) {
+  const total = chunks.reduce((n, c) => n + c.length, 0)
+  const input = new Float32Array(total)
+  let o = 0
+  for (const c of chunks) {
+    input.set(c, o)
+    o += c.length
+  }
+  const ratio = rate / TARGET_RATE
+  const out = new Int16Array(Math.floor(total / ratio))
+  for (let i = 0; i < out.length; i++) {
+    const x = i * ratio
+    const j = Math.floor(x)
+    const v = input[j] + ((input[j + 1] ?? input[j]) - input[j]) * (x - j)
+    out[i] = Math.max(-1, Math.min(1, v)) * 0x7fff
+  }
+  return new Uint8Array(out.buffer)
+}
+
+function toBase64(bytes) {
+  let bin = ''
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000))
+  return btoa(bin)
+}
+
+// Server mode: called when recording stops (by the button, a pause, or the time limit)
+function finishCapture() {
+  const c = capture
+  capture = null
+  clearTimeout(c.timer)
+  c.processor.onaudioprocess = null
+  c.processor.disconnect()
+  if (c.cancelled) return
+  if (!c.heard) {
+    voiceError.value = t('ask.input.noSpeech')
+    return
+  }
+  const pcm = toPcm16(c.chunks, c.rate)
+  const baseline = props.modelValue
+  transcribing.value = true
+  const abort = new AbortController()
+  const timer = setTimeout(() => abort.abort(), 20000)
+  fetch('/api/transcribe', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ audio: toBase64(pcm), lang: voiceLang.value }),
+    signal: abort.signal,
+  })
+    .then(async (res) => (res.ok ? (await res.json()).text?.trim() : null))
+    .catch(() => null)
+    .then((text) => {
+      clearTimeout(timer)
+      transcribing.value = false
+      if (text) setValue(`${baseline}${baseline ? ' ' : ''}${text}`.trim())
+      else voiceError.value = t('ask.input.noSpeech')
+      nextTick(() => textareaRef.value?.focus())
+    })
+}
+
+function startServerCapture() {
+  const source = audioCtx.createMediaStreamSource(stream)
+  const processor = audioCtx.createScriptProcessor(4096, 1, 1)
+  const mute = audioCtx.createGain()
+  mute.gain.value = 0 // the processor must reach the output to run, but nothing should be heard
+  source.connect(processor)
+  processor.connect(mute)
+  mute.connect(audioCtx.destination)
+  const c = (capture = { chunks: [], rate: audioCtx.sampleRate, processor, timer: 0, heard: false, lastVoice: 0, cancelled: false })
+  const started = performance.now()
+  processor.onaudioprocess = (e) => {
+    const data = e.inputBuffer.getChannelData(0)
+    c.chunks.push(new Float32Array(data))
+    let sum = 0
+    for (let i = 0; i < data.length; i++) sum += data[i] * data[i]
+    const now = performance.now()
+    if (Math.sqrt(sum / data.length) > SPEECH_LEVEL) {
+      c.heard = true
+      c.lastVoice = now
+    }
+    if ((c.heard && now - c.lastVoice > END_SILENCE_MS) || (!c.heard && now - started > NO_SPEECH_MS)) stopRecording()
+  }
+  c.timer = setTimeout(stopRecording, MAX_SECONDS * 1000)
+}
+
+let starting = false
 async function startRecording() {
+  if (starting) return
+  starting = true
   voiceError.value = ''
   smooth.value = false
   expanded.value = true
+  // Made right away, while the tap still counts as a user gesture: an audio context made later
+  // (after the waits below) can start suspended and never deliver any sound.
+  const ctx = new (window.AudioContext || window.webkitAudioContext)()
   try {
-    stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    await asrCheck // server or browser speech-to-text: decided before the mic opens
+    // Ask the browser to clean the signal up before it reaches the recogniser
+    stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } })
   } catch {
+    ctx.close()
     voiceError.value = t('ask.input.micBlocked')
     return
+  } finally {
+    starting = false
   }
+  if (ctx.state === 'suspended') ctx.resume().catch(() => {})
   recording.value = true
 
   // Waveform from the live mic level
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+  audioCtx = ctx
   const analyser = audioCtx.createAnalyser()
   analyser.fftSize = 64
   audioCtx.createMediaStreamSource(stream).connect(analyser)
@@ -216,7 +335,12 @@ async function startRecording() {
   }
   draw()
 
-  // Speech to text, in Bangla or English
+  if (serverAsr.value) {
+    startServerCapture()
+    return
+  }
+
+  // Speech to text in the browser, in Bangla or English
   recognition = new SpeechRecognition()
   recognition.lang = voiceLang.value === 'bn' ? 'bn-BD' : 'en-US'
   recognition.continuous = true
@@ -289,7 +413,7 @@ function onKeydown(e) {
 function onAction() {
   if (recording.value) stopRecording()
   else if (hasValue.value) submit()
-  else if (speechSupported) startRecording()
+  else if (speechSupported.value) startRecording()
 }
 
 function onCardMouseDown(e) {
@@ -349,7 +473,10 @@ watch(expanded, (on) => {
   }
 })
 
-onBeforeUnmount(stopRecording)
+onBeforeUnmount(() => {
+  if (capture) capture.cancelled = true // leaving the page: do not send what was recorded
+  stopRecording()
+})
 
 defineExpose({ focus: expand })
 </script>

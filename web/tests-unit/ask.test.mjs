@@ -189,3 +189,54 @@ test('the facts block is small and says what the rules require', () => {
   assert.ok(FACTS.text.length < 8000)
   for (const s of ['12 July 2026', 'upper bound', 'not a forecast', 'could not be confirmed', 'Satkania']) assert.ok(FACTS.text.includes(s), s)
 })
+
+// ---- NVIDIA free models, greetings, time limit, dates -------------------------------------------
+import { NVIDIA_FREE_MODELS, stripThinking, systemPrompt } from '../server/ask-core.js'
+
+test('NVIDIA expands into one fallback step per free model, and NVIDIA_MODELS overrides the list', () => {
+  const ids = configuredProviders({ NVIDIA_API_KEY: 'k' })
+  assert.deepEqual(ids.map((p) => p.model), NVIDIA_FREE_MODELS)
+  assert.ok(ids.every((p) => p.label === 'NVIDIA'))
+  assert.deepEqual(configuredProviders({ NVIDIA_API_KEY: 'k', NVIDIA_MODELS: 'a/one, b/two' }).map((p) => p.model), ['a/one', 'b/two'])
+  assert.equal(configuredProviders({ NVIDIA_API_KEY: 'k', OPENROUTER_API_KEY: 'k' })[0].id, 'nvidia') // NVIDIA comes first by default
+})
+
+test('an NVIDIA model that is rate-limited falls through to the next NVIDIA model, with thinking switched off', async () => {
+  let n = 0
+  const f = mockFetch({ 'integrate.api.nvidia.com': () => (n++ === 0 ? httpError(429) : openaiReply(GOOD)) })
+  const r = await ask({ question: 'q' }, opts({ NVIDIA_API_KEY: 'k' }, f.impl))
+  assert.equal(r.provider, 'NVIDIA')
+  assert.equal(r.model, NVIDIA_FREE_MODELS[1])
+  const body = JSON.parse(f.calls[1].init.body)
+  assert.deepEqual(body.chat_template_kwargs, { enable_thinking: false })
+  assert.equal(body.max_tokens, 300)
+})
+
+test('thinking tags are removed before the answer is checked', async () => {
+  assert.equal(stripThinking('<think>reasoning 999,999</think>Hello!'), 'Hello!')
+  const f = mockFetch({ 'integrate.api.nvidia.com': openaiReply('<think>maybe 123,456 people</think>' + GOOD) })
+  const r = await ask({ question: 'q' }, opts({ NVIDIA_API_KEY: 'k' }, f.impl))
+  assert.equal(r.fallback, false)
+  assert.doesNotMatch(r.answer, /think/)
+})
+
+test('the whole chain stops before the overall time limit', async () => {
+  const slow = (url, init) => new Promise((_, reject) => init.signal.addEventListener('abort', () => reject(Object.assign(new Error('aborted'), { name: 'AbortError' }))))
+  const f = mockFetch({ 'integrate.api.nvidia.com': slow, 'openrouter.ai': openaiReply(GOOD) })
+  const t0 = Date.now()
+  const r = await ask({ question: 'q' }, { ...opts({ NVIDIA_API_KEY: 'k', OPENROUTER_API_KEY: 'k' }, f.impl), timeoutMs: 1000, totalMs: 2000 })
+  assert.ok(Date.now() - t0 < 2500)
+  assert.equal(r.fallback, true)
+  assert.ok(r.tried.some((x) => x.status.startsWith('skipped')))
+})
+
+test('grounding rejects a wrong date such as "10 July"', () => {
+  assert.ok(!numbersAreGrounded('এই তথ্যগুলো ১০ জুলাই ২০২৬ এর জন্য', FACTS.numbers, FACTS.dates).ok)
+  assert.ok(numbersAreGrounded('The flood map is for 12 July 2026; it drained by 19 July.', FACTS.numbers, FACTS.dates).ok)
+})
+
+test('the rules tell the model to greet instead of saying the data is missing, and no longer ask for a source line', () => {
+  const sp = systemPrompt(FACTS.text, 'en')
+  assert.match(sp, /greeting/)
+  assert.doesNotMatch(sp, /Source:/)
+})

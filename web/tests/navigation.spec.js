@@ -52,8 +52,9 @@ test('unknown URLs show the 404 page with a way back', async ({ page }) => {
 
 test('skip link targets the main content', async ({ page }) => {
   await page.goto('/')
-  await page.keyboard.press('Tab')
   const skip = page.getByRole('link', { name: 'Skip to content' })
+  await expect(skip).toBeAttached() // the app mounts after its data file loads
+  await page.keyboard.press('Tab')
   await expect(skip).toBeFocused()
   await expect(skip).toHaveAttribute('href', '#main')
 })

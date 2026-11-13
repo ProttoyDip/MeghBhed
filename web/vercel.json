@@ -1,7 +1,19 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
-    "api/ask.js": { "includeFiles": "public/data/*.json", "maxDuration": 60 }
+    "api/ask.js": {
+      "includeFiles": "public/data/*.json",
+      "maxDuration": 60
+    },
+    "api/transcribe.js": {
+      "includeFiles": "server/riva/**",
+      "maxDuration": 30
+    }
   },
-  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
+  ]
 }

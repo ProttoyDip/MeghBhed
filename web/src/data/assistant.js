@@ -61,9 +61,28 @@ function upazilaAnswer(u, bn) {
   return { text, facts, link: { to: `/map?u=${u.id}`, label: bn ? 'ম্যাপে দেখুন' : `Show ${u.name} on the map` } }
 }
 
+// Greetings, thanks and goodbyes get a friendly reply, not "I can't help with that"
+const GREETING = /^(hi+|hello+|hey+|hiya|yo|good (morning|afternoon|evening)|salam|assalamu? ?alaikum|as-?salamu alaykum|namaskar|nomoskar|হাই|হ্যালো|হেলো|সালাম|আসসালামু ?আলাইকুম|নমস্কার|শুভ (সকাল|সন্ধ্যা|বিকাল))[\s!.,।?]*$/i
+const THANKS = /^(thanks?( you)?|thank u|thx|ty|ok(ay)?( thanks?)?|great|nice|cool|ধন্যবাদ|থ্যাংক(স| ইউ)|আচ্ছা|ঠিক আছে)[\s!.,।?]*$/i
+const BYE = /^(bye|goodbye|see you|good night|বিদায়|আল্লাহ হাফেজ|খোদা হাফেজ|শুভ রাত্রি)[\s!.,।?]*$/i
+
+function smallTalk(q, bn) {
+  const s = q.trim()
+  if (GREETING.test(s)) {
+    return bn
+      ? 'হ্যালো! আমি মেঘভেদ। চট্টগ্রামের জুলাই ২০২৬-এর বন্যা নিয়ে প্রশ্ন করতে পারেন: কোন উপজেলায় কত এলাকা আর কত মানুষ, মোট হিসাব, মডেলগুলো কতটা ভালো কাজ করে, অথবা বন্যা ও ভূমিধসের ঝুঁকির মানচিত্র।'
+      : "Hello! I'm MeghBhed. Ask me about the July 2026 floods in Chattogram: flood area and people in any upazila, the totals, how well the models work, or the flood and landslide risk maps."
+  }
+  if (THANKS.test(s)) return bn ? 'আপনাকেও ধন্যবাদ! আর কিছু জানতে চাইলে জিজ্ঞেস করুন।' : "You're welcome! Ask me anything else about the floods."
+  if (BYE.test(s)) return bn ? 'বিদায়! আবার আসবেন।' : 'Goodbye, and stay safe.'
+  return null
+}
+
 export function answer(q) {
   const bn = isBangla(q)
   const lower = q.toLowerCase()
+  const hello = smallTalk(q, bn)
+  if (hello) return { text: hello, facts: [], source: null }
   const u = findUpazila(q)
   if (u) return { ...upazilaAnswer(u, bn), source: SOURCE }
 

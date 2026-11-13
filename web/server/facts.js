@@ -76,7 +76,7 @@ export function buildFacts({ stats, risk, models } = {}) {
   }
 
   const text = L.join('\n')
-  return { text, numbers: extractNumbers(text) }
+  return { text, numbers: extractNumbers(text), dates: extractDates(text) }
 }
 
 const BN = '০১২৩৪৫৬৭৮৯'
@@ -96,10 +96,21 @@ export function extractNumbers(text) {
   return out
 }
 
+const MONTHS = { june: 6, jun: 6, 'জুন': 6, july: 7, jul: 7, 'জুলাই': 7, august: 8, aug: 8, 'আগস্ট': 8 }
+const MONTH_RE = /(\d{1,2})(?:st|nd|rd|th)?\s*(june|jun|july|jul|august|aug|জুন|জুলাই|আগস্ট)(?![a-z])/gi
+
+// Day-and-month dates in a text, e.g. "12 July" or "১২ জুলাই" -> ["7-12"]
+export function extractDates(text) {
+  const ascii = String(text).replace(/[০-৯]/g, (c) => String(BN.indexOf(c)))
+  return [...ascii.matchAll(MONTH_RE)].map((m) => `${MONTHS[m[2].toLowerCase()]}-${Number(m[1])}`)
+}
+
 // True when every number of two or more digits in the answer appears in the facts, allowing the
-// answer to round a fact to fewer decimals (27.7 for 27.70, 79 for 78.7).
-export function numbersAreGrounded(answer, factNumbers) {
+// answer to round a fact to fewer decimals (27.7 for 27.70, 79 for 78.7), and every date it gives
+// (such as "12 July") appears in the facts as that date. factDates is optional.
+export function numbersAreGrounded(answer, factNumbers, factDates = null) {
   const unknown = []
+  if (factDates) for (const d of extractDates(answer)) if (!factDates.includes(d)) unknown.push(d)
   for (const n of extractNumbers(answer)) {
     if (n.digits < 2) continue
     const scale = 10 ** n.decimals

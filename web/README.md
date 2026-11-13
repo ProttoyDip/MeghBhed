@@ -58,23 +58,31 @@ Copy [`.env.example`](.env.example) to `.env.local` and fill in the keys you hav
 | Groq | `GROQ_API_KEY` | `GROQ_MODEL` | `openai/gpt-oss-20b` |
 | Google Gemini | `GEMINI_API_KEY` | `GEMINI_MODEL` | `gemini-3.1-flash-lite` |
 | OpenAI | `OPENAI_API_KEY` | `OPENAI_MODEL` | `gpt-5-nano` |
-| NVIDIA | `NVIDIA_API_KEY` | `NVIDIA_MODEL` | `meta/llama-3.1-8b-instruct` |
+| NVIDIA (free models) | `NVIDIA_API_KEY` | `NVIDIA_MODELS` (comma-separated) | `minimaxai/minimax-m3.1-flash`, then `nvidia/nemotron-3.5-bolt-e4b`, then `nvidia/nemotron-3.5-lightning-30b-a3b` |
 | Anthropic | `ANTHROPIC_API_KEY` | `ANTHROPIC_MODEL` | `claude-haiku-5-5` |
 | OpenRouter | `OPENROUTER_API_KEY` | `OPENROUTER_MODEL` | `openai/gpt-oss-20b` |
 | Perplexity | `PERPLEXITY_API_KEY` | `PERPLEXITY_MODEL` | `sonar` |
 | Any OpenAI-compatible router | `CUSTOM1_API_KEY` (also `CUSTOM2_`, `CUSTOM3_`) | `CUSTOM1_MODEL` | none: set `CUSTOM1_BASE_URL` (ending in `/v1`), `CUSTOM1_MODEL` and, if you like, `CUSTOM1_NAME` |
 
-`LLM_ORDER` sets the order to try, for example `LLM_ORDER=groq,gemini,openai,nvidia,anthropic,openrouter`. Services without a key are skipped.
+`LLM_ORDER` sets the order to try; the default starts with `nvidia`. Services without a key are skipped.
+
+**NVIDIA's free models.** One NVIDIA key gives a chain of free models, each tried in turn: if one is rate-limited (NVIDIA's free tier answers HTTP 429 when busy), times out or gives an ungrounded answer, the next is tried. Set `NVIDIA_MODELS` to change the list. Of the 83 models the key could list in November 2026, these three answered reliably in English and Bangla; most others returned 404 or timed out. NVIDIA models are asked to skip their hidden "thinking" step, which otherwise used up the answer's token budget.
 
 Keys are read only on the server. None has the `VITE_` prefix, so Vite never puts one in the browser bundle. `.env`, `.env.local` and `.env.*.local` are git-ignored; only `.env.example` (names, no values) is tracked.
 
 ### Fallback
 
-Each service gets 8 seconds. On a timeout, a network error, a 4xx or 5xx reply (including "out of credit" and "rate limited"), an empty answer, or an answer that fails the grounding check, the next service in the order is tried. So when one key runs out, the next one takes over without any change. If all fail, the page answers with the built-in helper. The visitor never sees a raw error.
+Each service gets 8 seconds, and the whole chain stops after 17 seconds so the page (which waits 20) always gets a reply. On a timeout, a network error, a 4xx or 5xx reply (including "out of credit" and "rate limited"), an empty answer, or an answer that fails the grounding check, the next service in the order is tried. So when one key runs out, the next one takes over without any change. If all fail, the page answers with the built-in helper. The visitor never sees a raw error.
 
-Under each answer the page shows who answered: "Answered by Groq · openai/gpt-oss-20b" or "Answered by the built-in helper". When at least one service is configured, a "Model" picker above the input lets the visitor choose one; that service is tried first and the others remain as fallback.
+The page shows only the answer: no source line, no model name and no model picker. Greetings, thanks and goodbyes get a short friendly reply, in English or Bangla, from the AI service or from the built-in helper.
 
 Limits: questions over 500 characters are rejected; answers are capped at about 300 tokens; temperature 0.2 where the model accepts it; 20 requests per 5 minutes per IP (in memory, per server instance); same-origin requests only.
+
+### Voice input (NVIDIA speech-to-text)
+
+When `NVIDIA_API_KEY` (or a separate `NVIDIA_ASR_API_KEY`) is set, the microphone records clean 16 kHz mono audio in the browser (with echo cancellation and noise suppression), stops by itself 1.6 seconds after you stop speaking (or after 30 seconds, or when you press stop), and sends it to `/api/transcribe` ([`api/transcribe.js`](api/transcribe.js), logic in [`server/transcribe-core.js`](server/transcribe-core.js)). That calls NVIDIA's hosted Whisper Large V3 over gRPC, in English or Bangla depending on the voice-language switch. The text appears in the input box to check before sending. Without a key, the browser's own speech recognition is used as before.
+
+`NVIDIA_ASR_FUNCTION_ID` selects a different hosted speech model; the default is Whisper Large V3's (`b702f636-f60c-4a3d-a6f4-f3568c13bd7d`). The protocol files in `server/riva/` are NVIDIA's own (MIT licence). Limits: 30 seconds per recording, same-origin only, the same per-IP rate limit as the assistant.
 
 ### Switching a model
 

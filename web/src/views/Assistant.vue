@@ -51,9 +51,7 @@
                       <dd class="num font-mono text-sm font-semibold text-ink">{{ f[1] }}</dd>
                     </div>
                   </dl>
-                  <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
-                    <p v-if="m.source" class="font-mono text-[11px] text-ink-3">{{ t('common.source') }}: {{ m.source }}</p>
-                    <p class="font-mono text-[11px] text-ink-3" data-testid="answered-by">{{ m.provider ? t('ask.answeredBy', { provider: m.provider, model: m.model }) : t('ask.answeredByHelper') }}</p>
+                  <div v-if="m.link" class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
                     <router-link v-if="m.link" :to="m.link.to" class="group inline-flex items-center gap-1 text-sm font-medium text-ink underline decoration-rule decoration-2 underline-offset-4 hover:decoration-ink">
                       {{ m.link.label }} <ArrowRight class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                     </router-link>
@@ -69,13 +67,6 @@
       <!-- Composer -->
       <div class="relative px-4 pb-4 pt-3 sm:px-8">
         <div v-if="messages.length" class="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-linear-to-t from-paper to-transparent"></div>
-        <div v-if="providers.length" class="mx-auto mb-2 flex max-w-2xl items-center justify-end gap-2">
-          <label for="ask-model" class="font-mono text-[11px] text-ink-3">{{ t('ask.modelLabel') }}</label>
-          <select id="ask-model" v-model="choice" class="max-w-[70%] rounded-md border border-rule bg-card px-2 py-1 font-mono text-[11px] text-ink focus:border-ink focus:outline-none">
-            <option value="">{{ t('ask.modelAuto') }}</option>
-            <option v-for="p in providers" :key="p.id" :value="p.id">{{ p.label }} · {{ p.model }}</option>
-          </select>
-        </div>
         <PromptInput v-model="input" :placeholder="t('ask.placeholder')" :disabled="busy" @submit="send" />
         <p class="mx-auto mt-2.5 max-w-2xl text-center text-[11px] text-ink-3">{{ t('ask.footnote') }}</p>
       </div>
@@ -99,7 +90,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted } from 'vue'
+import { ref, nextTick } from 'vue'
 import { ArrowRight, CornerDownLeft, Check, X, SquarePen, Sparkles, Info } from 'lucide-vue-next'
 import PromptInput from '../components/PromptInput.vue'
 import GradientBackdrop from '../components/GradientBackdrop.vue' // SOFFIT GRADIENT (trial)
@@ -117,18 +108,6 @@ let current = null // the question being answered: { id, abort }
 const MIN_WAIT_MS = 650 // keeps the loading state from flashing
 const MAX_WAIT_MS = 20000 // after this the built-in helper answers
 
-// Which AI services the server has keys for (names and model ids only), for the model picker
-const providers = ref([])
-const choice = ref('') // '' = automatic order
-onMounted(async () => {
-  try {
-    const res = await fetch('/api/ask')
-    if (res.ok) providers.value = (await res.json()).providers ?? []
-  } catch {
-    // no server function (static hosting): the helper answers
-  }
-})
-
 // Ask the server. Returns null when the helper should answer: no service configured, every
 // service failed its grounding check, a network error, or no reply within MAX_WAIT_MS.
 async function askServer(question, signal) {
@@ -136,7 +115,7 @@ async function askServer(question, signal) {
     const res = await fetch('/api/ask', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ question, lang: lang.value, provider: choice.value || undefined }),
+      body: JSON.stringify({ question, lang: lang.value }),
       signal,
     })
     if (!res.ok) return null
@@ -170,7 +149,7 @@ function send(text) {
     clearTimeout(timeout)
     if (current !== mine) return // "New chat" was pressed meanwhile
     const reply = data
-      ? { text: data.answer, facts: [], source: data.source, provider: data.provider, model: data.model }
+      ? { text: data.answer, facts: [] }
       : answer(q) // the built-in keyword helper
     const i = messages.value.findIndex((m) => m.id === pendingId)
     if (i !== -1) messages.value.splice(i, 1, { id: pendingId, role: 'assistant', ...reply })
