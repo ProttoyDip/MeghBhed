@@ -46,11 +46,25 @@
       </div>
     </section>
 
-    <!-- Data sources, in one line -->
+    <!-- Data sources, as an endless marquee (pauses on hover or keyboard focus; wraps instead when motion is reduced) -->
     <section class="border-b border-rule bg-card" :aria-label="t('home.sourcesLabel')">
-      <div class="mx-auto flex max-w-[88rem] flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 sm:px-6">
-        <span class="label !text-[10px]">{{ t('home.sourcesLabel') }}</span>
-        <a v-for="d in datasets" :key="d.name" :href="d.url" target="_blank" rel="noopener" class="font-mono text-[11px] text-ink-2 underline decoration-rule underline-offset-4 hover:text-ink hover:decoration-ink">{{ d.name }}</a>
+      <div class="mx-auto flex max-w-[88rem] items-center gap-x-5 px-4 py-3 sm:px-6">
+        <span class="label shrink-0 !text-[10px]">{{ t('home.sourcesLabel') }}</span>
+        <div class="marquee min-w-0 flex-1">
+          <div class="marquee-track">
+            <div v-for="copy in 2" :key="copy" class="marquee-copy" :aria-hidden="copy === 2 ? 'true' : undefined">
+              <a
+                v-for="d in datasets"
+                :key="d.name"
+                :href="d.url"
+                :tabindex="copy === 2 ? -1 : undefined"
+                target="_blank"
+                rel="noopener"
+                class="shrink-0 whitespace-nowrap font-mono text-[11px] text-ink-2 underline decoration-rule underline-offset-4 hover:text-ink hover:decoration-ink"
+              >{{ d.name }}</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -235,7 +249,12 @@
           {{ t('home.data.link') }} <ArrowUpRight class="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </a>
       </div>
-      <ul v-reveal.stagger class="mt-10 grid gap-x-8 gap-y-8 border-t-2 border-ink pt-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="mt-10 grid gap-10 border-t-2 border-ink pt-8 lg:grid-cols-12 lg:gap-12">
+      <!-- Warp Carousel: a few headline figures from these inputs, beside the full list -->
+      <div class="lg:order-last lg:col-span-5">
+        <WarpCarousel :cards="dataCards" :aria-label="lang === 'bn' ? 'ডেটার মূল সংখ্যা' : 'Key figures from the data'" />
+      </div>
+      <ul v-reveal.stagger class="grid content-start gap-x-8 gap-y-8 sm:grid-cols-2 lg:col-span-7">
         <li v-for="d in datasets" :key="d.name">
           <a :href="d.url" target="_blank" rel="noopener" class="group block">
             <span class="flex items-baseline justify-between gap-3">
@@ -247,6 +266,7 @@
           </a>
         </li>
       </ul>
+      </div>
     </section>
 
     <!-- Team -->
@@ -280,6 +300,7 @@ import { sitrep, DATA_URLS } from '../data/results'
 import { t, n, fixed, lang } from '../i18n'
 
 const SwipeMap = defineAsyncComponent(() => import('../components/SwipeMap.vue'))
+const WarpCarousel = defineAsyncComponent(() => import('../components/WarpCarousel.vue'))
 
 // 1.28 M people = 12.8 lakh in Bangla
 const stats = computed(() => [
@@ -317,6 +338,62 @@ const datasets = [
   { name: 'GLO-30 HAND', provider: 'Alaska Satellite Facility (ASF)', use: 'Height above the nearest river', useBn: 'নিকটতম নদী থেকে উচ্চতা', res: '30 m', url: 'https://registry.opendata.aws/glo-30-hand/' },
   { name: 'geoBoundaries gbOpen', provider: 'geoBoundaries (William & Mary)', use: 'District and upazila boundaries', useBn: 'জেলা ও উপজেলার সীমানা', res: 'Vector', url: 'https://www.geoboundaries.org/' },
 ]
+
+// Cards for the Warp Carousel in the Data section. Figures come from pipeline/config.py and the list above.
+// Mesh, numeral and glow colours are the component's own four designs.
+const dataCards = computed(() => {
+  const bn = lang.value === 'bn'
+  return [
+    {
+      title: bn ? 'NISAR L-band\nতরঙ্গদৈর্ঘ্য' : 'NISAR L-band\nwavelength',
+      value: n(24),
+      unit: bn ? 'সেমি' : 'cm',
+      footer: bn ? `C-band-এ মাত্র ${fixed(5.6)} সেমি` : 'C-band is only 5.6 cm',
+      detail: 'wave',
+      numeral: ['#3ad2ff', '#8cf6ff'],
+      accent: '#7fe8ff',
+      glow: '#12b0e8',
+      mesh: ['#022852', '#031e3f', '#031934', '#021831', '#021b36', '#022246', '#022345', '#020e1e', '#01040f', '#000416', '#020b31', '#021c57', '#01172f', '#01010c', '#03001d', '#0a0f4c', '#112383', '#0b36af', '#021142', '#050b47', '#0c2e8f', '#165bd4', '#1675fd', '#167bff', '#03288e', '#0438af', '#0d66e7', '#107eec', '#30afff', '#71dcff', '#0356e8', '#0259ec', '#0945b0', '#001a49', '#3f7c9d', '#d4ffff', '#0365ff', '#0256ea', '#052a87', '#00001f', '#1f4c7b', '#9ee7ff'],
+    },
+    {
+      title: bn ? 'রাডার পিক্সেল\nNISAR GCOV' : 'Radar pixel\nNISAR GCOV',
+      value: n(10),
+      unit: bn ? 'মি' : 'm',
+      footer: bn ? 'HH ও HV পোলারাইজেশন' : 'HH and HV polarisations',
+      detail: 'cross',
+      labels: ['GCOV', 'HH', 'HV'],
+      ghost: '',
+      numeral: ['#e2a6ff', '#fff6ff'],
+      accent: '#d9a8ff',
+      glow: '#62bce8',
+      mesh: ['#4c2d5f', '#3b2245', '#3e285b', '#33204f', '#381844', '#572571', '#644096', '#4f3688', '#8358f6', '#8d54f3', '#5e20ac', '#6e24b7', '#482e6d', '#261b48', '#825bf6', '#d48cff', '#d07bff', '#b359ff', '#2d1837', '#140a1b', '#2c1d66', '#3a2383', '#693bca', '#8b42ef', '#411c5b', '#300753', '#3b006e', '#500f79', '#7e31c1', '#9541f3', '#44245a', '#3f0c69', '#6f15b9', '#d17cff', '#e2a3ff', '#a668ff', '#4b2f60', '#4d2172', '#6819aa', '#9b48dc', '#965dc9', '#7745c4'],
+    },
+    {
+      title: bn ? 'নদী থেকে উচ্চতা\nখোলা বন্যার সীমা' : 'Height above river\nopen-flood limit',
+      value: n(5),
+      unit: bn ? 'মি' : 'm',
+      footer: bn ? `GLO-30 HAND, ${n(30)} মি` : 'GLO-30 HAND, 30 m',
+      detail: 'slider',
+      // knob at 5 m on a 0 to 15 m scale (15 m is HAND_MAX_M, the general flood limit in pipeline/config.py)
+      sliderValue: (5 / 15) * 100,
+      labels: [bn ? `${n(0)} মি` : '0 m', bn ? `${n(15)} মি` : '15 m'],
+      numeral: ['#f4eeb6', '#c4c688'],
+      accent: '#f6efc0',
+      glow: '#dacbe9',
+      mesh: ['#ff623e', '#f57337', '#e49435', '#fba03f', '#ef6b36', '#f14c36', '#f29a3e', '#a0a92e', '#a2ba36', '#fffe65', '#ffd852', '#f2863b', '#a5b12e', '#46821d', '#6a6127', '#b88b44', '#b6bd41', '#c4b838', '#7e9f27', '#3b5a19', '#412c10', '#0d1700', '#255b0c', '#98ad28', '#a5b232', '#3e7c1e', '#002800', '#00300f', '#5b9745', '#c1b833', '#f3983b', '#b3b431', '#6fa31f', '#9bc976', '#edd896', '#fd8c3d', '#ff5f3b', '#ff7d47', '#ffa880', '#ffc1d8', '#ff8d99', '#ff5438'],
+    },
+    {
+      title: bn ? 'বিনামূল্যের\nখোলা ডেটাসেট' : 'Free and open\ndatasets',
+      value: n(datasets.length),
+      footer: bn ? 'কোনো পেইড ডেটা নেই' : 'No paid inputs',
+      detail: 'ring',
+      numeral: ['#fffdf8', '#e8603f'],
+      accent: '#ff6a3d',
+      glow: '#6cc0ea',
+      mesh: ['#48001c', '#400119', '#41011d', '#4b021e', '#47021a', '#480019', '#7e0036', '#8c0033', '#4b0120', '#10000c', '#1f010b', '#390116', '#e84396', '#ff568c', '#dc433c', '#0e0705', '#090004', '#2f0213', '#ff9fd9', '#ff6f90', '#a53625', '#190d05', '#050002', '#2f0110', '#ff67b5', '#b11348', '#000000', '#11000c', '#3e021b', '#8a0c31', '#e31771', '#5d0027', '#3a0021', '#620030', '#640627', '#dc184a', '#c10b5f', '#920245', '#ab054f', '#910041', '#650226', '#c01240'],
+    },
+  ]
+})
 
 const team = [
   { name: 'Prottoy Saha Dip', role: 'GIS & radar', roleBn: 'জিআইএস ও রাডার', image: '/dip.jpg' },
