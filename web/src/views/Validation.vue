@@ -66,7 +66,7 @@
       <section class="mt-14" aria-labelledby="cutoffs-title">
         <h2 id="cutoffs-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('validation.cutoffsTitle') }}</h2>
         <p class="mt-1 max-w-3xl text-sm text-ink-2">{{ t('validation.cutoffsLead') }}</p>
-        <div class="thin-scroll mt-5 overflow-x-auto">
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
           <table class="w-full min-w-[46rem] border-collapse text-left text-sm" data-table="cutoffs">
             <thead>
               <tr class="border-b-2 border-ink">
@@ -92,7 +92,7 @@
       <section class="mt-14" aria-labelledby="tests-title">
         <h2 id="tests-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('validation.testsTitle') }}</h2>
         <p class="mt-1 max-w-3xl text-sm text-ink-2">{{ testsLead }}</p>
-        <div class="thin-scroll mt-5 overflow-x-auto">
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
           <table class="w-full min-w-[40rem] border-collapse text-left text-sm" data-table="independent">
             <thead>
               <tr class="border-b-2 border-ink">

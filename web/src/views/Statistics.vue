@@ -111,7 +111,7 @@
           </div>
         </div>
 
-        <div class="thin-scroll mt-5 overflow-x-auto">
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
           <table class="w-full min-w-[46rem] border-collapse text-left text-sm">
             <thead>
               <tr class="border-b-2 border-ink">
@@ -169,7 +169,7 @@
       <section v-if="riskRows.length" class="mt-16" aria-labelledby="risk-title">
         <h2 id="risk-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('stats.risk.title') }}</h2>
         <p class="mt-1 max-w-3xl text-sm text-ink-2">{{ t('stats.risk.lead') }}</p>
-        <div class="thin-scroll mt-5 overflow-x-auto">
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
           <table class="w-full min-w-[42rem] border-collapse text-left text-sm" data-table="risk">
             <thead>
               <tr class="border-b-2 border-ink">
@@ -203,7 +203,7 @@
       <section v-if="modelRows.length" class="mt-16" aria-labelledby="models-title">
         <h2 id="models-title" v-reveal class="font-display text-2xl font-bold tracking-tight text-ink">{{ t('stats.models.title') }}</h2>
         <p class="mt-1 max-w-3xl text-sm text-ink-2">{{ t('stats.models.lead') }}</p>
-        <div class="thin-scroll mt-5 overflow-x-auto">
+        <div class="thin-scroll relative mt-5 overflow-x-auto">
           <table class="w-full min-w-[42rem] border-collapse text-left text-sm">
             <thead>
               <tr class="border-b-2 border-ink">

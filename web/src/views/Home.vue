@@ -103,7 +103,7 @@
           </figure>
         </div>
 
-        <div v-reveal class="thin-scroll mt-10 overflow-x-auto">
+        <div v-reveal class="thin-scroll relative mt-10 overflow-x-auto">
           <table class="w-full min-w-[34rem] border-collapse text-left text-sm">
             <thead>
               <tr class="border-b-2 border-ink">
